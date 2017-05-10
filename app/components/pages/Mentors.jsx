@@ -1,8 +1,10 @@
 import React from 'react'
+import Mentor from '../elements/Mentor'
 
-import { list as listMentors } from '../api/mentors'
+import { getMentors } from '../../api/mentors'
 
 class Mentors extends React.Component {
+
   constructor(...args) {
     super(...args)
 
@@ -10,8 +12,9 @@ class Mentors extends React.Component {
       loading: true
     };
   }
+
   componentDidMount() {
-    listMentors().
+    getMentors().
       then((response) => this.setState({
         mentors: response.data,
         loading: false,
@@ -21,16 +24,15 @@ class Mentors extends React.Component {
   render() {
     return (
       !this.state.loading &&
-      <div>
-        <h1>Mentors</h1>
-        <ul>
-          {this.state.mentors.map((mentor) =>
-            <li>{mentor.name}</li>
-          )}
-        </ul>
+      <div className="posts">
+        <h1 className="content-subhead">Mentores</h1>
+        {this.state.mentors.map((mentor, n) =>
+          <Mentor key={n} mentor={mentor} />
+        )}
       </div>
     )
   }
+
 }
 
 export default Mentors;
