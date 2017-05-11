@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 import Login from '../elements/Login';
 import Registration from '../elements/Registration';
@@ -23,7 +24,8 @@ class Home extends React.Component {
 
         <div className="posts">
           <div className="post-description">
-            <p>Become a Mentor</p>
+            <p><Link to="/register">Become a Mentor</Link></p>
+            <p><Link to="/mentors">Access Mentors</Link></p>
           </div>
         </div>
 

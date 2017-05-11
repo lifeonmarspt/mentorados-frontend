@@ -1,10 +1,24 @@
 import axios from 'axios'
 import config from '../config'
 
+const api = axios.create({
+  baseURL: config.apiBaseURL
+});
+
 export const getCareers = () => {
-  return axios.get(`${config.apiBaseURL}/careers`);
+  return api.get('/careers');
 }
 
-export const getMentors = () => {
-  return axios.get(`${config.apiBaseURL}/mentors`);
+export const getMentors = (q) => {
+  let url = '/mentors';
+  if (q) {
+    url += `?q=${encodeURIComponent(q)}`
+  }
+  return api.get(url);
+}
+
+export const postLogin = (fields) => {
+  return api.post('/login', {
+    auth: fields
+  });
 }

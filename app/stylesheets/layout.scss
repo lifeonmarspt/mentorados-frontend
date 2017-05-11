@@ -158,7 +158,7 @@ h3 {
 @media (min-width: 48em) {
     .content {
         padding: 2em 3em 0;
-        margin-left: 25%;
+        margin-left: 20%;
     }
 
     .header {
@@ -194,4 +194,18 @@ input {
 
 .button-xsmall {
   font-size: 80%;
+}
+
+.sidebar h1.content-subhead {
+  color: #fff;
+}
+
+h1.brand {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.sidebar h1.brand a {
+  color: #fff;
+  text-decoration: none;
 }
