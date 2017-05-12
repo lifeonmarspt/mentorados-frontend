@@ -4,6 +4,10 @@ import { getCareers } from "../../api/mentors";
 
 class Filters extends React.Component {
 
+  static contextTypes = {
+    session: React.PropTypes.object,
+  }
+
   constructor(...args) {
     super(...args);
 
@@ -60,6 +64,7 @@ class Filters extends React.Component {
   }
 
   render() {
+    console.log('poo2', this.context);
     return !this.state.loading && (
       <form className="pure-form" onSubmit={this.handleSubmit.bind(this)}>
         <fieldset>
@@ -84,7 +89,7 @@ class Filters extends React.Component {
           <button type="submit" className="pure-button">Search</button>
         </fieldset>
         <fieldset>
-          <h1 className="content-subhead">user crap</h1>
+          <h1 className="content-subhead">{this.context.session.user.email}</h1>
           <button onClick={this.props.doLogout} className="pure-button pure-button-primary">Logout</button>
         </fieldset>
       </form>

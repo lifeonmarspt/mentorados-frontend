@@ -1,14 +1,22 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { Helmet } from "react-helmet";
-
 import { loadSession, persistSession } from '../lib/session';
+import JWTdecode from 'jwt-decode';
 
 import Layout from './Layout.jsx'
 import Home from './pages/Home'
 import Mentors from './pages/Mentors'
 
 class App extends React.Component {
+
+  static childContextTypes = {
+    session: React.PropTypes.object
+  }
+
+  static contextTypes = {
+    router: React.PropTypes.object
+  }
 
   constructor(...args) {
     super(...args)
@@ -23,18 +31,28 @@ class App extends React.Component {
     };
   }
 
+  getChildContext() {
+    return {
+      session: this.state.session
+    }
+  }
+
   doFilters(filters) {
     this.setState({ filters: filters });
   }
 
   doLogin(session) {
-    persistSession(session);
+    session = {
+      jwt: session.jwt,
+      user: JWTdecode(session.jwt)
+    };
     this.setState({ session: session })
+    persistSession(session);
   }
 
   doLogout() {
-    persistSession(null);
     this.setState({ session: null })
+    persistSession(null);
   }
 
   componentDidMount() {
@@ -54,7 +72,7 @@ class App extends React.Component {
     return (
       !this.state.loading &&
       <Router>
-        <Layout appState={this.state} doFilters={this.doFilters.bind(this)} doLogin={this.doLogin.bind(this)} doLogout={this.doLogout.bind(this)}>
+        <Layout session={this.state.session} doFilters={this.doFilters.bind(this)} doLogin={this.doLogin.bind(this)} doLogout={this.doLogout.bind(this)}>
           <Route exact path="/" component={Home} />
           <Route exact path="/mentors" component={() => <Mentors filters={this.state.filters} />} />
         </Layout>

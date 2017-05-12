@@ -7,11 +7,11 @@ import Login from './elements/Login'
 
 class Layout extends React.Component {
 
-
   render() {
-    let sidebarContent = (!this.props.appState.session) ?
+
+    let sidebarContent = (!this.props.session) ?
       <Login doLogin={this.props.doLogin} /> :
-      <Filters careers={this.props.appState.careers} doFilters={this.props.doFilters} doLogout={this.props.doLogout} />;
+      <Filters session={this.props.session} doFilters={this.props.doFilters} doLogout={this.props.doLogout} />;
 
     return (
       <div>
@@ -35,6 +35,7 @@ class Layout extends React.Component {
         </div>
       </div>
     )
+
   }
 
 }
