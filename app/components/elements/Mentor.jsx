@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 class Mentor extends React.Component {
   constructor(...args) {
@@ -6,6 +6,7 @@ class Mentor extends React.Component {
   }
 
   componentDidMount() {
+    
   }
 
   render() {

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { Helmet } from "react-helmet";
 
 import { loadSession, persistSession } from '../lib/session';
-import { getMentors, getCareers } from '../api/mentors'
 
 import Layout from './Layout.jsx'
 import Home from './pages/Home'
@@ -14,16 +13,18 @@ class App extends React.Component {
   constructor(...args) {
     super(...args)
 
-    this.doFilters = this.doFilters.bind(this);
-    this.doLogin = this.doLogin.bind(this);
-    this.doLogout = this.doLogout.bind(this);
-
+    /* @todo filter state is kept internally in Filters component.
+       I don't like keeping a copy of it here, but I don't know any other
+       way of passing them to the Mentors component */
     this.state = {
       session: null,
-      loading: true,
-      mentors: [],
-      careers: []
+      filters: {},
+      loading: true
     };
+  }
+
+  doFilters(filters) {
+    this.setState({ filters: filters });
   }
 
   doLogin(session) {
@@ -36,16 +37,6 @@ class App extends React.Component {
     this.setState({ session: null })
   }
 
-  doFilters() {
-    this.setState({ loading: true });
-
-    getMentors().then((response) => this.setState({
-        mentors: response.data,
-        loading: false,
-      }));
-  }
-
-
   componentDidMount() {
 
     let session = loadSession();
@@ -53,23 +44,19 @@ class App extends React.Component {
       this.setState({ session: session });
     }
 
-    getCareers().
-      then((response) => this.setState({
-        careers: response.data,
-        loading: false
-      }));
-
     if (!this.state.session) {
       this.setState({ loading: false });
     }
+
   }
 
   render() {
     return (
-      !this.state.loading && <Router>
-        <Layout appState={this.state} doFilters={this.doFilters} doLogin={this.doLogin} doLogout={this.doLogout}>
+      !this.state.loading &&
+      <Router>
+        <Layout appState={this.state} doFilters={this.doFilters.bind(this)} doLogin={this.doLogin.bind(this)} doLogout={this.doLogout.bind(this)}>
           <Route exact path="/" component={Home} />
-          <Route exact path="/mentors" component={() => <Mentors mentors={this.state.mentors} />} />
+          <Route exact path="/mentors" component={() => <Mentors filters={this.state.filters} />} />
         </Layout>
       </Router>
     )

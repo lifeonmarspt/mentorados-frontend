@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react"
 
-import { postLogin } from '../../api/mentors'
+import { postLogin } from "../../api/mentors"
 
 class Login extends React.Component {
 
@@ -9,8 +9,8 @@ class Login extends React.Component {
 
     this.state = {
       fields: {
-        email: '',
-        password: ''
+        email: "",
+        password: ""
       }
     };
   }
@@ -35,10 +35,10 @@ class Login extends React.Component {
       <form className="pure-form" onSubmit={this.onSubmit.bind(this)}>
         <h1 className="content-subhead">Login</h1>
         <fieldset>
-          <input onChange={this.onChange.bind(this, 'email')} type="email" placeholder="Email" />
+          <input onChange={this.onChange.bind(this, "email")} type="email" placeholder="Email" />
         </fieldset>
         <fieldset>
-          <input onChange={this.onChange.bind(this, 'password')} type="password" placeholder="Password" />
+          <input onChange={this.onChange.bind(this, "password")} type="password" placeholder="Password" />
         </fieldset>
         <fieldset>
           <button type="submit" className="pure-button pure-button-primary">Sign in</button>
