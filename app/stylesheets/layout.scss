@@ -158,7 +158,7 @@ h3 {
 @media (min-width: 48em) {
     .content {
         padding: 2em 3em 0;
-        margin-left: 20%;
+        margin-left: 16.666%;
     }
 
     .header {
@@ -200,6 +200,16 @@ input {
   color: #fff;
 }
 
+.sidebar, .page-registration {
+
+  input {
+    &[type=text], &[type=email], &[type=password] {
+      width: 100%;
+    }
+  }
+
+}
+
 h1.brand {
     margin-top: 0;
     margin-bottom: 0;
@@ -208,4 +218,19 @@ h1.brand {
 .sidebar h1.brand a {
   color: #fff;
   text-decoration: none;
+}
+
+aside {
+
+  text-align: left;
+  font-family: Georgia, "Cambria", serif;
+  color: #444;
+
+  padding: .5em;
+
+  &.error {
+    border: 1px rgb(255, 0, 0) solid;
+    background-color: rgb(255, 185, 185);
+  }
+
 }

@@ -7,6 +7,14 @@ const api = axios.create({
   baseURL: config.apiBaseURL
 });
 
+export const setAuthorization = (jwt) => {
+  if (jwt) {
+    api.defaults.headers.common['Authorization'] = `Bearer ${jwt}`;
+  } else {
+    delete api.defaults.headers.common['Authorization'];
+  }
+}
+
 export const getCareers = () => {
   return api.get('/careers');
 }
@@ -38,4 +46,8 @@ export const postLogin = (fields) => {
   return api.post('/login', {
     auth: fields
   });
+}
+
+export const postRegistration = (fields) => {
+  return api.post('/users', fields);
 }

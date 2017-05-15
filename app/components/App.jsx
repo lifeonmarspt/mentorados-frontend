@@ -1,12 +1,16 @@
-import React from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import React from "react"
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
 import { Helmet } from "react-helmet";
-import { loadSession, persistSession } from '../lib/session';
-import JWTdecode from 'jwt-decode';
+import JWTdecode from "jwt-decode";
 
-import Layout from './Layout.jsx'
-import Home from './pages/Home'
-import Mentors from './pages/Mentors'
+import { loadSession, persistSession } from "../lib/session";
+import { setAuthorization } from "../api/mentors";
+
+import Layout from "./Layout";
+import SignUp from "./pages/SignUp";
+import Home from "./pages/Home";
+import Mentors from "./pages/Mentors";
+import NotFound from "./pages/NotFound";
 
 class App extends React.Component {
 
@@ -22,7 +26,7 @@ class App extends React.Component {
     super(...args)
 
     /* @todo filter state is kept internally in Filters component.
-       I don't like keeping a copy of it here, but I don't know any other
+       I don"t like keeping a copy of it here, but I don"t know any other
        way of passing them to the Mentors component */
     this.state = {
       session: null,
@@ -46,6 +50,7 @@ class App extends React.Component {
       jwt: session.jwt,
       user: JWTdecode(session.jwt)
     };
+    setAuthorization(session.jwt);
     this.setState({ session: session })
     persistSession(session);
   }
@@ -60,6 +65,7 @@ class App extends React.Component {
     let session = loadSession();
     if (session) {
       this.setState({ session: session });
+      setAuthorization(session.jwt);
     }
 
     if (!this.state.session) {
@@ -73,8 +79,12 @@ class App extends React.Component {
       !this.state.loading &&
       <Router>
         <Layout session={this.state.session} doFilters={this.doFilters.bind(this)} doLogin={this.doLogin.bind(this)} doLogout={this.doLogout.bind(this)}>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/mentors" component={() => <Mentors filters={this.state.filters} />} />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/mentors" component={() => <Mentors filters={this.state.filters} />} />
+            <Route exact path="*" component={NotFound} />
+          </Switch>
         </Layout>
       </Router>
     )

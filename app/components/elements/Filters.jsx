@@ -5,7 +5,8 @@ import { getCareers } from "../../api/mentors";
 class Filters extends React.Component {
 
   static contextTypes = {
-    session: React.PropTypes.object,
+    router: React.PropTypes.object,
+    session: React.PropTypes.object
   }
 
   constructor(...args) {
@@ -60,36 +61,39 @@ class Filters extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.context.router.history.replace('/mentors');
     this.props.doFilters(this.state.filters);
   }
 
   render() {
-    console.log('poo2', this.context);
     return !this.state.loading && (
       <form className="pure-form" onSubmit={this.handleSubmit.bind(this)}>
+        <h1 className="content-subhead">Gender</h1>
         <fieldset>
-          <h1 className="content-subhead">Gender</h1>
           {this.state.filters.genders.map((gender, n) =>
             <label key={n} htmlFor={"filter-gender-" + gender.id} className="pure-checkbox">
               {gender.description} <input id={"filter-gender-" + gender.id} type="radio" name="filter-gender" value={gender.id} checked={gender.checked} onChange={this.handleInputClick.bind(this, 'genders')} />
             </label>
           )}
         </fieldset>
+        <h1 className="content-subhead">Career Orientation</h1>
         <fieldset>
-          <h1 className="content-subhead">Career Orientation</h1>
           {this.state.filters.careers.map((career, n) =>
             <label key={n} htmlFor={"filter-career" + career.id} className="pure-checkbox">
               {career.description} <input id={"filter-career" + career.id} type="checkbox" value={career.id} checked={career.checked} onChange={this.handleInputClick.bind(this, 'careers')} />
             </label>
           )}
         </fieldset>
+        <h1 className="content-subhead">Search</h1>
         <fieldset>
-          <h1 className="content-subhead">Search</h1>
           <input type="text" className="pure-input" value={this.state.filters.string} onChange={this.handleInputChange.bind(this)} />
-          <button type="submit" className="pure-button">Search</button>
         </fieldset>
         <fieldset>
-          <h1 className="content-subhead">{this.context.session.user.email}</h1>
+          <button type="submit" className="pure-button">Search</button>
+        </fieldset>
+        <h1 className="content-subhead">User</h1>
+        <fieldset>
+          <p>{this.context.session.user.email}</p>
           <button onClick={this.props.doLogout} className="pure-button pure-button-primary">Logout</button>
         </fieldset>
       </form>
