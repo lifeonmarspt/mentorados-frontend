@@ -51,3 +51,9 @@ export const postLogin = (fields) => {
 export const postRegistration = (fields) => {
   return api.post('/users', fields);
 }
+
+export const postConfirmation = (id, confirmation_token) => {
+  return api.post(`/users/${id}/confirm`, {
+    confirmation_token: confirmation_token
+  });
+}

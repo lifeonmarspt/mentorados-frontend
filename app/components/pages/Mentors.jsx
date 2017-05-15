@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 
 import { getMentors } from '../../api/mentors'
 import Mentor from '../elements/Mentor'
-import PageMessage from '../elements/PageMessage'
+import Section from '../elements/Section'
 
 class Mentors extends React.Component {
 
@@ -29,9 +29,9 @@ class Mentors extends React.Component {
 
     let content = this.state.mentors.length > 0 ?
       this.state.mentors.map((mentor, n) => <Mentor key={n} mentor={mentor} />) :
-      <PageMessage title="Oops...">
+      <Section title="Oops...">
         <p>No mentors found for the specified criteria</p>
-      </PageMessage>;
+      </Section>;
 
 
     return !this.state.loading && (

@@ -10,6 +10,7 @@ import Layout from "./Layout";
 import AuthenticatedRoute from "./core/AuthenticatedRoute";
 import AnonymousRoute from "./core/AnonymousRoute";
 import SignUp from "./pages/SignUp";
+import Confirmation from "./pages/Confirmation";
 import Home from "./pages/Home";
 import Mentors from "./pages/Mentors";
 import NotFound from "./pages/NotFound";
@@ -85,6 +86,7 @@ class App extends React.Component {
             <AnonymousRoute exact path="/" component={Home} />
             <AnonymousRoute exact path="/signup" component={SignUp} />
             <AuthenticatedRoute exact path="/mentors" component={() => <Mentors filters={this.state.filters} />} />
+            <Route exact path="/users/:id/confirm/:token" component={Confirmation} />
             <Route exact path="*" component={NotFound} />
           </Switch>
         </Layout>

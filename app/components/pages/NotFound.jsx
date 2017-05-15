@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom";
 
-import PageMessage from "../elements/PageMessage";
+import Section from "../elements/Section";
 
 class NotFound extends React.Component {
 
@@ -9,9 +9,9 @@ class NotFound extends React.Component {
     return (
       <div>
         <div className="posts">
-          <PageMessage title="Oops...">
+          <Section title="Oops...">
             <p>Not Found!</p>
-          </PageMessage>
+          </Section>
         </div>
       </div>
     )

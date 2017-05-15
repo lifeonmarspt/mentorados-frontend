@@ -1,6 +1,6 @@
 import React from "react"
 
-class PageMessage extends React.Component {
+class Section extends React.Component {
 
   constructor(...args) {
     super(...args)
@@ -26,4 +26,4 @@ class PageMessage extends React.Component {
   }
 }
 
-export default PageMessage;
+export default Section;

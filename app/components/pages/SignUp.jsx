@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import { postRegistration } from "../../api/mentors";
 
+import Section from "../elements/Section"
 import FormErrors from "../elements/FormErrors"
 
 class Home extends React.Component {
@@ -12,6 +13,7 @@ class Home extends React.Component {
     super(...args);
 
     this.state = {
+      sent: false,
       fields: {
         email: "",
         password: "",
@@ -32,7 +34,7 @@ class Home extends React.Component {
 
       postRegistration(this.state.fields)
         .then((result) => {
-          this.props.doLogin(result.data);
+          this.setState({ sent: true });
         })
         .catch((error) => {
           if (error.response && error.response.status == 400) {
@@ -46,48 +48,50 @@ class Home extends React.Component {
         });
   }
 
+  renderSignUpForm() {
+    return (
+      <div className="pure-g">
+        <div className="pure-u-1-5">
+          <form className="pure-form" onSubmit={this.onSubmit.bind(this)}>
+            <h1 className="content-subhead">Registration</h1>
+            <FormErrors errors={this.state.errors} />
+            <fieldset>
+              <input onChange={this.onChange.bind(this, "email")} type="email" placeholder="Email" />
+            </fieldset>
+            <fieldset>
+              <input onChange={this.onChange.bind(this, "password")} type="password" placeholder="Password" />
+            </fieldset>
+            <fieldset>
+              <input onChange={this.onChange.bind(this, "password_confirmation")} type="password" placeholder="Confirm Password" />
+            </fieldset>
+            <fieldset>
+              <button type="submit" className="pure-button pure-button-primary">Sign Up</button>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  renderSentMessage() {
+    return (
+      <Section>Registration sent! Check your email at <code>{this.state.fields.email}</code> for confirmation instructions!</Section>
+    );
+  }
+
   render() {
+    let content = (!this.state.sent) ? this.renderSignUpForm() : this.renderSentMessage();
+
     return (
       <div className="page-registration">
         <div className="posts">
-
-          <section className="post">
-            <header className="post-header">
-              <h2 className="post-title">Programa de Mentorados de Engenharia Informática - FEUP</h2>
-            </header>
-            <div className="post-description">
-              <p>O registo é obrigatório e requer um endereço de email <code>fe.up.pt</code>. Coisas.</p>
-            </div>
-          </section>
+          <Section title="Programa de Mentorados de Engenharia Informática - FEUP">
+              <p>O registo é obrigatório e requer um endereço de email <code>fe.up.pt</code>. Ah, e há mais coisas que convém dizer, como por exemplo nao tomar banho depois de comer.</p>
+          </Section>
+          {content}
         </div>
-
-        <div className="posts">
-          <div className="post-description">
-            <div className="pure-g">
-              <div className="pure-u-1-5">
-                <form className="pure-form" onSubmit={this.onSubmit.bind(this)}>
-                  <h1 className="content-subhead">Registration</h1>
-                  <FormErrors errors={this.state.errors} />
-                  <fieldset>
-                    <input onChange={this.onChange.bind(this, "email")} type="email" placeholder="Email" />
-                  </fieldset>
-                  <fieldset>
-                    <input onChange={this.onChange.bind(this, "password")} type="password" placeholder="Password" />
-                  </fieldset>
-                  <fieldset>
-                    <input onChange={this.onChange.bind(this, "password_confirmation")} type="password" placeholder="Confirm Password" />
-                  </fieldset>
-                  <fieldset>
-                    <button type="submit" className="pure-button pure-button-primary">Sign Up</button>
-                  </fieldset>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
-    )
+    );
   }
 
 }
