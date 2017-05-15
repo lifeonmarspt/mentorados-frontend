@@ -28,9 +28,6 @@ class App extends React.Component {
   constructor(...args) {
     super(...args)
 
-    /* @todo filter state is kept internally in Filters component.
-       I don"t like keeping a copy of it here, but I don"t know any other
-       way of passing them to the Mentors component */
     this.state = {
       session: null,
       filters: {},

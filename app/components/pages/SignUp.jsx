@@ -2,10 +2,12 @@ import React from "react"
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
+import { errorTransform } from "../../lib/errorTransform";
 import { postRegistration } from "../../api/mentors";
 
-import Section from "../elements/Section"
-import FormErrors from "../elements/FormErrors"
+import Section from "../elements/Section";
+import FormError from "../elements/FormError";
+import FieldError from "../elements/FieldError";
 
 class Home extends React.Component {
 
@@ -37,14 +39,7 @@ class Home extends React.Component {
           this.setState({ sent: true });
         })
         .catch((error) => {
-          if (error.response && error.response.status == 400) {
-            console.log(error.response);
-            this.setState({ errors: error.response.data })
-          } else if (error.response) {
-            this.setState({ errors: { "": error.response.statusText } })
-          } else {
-            this.setState({ errors: { "": error } })
-          }
+          this.setState({ errors: errorTransform(error, { 404: 'login not found' }) });
         });
   }
 
@@ -54,15 +49,18 @@ class Home extends React.Component {
         <div className="pure-u-1-5">
           <form className="pure-form" onSubmit={this.onSubmit.bind(this)}>
             <h1 className="content-subhead">Registration</h1>
-            <FormErrors errors={this.state.errors} />
+            <FormError error={this.state.errors.serverError} />
             <fieldset>
-              <input onChange={this.onChange.bind(this, "email")} type="email" placeholder="Email" />
+              <input onChange={this.onChange.bind(this, "email")} type="email" required placeholder="Email" />
+              <FieldError fieldName="email" errors={this.state.errors.email} />
             </fieldset>
             <fieldset>
-              <input onChange={this.onChange.bind(this, "password")} type="password" placeholder="Password" />
+              <input onChange={this.onChange.bind(this, "password")} type="password" required placeholder="Password" />
+              <FieldError fieldName="password" errors={this.state.errors.password} />
             </fieldset>
             <fieldset>
-              <input onChange={this.onChange.bind(this, "password_confirmation")} type="password" placeholder="Confirm Password" />
+              <input onChange={this.onChange.bind(this, "password_confirmation")} type="password" required placeholder="Confirm Password" />
+              <FieldError fieldName="password confirmation" errors={this.state.errors.password_confirmation} />
             </fieldset>
             <fieldset>
               <button type="submit" className="pure-button pure-button-primary">Sign Up</button>

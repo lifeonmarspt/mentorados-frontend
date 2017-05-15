@@ -1,7 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
+import { errorTransform }  from '../../lib/errorTransform';
 import { postConfirmation } from "../../api/mentors";
+import FormError from "../elements/FormError";
 
 class Confirmation extends React.Component {
 
@@ -10,7 +12,7 @@ class Confirmation extends React.Component {
 
     this.state = {
       confirmed: false,
-      error: null,
+      errors: {},
     };
 
   }
@@ -21,34 +23,42 @@ class Confirmation extends React.Component {
         this.setState({ confirmed: true });
       })
       .catch((error) => {
-        this.setState({ error: error.response.statusText });
+        this.setState({ errors: errorTransform(error, { 404: 'confirmation token not found' }) });
       });
   }
 
-  renderErrors() {
-    console.log("kek", this.state.error)
-    return this.state.error && (
-      <aside className="error">
-        {this.state.error}
-      </aside>
-    );
-  }
 
   render() {
+
+    // @todo wat
     let content = (!this.state.confirmed) ?
-      <button className="pure-button" onClick={this.doConfirm.bind(this)}>Click here to confirm your registration.</button> :
+      <button className="pure-button" onClick={this.doConfirm.bind(this)}>Confirm Registration</button> :
       <p>Registration Confirmed!</p>;
+
+    let errorContent= (this.state.errors.serverError) ?
+      <FormError error={this.state.errors.serverError} /> :
+      content;
 
     return (
       <div>
         <div className="posts">
           <section className="post">
             <header className="post-header">
-              <h2 className="post-title">Registration Confirmation Massacration Violation</h2>
+              <h2 className="post-title">Registration Confirmation</h2>
             </header>
             <div className="post-description">
-              {content}
-              {this.renderErrors()}
+              <div className="pure-g">
+                <div className="pure-u-1-3">
+                  <p>Please use the buttom below to confirm your registration.</p>
+                </div>
+                <div className="pure-u-2-3"></div>
+              </div>
+              <div className="pure-g">
+                <div className="pure-u-1-3">
+                  {errorContent}
+                </div>
+                <div className="pure-u-2-3"></div>
+              </div>
             </div>
           </section>
         </div>
