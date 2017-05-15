@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from "prop-types";
 import { BrowserRouter as Router } from 'react-router-dom'
 import Mentor from '../elements/Mentor'
 import PageMessage from '../elements/PageMessage'
@@ -8,8 +9,8 @@ import { getMentors } from '../../api/mentors'
 class Mentors extends React.Component {
 
   static contextTypes = {
-    router: React.PropTypes.object,
-    session: React.PropTypes.object
+    router: PropTypes.object,
+    session: PropTypes.object
   }
 
   constructor(...args) {

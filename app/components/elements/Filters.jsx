@@ -1,12 +1,13 @@
 import React from "react"
+import PropTypes from "prop-types";
 
 import { getCareers } from "../../api/mentors";
 
 class Filters extends React.Component {
 
   static contextTypes = {
-    router: React.PropTypes.object,
-    session: React.PropTypes.object
+    router: PropTypes.object,
+    session: PropTypes.object
   }
 
   constructor(...args) {

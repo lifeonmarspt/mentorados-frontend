@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 class Mentor extends React.Component {
 
@@ -27,10 +27,15 @@ class Mentor extends React.Component {
               {this.props.mentor.locations.map((location, n) => <span key={n} className="post-category post-category-pure">{location.description}</span>)}
             </span>
           </p>
+          <p className="post-description">
+            {this.props.mentor.year_out ?
+              'Attended from ' + this.props.mentor.year_in + ' to ' + this.props.mentor.year_out :
+              'Enrolled in ' + this.props.mentor.year_in}
+          </p>
         </header>
 
         <div className="post-description">
-          <p>{this.props.mentor.bio}</p>
+          {this.props.mentor.bio.split("\n").map((line, n) => <p key={n}>{line}</p>)}
         </div>
       </section>
     )

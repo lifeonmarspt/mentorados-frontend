@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from "prop-types";
+
 import { Link } from 'react-router-dom';
 
 import Login from '../elements/Login';
@@ -6,8 +8,8 @@ import Login from '../elements/Login';
 class Home extends React.Component {
 
   static contextTypes = {
-    router: React.PropTypes.object,
-    session: React.PropTypes.object
+    router: PropTypes.object,
+    session: PropTypes.object
   }
 
   constructor(...args) {

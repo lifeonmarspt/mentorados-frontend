@@ -28,7 +28,7 @@ module.exports = {
       template: './app/index.html',
       filename: 'index.html',
       inject: 'body',
-      title: "React",
+      title: "AlumniEI Mentorship Program",
     }),
     new VirtualModulePlugin({
       moduleName: 'app/config.json',

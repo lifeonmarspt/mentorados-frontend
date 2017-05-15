@@ -1,17 +1,24 @@
 import React from 'react'
+import PropTypes from "prop-types";
+
 import { Link } from 'react-router-dom'
 import { getCareers } from '../api/mentors'
 
 import Filters from './elements/Filters'
 import Login from './elements/Login'
 
-class PrivateLayout extends React.Component {
+class Layout extends React.Component {
+
+  static contextTypes = {
+    router: PropTypes.object,
+    session: PropTypes.object
+  }
 
   render() {
 
-    let sidebarContent = (!this.props.session) ?
+    let sidebarContent = (!this.context.session) ?
       <Login doLogin={this.props.doLogin} /> :
-      <Filters session={this.props.session} doFilters={this.props.doFilters} doLogout={this.props.doLogout} />;
+      <Filters doFilters={this.props.doFilters} doLogout={this.props.doLogout} />;
 
     return (
       <div>
@@ -40,4 +47,4 @@ class PrivateLayout extends React.Component {
 
 }
 
-export default PrivateLayout;
+export default Layout;

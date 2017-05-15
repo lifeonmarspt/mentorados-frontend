@@ -1,4 +1,6 @@
 import React from "react"
+import PropTypes from "prop-types";
+
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
 import { Helmet } from "react-helmet";
 import JWTdecode from "jwt-decode";
@@ -15,11 +17,11 @@ import NotFound from "./pages/NotFound";
 class App extends React.Component {
 
   static childContextTypes = {
-    session: React.PropTypes.object
+    session: PropTypes.object
   }
 
   static contextTypes = {
-    router: React.PropTypes.object
+    router: PropTypes.object
   }
 
   constructor(...args) {
@@ -78,7 +80,7 @@ class App extends React.Component {
     return (
       !this.state.loading &&
       <Router>
-        <Layout session={this.state.session} doFilters={this.doFilters.bind(this)} doLogin={this.doLogin.bind(this)} doLogout={this.doLogout.bind(this)}>
+        <Layout doFilters={this.doFilters.bind(this)} doLogin={this.doLogin.bind(this)} doLogout={this.doLogout.bind(this)}>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/signup" component={SignUp} />
