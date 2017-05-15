@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom'
 
-import { getCareers } from '../api/mentors'
+import { getCareers } from '../lib/api'
 import Filters from './elements/Filters'
 import Login from './elements/Login'
 
@@ -15,9 +15,9 @@ class Layout extends React.Component {
 
   render() {
 
-    let sidebarContent = (!this.context.session) ?
-      <Login doLogin={this.props.doLogin} /> :
-      <Filters doFilters={this.props.doFilters} doLogout={this.props.doLogout} />;
+    let sidebarContent = (!this.context.session.state) ?
+      <Login /> :
+      <Filters doFilters={this.props.doFilters} />;
 
     return (
       <div>

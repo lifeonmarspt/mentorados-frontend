@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 import { errorTransform } from "../../lib/errorTransform";
-import { postRegistration } from "../../api/mentors";
+import { postRegistration } from "../../lib/api";
 
 import Section from "../elements/Section";
 import FormError from "../elements/FormError";

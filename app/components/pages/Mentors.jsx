@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 
-import { getMentors } from '../../api/mentors'
+import { getMentors } from '../../lib/api'
 import Mentor from '../elements/Mentor'
 import Section from '../elements/Section'
 

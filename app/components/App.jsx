@@ -1,11 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
-import { Helmet } from "react-helmet";
-import JWTdecode from "jwt-decode";
 
-import { loadSession, persistSession } from "../lib/session";
-import { setAuthorization } from "../api/mentors";
+import { loadSession, doLogin, doLogout } from "../lib/session";
 import Layout from "./Layout";
 import AuthenticatedRoute from "./core/AuthenticatedRoute";
 import AnonymousRoute from "./core/AnonymousRoute";
@@ -35,11 +32,19 @@ class App extends React.Component {
       },
       loading: true
     };
+
+    this.loadSession = loadSession.bind(this);
+    this.doLogin = doLogin.bind(this);
+    this.doLogout = doLogout.bind(this);
   }
 
   getChildContext() {
     return {
-      session: this.state.session
+      session: {
+        state: this.state.session,
+        doLogin: this.doLogin,
+        doLogout: this.doLogout,
+      }
     }
   }
 
@@ -47,45 +52,22 @@ class App extends React.Component {
     this.setState({ filters: filters });
   }
 
-  // @todo expose doLogin doLogout methods with context
-  doLogin(session) {
-    session = {
-      jwt: session.jwt,
-      user: JWTdecode(session.jwt)
-    };
-    setAuthorization(session.jwt);
-    this.setState({ session: session })
-    persistSession(session);
-  }
-
-  doLogout() {
-    this.setState({ session: null })
-    persistSession(null);
-  }
-
   componentDidMount() {
-
-    let session = loadSession();
-    if (session) {
-      this.setState({ session: session });
-      setAuthorization(session.jwt);
-    }
+    this.loadSession();
 
     if (!this.state.session) {
       this.setState({ loading: false });
     }
-
   }
 
   render() {
-    return (
-      !this.state.loading &&
+    return !this.state.loading && (
       <Router>
-        <Layout doFilters={this.doFilters.bind(this)} doLogin={this.doLogin.bind(this)} doLogout={this.doLogout.bind(this)}>
+        <Layout doFilters={this.doFilters.bind(this)}>
           <Switch>
             <AnonymousRoute exact path="/" component={Home} />
             <AnonymousRoute exact path="/signup" component={SignUp} />
-            <AnonymousRoute exact path="/users/:id/confirm/:token" component={({ ...args }) => (console.log(args), <Confirmation doLogin={this.doLogin.bind(this)} {...args} />)} />
+            <AnonymousRoute exact path="/users/:id/confirm/:token" component={({ ...args }) => <Confirmation doLogin={this.doLogin.bind(this)} {...args} />} />
             <AuthenticatedRoute exact path="/mentors" component={({ ...args }) => <Mentors filters={this.state.filters} {...args} />} />
             <Route exact path="*" component={NotFound} />
           </Switch>

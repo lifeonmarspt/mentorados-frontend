@@ -1,10 +1,16 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-import { postLogin } from "../../api/mentors";
+import { postLogin } from "../../lib/api";
 import { errorTransform } from "../../lib/errorTransform";
 import FormError from "../elements/FormError";
 
 class Login extends React.Component {
+
+  static contextTypes = {
+    router: PropTypes.object,
+    session: PropTypes.object
+  }
 
   constructor(...args) {
     super(...args);
@@ -29,12 +35,12 @@ class Login extends React.Component {
 
       postLogin(this.state.fields)
         .then((result) => {
-          this.props.doLogin(result.data);
+          this.context.session.doLogin(result.data);
         })
         .catch((error) => {
           this.setState({ errors: errorTransform(error, { 404: 'login not found' }) });
+          throw error;
         });
-
   }
 
   render() {

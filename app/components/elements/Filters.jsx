@@ -1,13 +1,13 @@
 import React from "react"
 import PropTypes from "prop-types";
 
-import { getCareers } from "../../api/mentors";
+import { getCareers } from "../../lib/api";
 
 class Filters extends React.Component {
 
   static contextTypes = {
     router: PropTypes.object,
-    session: PropTypes.object
+    session: PropTypes.object,
   }
 
   constructor(...args) {
@@ -94,8 +94,8 @@ class Filters extends React.Component {
         </fieldset>
         <h1 className="content-subhead">User</h1>
         <fieldset>
-          <p>{this.context.session.user.email}</p>
-          <button onClick={this.props.doLogout} className="pure-button pure-button-primary">Logout</button>
+          <p>{this.context.session.state.user.email}</p>
+          <button onClick={this.context.session.doLogout} className="pure-button pure-button-primary">Logout</button>
         </fieldset>
       </form>
     )

@@ -7,7 +7,7 @@ class AuthenticatedRoute extends React.Component {
 
   static contextTypes = {
     router: PropTypes.object,
-    session: PropTypes.object
+    session: PropTypes.object,
   }
 
   constructor(...args) {
@@ -15,13 +15,13 @@ class AuthenticatedRoute extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.context.session) {
+    if (!this.context.session.state) {
       this.context.router.history.replace('/');
     }
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    if (!nextContext.session) {
+    if (!nextContext.session.state) {
       this.context.router.history.replace('/');
     }
   }
