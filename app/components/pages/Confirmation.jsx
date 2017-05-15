@@ -20,7 +20,7 @@ class Confirmation extends React.Component {
   doConfirm() {
     postConfirmation(this.props.match.params.id, this.props.match.params.token)
       .then((result) => {
-        this.setState({ confirmed: true });
+        this.props.doLogin(result.data);
       })
       .catch((error) => {
         this.setState({ errors: errorTransform(error, { 404: 'confirmation token not found' }) });

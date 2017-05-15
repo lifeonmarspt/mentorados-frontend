@@ -30,7 +30,9 @@ class App extends React.Component {
 
     this.state = {
       session: null,
-      filters: {},
+      filters: {
+        careers: []
+      },
       loading: true
     };
   }
@@ -45,6 +47,7 @@ class App extends React.Component {
     this.setState({ filters: filters });
   }
 
+  // @todo expose doLogin doLogout methods with context
   doLogin(session) {
     session = {
       jwt: session.jwt,
@@ -82,8 +85,8 @@ class App extends React.Component {
           <Switch>
             <AnonymousRoute exact path="/" component={Home} />
             <AnonymousRoute exact path="/signup" component={SignUp} />
-            <AuthenticatedRoute exact path="/mentors" component={() => <Mentors filters={this.state.filters} />} />
-            <Route exact path="/users/:id/confirm/:token" component={Confirmation} />
+            <AnonymousRoute exact path="/users/:id/confirm/:token" component={({ ...args }) => (console.log(args), <Confirmation doLogin={this.doLogin.bind(this)} {...args} />)} />
+            <AuthenticatedRoute exact path="/mentors" component={({ ...args }) => <Mentors filters={this.state.filters} {...args} />} />
             <Route exact path="*" component={NotFound} />
           </Switch>
         </Layout>

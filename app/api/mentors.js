@@ -28,8 +28,8 @@ export const getMentors = (filters) => {
       filters.string : undefined,
     gender: filters.genders ?
       (filters.genders.find((gender) => gender.checked && gender.id !== 'A') || {}).id : undefined,
-    career_ids: filters.careers ?
-      filters.careers.filter((career) => career.checked).map((career) => career.id) : undefined
+    career_ids:
+      filters.careers.filter((career) => career.checked).map((career) => career.id)
   };
 
   let qs = stringify(serializable, { arrayFormat: 'bracket' });
