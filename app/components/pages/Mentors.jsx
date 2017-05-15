@@ -1,17 +1,11 @@
 import React from 'react'
-import PropTypes from "prop-types";
 import { BrowserRouter as Router } from 'react-router-dom'
+
+import { getMentors } from '../../api/mentors'
 import Mentor from '../elements/Mentor'
 import PageMessage from '../elements/PageMessage'
 
-import { getMentors } from '../../api/mentors'
-
 class Mentors extends React.Component {
-
-  static contextTypes = {
-    router: PropTypes.object,
-    session: PropTypes.object
-  }
 
   constructor(...args) {
     super(...args);
@@ -22,16 +16,7 @@ class Mentors extends React.Component {
     }
   }
 
-  componentWillMount() {
-
-  }
-
   componentDidMount() {
-
-    if (!this.context.session) {
-      this.context.router.history.replace('/');
-      return;
-    }
 
     getMentors(this.props.filters).then((response) => this.setState({
       mentors: response.data,

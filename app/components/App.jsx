@@ -1,14 +1,14 @@
 import React from "react"
 import PropTypes from "prop-types";
-
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
 import { Helmet } from "react-helmet";
 import JWTdecode from "jwt-decode";
 
 import { loadSession, persistSession } from "../lib/session";
 import { setAuthorization } from "../api/mentors";
-
 import Layout from "./Layout";
+import AuthenticatedRoute from "./core/AuthenticatedRoute";
+import AnonymousRoute from "./core/AnonymousRoute";
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import Mentors from "./pages/Mentors";
@@ -82,9 +82,9 @@ class App extends React.Component {
       <Router>
         <Layout doFilters={this.doFilters.bind(this)} doLogin={this.doLogin.bind(this)} doLogout={this.doLogout.bind(this)}>
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/mentors" component={() => <Mentors filters={this.state.filters} />} />
+            <AnonymousRoute exact path="/" component={Home} />
+            <AnonymousRoute exact path="/signup" component={SignUp} />
+            <AuthenticatedRoute exact path="/mentors" component={() => <Mentors filters={this.state.filters} />} />
             <Route exact path="*" component={NotFound} />
           </Switch>
         </Layout>

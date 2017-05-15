@@ -1,6 +1,5 @@
 import React from "react"
 import PropTypes from "prop-types";
-
 import { Link } from "react-router-dom";
 
 import { postRegistration } from "../../api/mentors";
@@ -8,11 +7,6 @@ import { postRegistration } from "../../api/mentors";
 import FormErrors from "../elements/FormErrors"
 
 class Home extends React.Component {
-
-  static contextTypes = {
-    router: PropTypes.object,
-    session: PropTypes.object
-  }
 
   constructor(...args) {
     super(...args);
@@ -25,18 +19,6 @@ class Home extends React.Component {
       },
       errors: {},
     };
-  }
-
-  componentDidMount() {
-    if (this.context.session) {
-      this.context.router.history.replace('/mentors');
-    }
-  }
-
-  componentWillReceiveProps(nextProps, nextContext) {
-    if (nextContext.session) {
-      this.context.router.history.replace('/mentors');
-    }
   }
 
   onChange(field, event) {
