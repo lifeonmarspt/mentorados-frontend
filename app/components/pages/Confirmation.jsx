@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-import { errorTransform }  from '../../lib/errorTransform';
-import { postConfirmation } from "../../lib/api";
-import FormError from "../elements/FormError";
+import { errorTransform }  from "lib/errorTransform";
+import { postConfirmation } from "lib/api";
+import FormError from "components/elements/FormError";
 
 class Confirmation extends React.Component {
 
@@ -29,7 +29,7 @@ class Confirmation extends React.Component {
         this.context.session.doLogin(result.data);
       })
       .catch((error) => {
-        this.setState({ errors: errorTransform(error, { 404: 'confirmation token not found' }) });
+        this.setState({ errors: errorTransform(error, { 404: "confirmation token not found" }) });
       });
   }
 

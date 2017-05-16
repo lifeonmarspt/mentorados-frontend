@@ -1,10 +1,10 @@
-import React from 'react'
+import React from "react"
 import PropTypes from "prop-types";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom"
 
-import { getCareers } from '../lib/api'
-import Filters from './elements/Filters'
-import Login from './elements/Login'
+import { getCareers } from "lib/api"
+import Filters from "components/elements/Filters"
+import Login from "components/elements/Login"
 
 class Layout extends React.Component {
 

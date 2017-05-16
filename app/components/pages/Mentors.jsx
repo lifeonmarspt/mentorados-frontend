@@ -1,9 +1,9 @@
-import React from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import React from "react"
+import { BrowserRouter as Router } from "react-router-dom"
 
-import { getMentors } from '../../lib/api'
-import Mentor from '../elements/Mentor'
-import Section from '../elements/Section'
+import { getMentors } from "lib/api"
+import Mentor from "components/elements/Mentor"
+import Section from "components/elements/Section"
 
 class Mentors extends React.Component {
 

@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { postLogin } from "../../lib/api";
-import { errorTransform } from "../../lib/errorTransform";
-import FormError from "../elements/FormError";
+import { postLogin } from "lib/api";
+import { errorTransform } from "lib/errorTransform";
+import FormError from "components/elements/FormError";
 
 class Login extends React.Component {
 

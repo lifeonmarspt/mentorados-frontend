@@ -2,12 +2,12 @@ import React from "react"
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-import { errorTransform } from "../../lib/errorTransform";
-import { postRegistration } from "../../lib/api";
+import { errorTransform } from "lib/errorTransform";
+import { postRegistration } from "lib/api";
 
-import Section from "../elements/Section";
-import FormError from "../elements/FormError";
-import FieldError from "../elements/FieldError";
+import Section from "components/elements/Section";
+import FormError from "components/elements/FormError";
+import FieldError from "components/elements/FieldError";
 
 class Home extends React.Component {
 

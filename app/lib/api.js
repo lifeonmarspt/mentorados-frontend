@@ -19,7 +19,7 @@ export const getCareers = () => {
   return api.get('/careers');
 }
 
-export const getMentors = (filters) => {
+export const getMentors = (filters = {}) => {
 
   let url = '/mentors';
 
@@ -28,8 +28,8 @@ export const getMentors = (filters) => {
       filters.string : undefined,
     gender: filters.genders ?
       (filters.genders.find((gender) => gender.checked && gender.id !== 'A') || {}).id : undefined,
-    career_ids:
-      filters.careers.filter((career) => career.checked).map((career) => career.id)
+    career_ids: filters.careeers ?
+      filters.careers.filter((career) => career.checked).map((career) => career.id) : undefined
   };
 
   let qs = stringify(serializable, { arrayFormat: 'bracket' });
@@ -40,6 +40,10 @@ export const getMentors = (filters) => {
 
   return api.get(url);
 
+}
+
+export const getUsers = () => {
+  return api.get('/users');
 }
 
 export const postLogin = (fields) => {

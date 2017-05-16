@@ -1,7 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-import { getCareers } from "../../lib/api";
+import { getCareers } from "lib/api";
 
 class Filters extends React.Component {
 
@@ -67,6 +68,13 @@ class Filters extends React.Component {
   }
 
   render() {
+
+    let userButtons = [];
+    if (this.context.session.state.user.admin) {
+      userButtons.push(<Link to="/admin"><button className="pure-button pure-button-warning">Admin</button></Link>)
+    }
+    userButtons.push(<button onClick={this.context.session.doLogout} className="pure-button pure-button-primary">Logout</button>);
+
     return !this.state.loading && (
       <form className="pure-form" onSubmit={this.handleSubmit.bind(this)}>
         <h1 className="content-subhead">Gender</h1>
@@ -94,11 +102,19 @@ class Filters extends React.Component {
         </fieldset>
         <h1 className="content-subhead">User</h1>
         <fieldset>
-          <p>{this.context.session.state.user.email}</p>
-          <button onClick={this.context.session.doLogout} className="pure-button pure-button-primary">Logout</button>
+          <div className="pure-g">
+            <div className="pure-u-1-1">
+              <p>{this.context.session.state.user.email}</p>
+            </div>
+          </div>
+          <div className="pure-g">
+          {userButtons.map((button, n) =>
+            <div key={n} className="pure-u-1-2">{button}</div>
+          )}
+          </div>
         </fieldset>
       </form>
-    )
+    );
   }
 }
 

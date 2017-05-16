@@ -238,3 +238,16 @@ aside {
 .pure-form-field-error {
   color: #ff0000;
 }
+
+.pure-button-warning {
+  color: #ffffff;
+  background: rgb(223, 117, 20);
+}
+
+.pure-table-data {
+  width: 100%;
+}
+
+.pure-table-data tr:nth-child(even) td {
+  background-color: #f2f2f2;
+}
