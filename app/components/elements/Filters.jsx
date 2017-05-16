@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
@@ -30,25 +30,38 @@ class Filters extends React.Component {
 
   componentDidMount() {
 
-    getCareers().
-      then((response) => {
+    getCareers()
+      .then((response) => {
         this.state.loading = false;
-        this.state.filters.careers = response.data.map((career) => (career["checked"] = true, career));
+        this.state.filters.careers = response.data.map((career) => {
+          career.checked = true;
+          return career;
+        });
         this.setState(this.state);
-      })
+      });
 
   }
 
-  handleInputClick(filterType, event) {
-    console.log(filterType, event.target.value, this.state.filters[filterType]);
+  handleGenderClick(event) {
 
-    // @todo pls refactor
-    if (filterType === 'genders') {
-      this.state.filters.genders.forEach((item) => item.checked = false);
-    }
+    this.state.filters.genders.forEach((item) => {
+      item.checked = false;
+      return item;
+    });
 
-    this.state.filters[filterType].forEach((item) => {
-      if (item.id == event.target.value) {
+    this.state.filters.genders.forEach((item) => {
+      if (item.id === event.target.value) {
+        item.checked = !item.checked;
+      }
+    });
+
+    this.setState(this.state);
+  }
+
+  handleCareerClick(event) {
+
+    this.state.filters.careers.forEach((item) => {
+      if (item.id === Number(event.target.value)) {
         item.checked = !item.checked;
       }
     });
@@ -63,7 +76,7 @@ class Filters extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.context.router.history.replace('/mentors');
+    this.context.router.history.replace("/mentors");
     this.props.doFilters(this.state.filters);
   }
 
@@ -71,7 +84,7 @@ class Filters extends React.Component {
 
     let userButtons = [];
     if (this.context.session.state.user.admin) {
-      userButtons.push(<Link to="/admin"><button className="pure-button pure-button-warning">Admin</button></Link>)
+      userButtons.push(<Link to="/admin"><button className="pure-button pure-button-warning">Admin</button></Link>);
     }
     userButtons.push(<button onClick={this.context.session.doLogout} className="pure-button pure-button-primary">Logout</button>);
 
@@ -80,17 +93,17 @@ class Filters extends React.Component {
         <h1 className="content-subhead">Gender</h1>
         <fieldset>
           {this.state.filters.genders.map((gender, n) =>
-            <label key={n} htmlFor={"filter-gender-" + gender.id} className="pure-checkbox">
-              {gender.description} <input id={"filter-gender-" + gender.id} type="radio" name="filter-gender" value={gender.id} checked={gender.checked} onChange={this.handleInputClick.bind(this, 'genders')} />
-            </label>
+            (<label key={n} htmlFor={"filter-gender-" + gender.id} className="pure-checkbox">
+              {gender.description} <input id={"filter-gender-" + gender.id} type="radio" name="filter-gender" value={gender.id} checked={gender.checked} onChange={this.handleGenderClick.bind(this)} />
+            </label>)
           )}
         </fieldset>
         <h1 className="content-subhead">Career Orientation</h1>
         <fieldset>
           {this.state.filters.careers.map((career, n) =>
-            <label key={n} htmlFor={"filter-career" + career.id} className="pure-checkbox">
-              {career.description} <input id={"filter-career" + career.id} type="checkbox" value={career.id} checked={career.checked} onChange={this.handleInputClick.bind(this, 'careers')} />
-            </label>
+            (<label key={n} htmlFor={"filter-career" + career.id} className="pure-checkbox">
+              {career.description} <input id={"filter-career" + career.id} type="checkbox" value={career.id} checked={career.checked} onChange={this.handleCareerClick.bind(this)} />
+            </label>)
           )}
         </fieldset>
         <h1 className="content-subhead">Search</h1>

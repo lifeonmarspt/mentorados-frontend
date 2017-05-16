@@ -1,9 +1,9 @@
-import React from "react"
+import React from "react";
 
 class FormError extends React.Component {
 
   constructor(...args) {
-    super(...args)
+    super(...args);
   }
 
   render() {
@@ -15,7 +15,7 @@ class FormError extends React.Component {
       <aside className="error">
         {this.props.error}
       </aside>
-    )
+    );
   }
 }
 

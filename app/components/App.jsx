@@ -1,6 +1,6 @@
-import React from "react"
+import React from "react";
 import PropTypes from "prop-types";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { loadSession, doLogin, doLogout } from "lib/session";
 import Layout from "components/Layout";
@@ -27,7 +27,7 @@ class App extends React.Component {
   }
 
   constructor(...args) {
-    super(...args)
+    super(...args);
 
     this.state = {
       session: null,
@@ -49,14 +49,14 @@ class App extends React.Component {
         doLogin: this.doLogin,
         doLogout: this.doLogout,
       }
-    }
+    };
   }
 
   doFilters(filters) {
     this.setState({ filters: filters });
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.loadSession();
 
     if (!this.state.session) {
@@ -80,7 +80,7 @@ class App extends React.Component {
           </Switch>
         </Layout>
       </Router>
-    )
+    );
   }
 
 }

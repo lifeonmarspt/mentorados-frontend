@@ -2,7 +2,6 @@ import React from "react"
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom"
 
-import { getCareers } from "lib/api"
 import Filters from "components/elements/Filters"
 import Login from "components/elements/Login"
 

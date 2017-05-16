@@ -16,13 +16,13 @@ class AuthenticatedRoute extends React.Component {
 
   componentDidMount() {
     if (!this.context.session.state) {
-      this.context.router.history.replace('/');
+      this.context.router.history.replace("/");
     }
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
     if (!nextContext.session.state) {
-      this.context.router.history.replace('/');
+      this.context.router.history.replace("/");
     }
   }
 

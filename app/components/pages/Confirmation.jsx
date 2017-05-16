@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
 import { errorTransform }  from "lib/errorTransform";
 import { postConfirmation } from "lib/api";
@@ -57,19 +56,19 @@ class Confirmation extends React.Component {
                 <div className="pure-u-1-3">
                   <p>Please use the buttom below to confirm your registration.</p>
                 </div>
-                <div className="pure-u-2-3"></div>
+                <div className="pure-u-2-3" />
               </div>
               <div className="pure-g">
                 <div className="pure-u-1-3">
                   {errorContent}
                 </div>
-                <div className="pure-u-2-3"></div>
+                <div className="pure-u-2-3" />
               </div>
             </div>
           </section>
         </div>
       </div>
-    )
+    );
   }
 
 }

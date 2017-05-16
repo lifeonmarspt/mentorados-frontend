@@ -25,22 +25,22 @@ class Login extends React.Component {
   }
 
   onChange(field, event) {
-      this.state.fields[field] = event.target.value;
-      this.setState(this.state);
+    this.state.fields[field] = event.target.value;
+    this.setState(this.state);
   }
 
   onSubmit(event) {
-      event.preventDefault()
-      this.setState({ errors: {} });
+    event.preventDefault();
+    this.setState({ errors: {} });
 
-      postLogin(this.state.fields)
-        .then((result) => {
-          this.context.session.doLogin(result.data);
-        })
-        .catch((error) => {
-          this.setState({ errors: errorTransform(error, { 404: 'login not found' }) });
-          throw error;
-        });
+    postLogin(this.state.fields)
+      .then((result) => {
+        this.context.session.doLogin(result.data);
+      })
+      .catch((error) => {
+        this.setState({ errors: errorTransform(error, { 404: "login not found" }) });
+        throw error;
+      });
   }
 
   render() {
@@ -60,7 +60,7 @@ class Login extends React.Component {
           <button type="submit" className="pure-button pure-button-primary">Sign in</button>
         </fieldset>
       </form>
-    )
+    );
   }
 }
 

@@ -3,7 +3,7 @@ import React from "react";
 class DataTable extends React.Component {
 
   constructor(...args) {
-    super(...args)
+    super(...args);
   }
 
   componentDidMount() {
@@ -23,13 +23,13 @@ class DataTable extends React.Component {
           </thead>
           <tbody>
             {this.props.data.map((row, n) =>
-              <tr key={n}>
+              (<tr key={n}>
                 {this.props.fields.map((field, n) =>
-                  <td key={n}>
+                  (<td key={n}>
                     {field.get(row)}
-                  </td>
+                  </td>)
                 )}
-              </tr>
+              </tr>)
             )}
           </tbody>
       </table>

@@ -3,7 +3,7 @@ import React from "react";
 class Mentor extends React.Component {
 
   constructor(...args) {
-    super(...args)
+    super(...args);
   }
 
   componentDidMount() {
@@ -17,7 +17,7 @@ class Mentor extends React.Component {
           <img width="96" height="96" className="post-avatar" src={this.props.mentor.picture} />
           <h2 className="post-title">{this.props.mentor.name}</h2>
           <p className="post-meta">
-            <a href={'mailto:' + this.props.mentor.email} className="post-author">{this.props.mentor.email}</a>
+            <a href={"mailto:" + this.props.mentor.email} className="post-author">{this.props.mentor.email}</a>
           </p>
           <p>
             <span>
@@ -29,8 +29,8 @@ class Mentor extends React.Component {
           </p>
           <p className="post-description">
             {this.props.mentor.year_out ?
-              'Attended from ' + this.props.mentor.year_in + ' to ' + this.props.mentor.year_out :
-              'Enrolled in ' + this.props.mentor.year_in}
+              "Attended from " + this.props.mentor.year_in + " to " + this.props.mentor.year_out :
+              "Enrolled in " + this.props.mentor.year_in}
           </p>
         </header>
 
@@ -38,7 +38,7 @@ class Mentor extends React.Component {
           {this.props.mentor.bio.split("\n").map((line, n) => <p key={n}>{line}</p>)}
         </div>
       </section>
-    )
+    );
   }
 }
 

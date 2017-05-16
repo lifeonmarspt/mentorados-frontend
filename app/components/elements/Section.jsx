@@ -1,9 +1,9 @@
-import React from "react"
+import React from "react";
 
 class Section extends React.Component {
 
   constructor(...args) {
-    super(...args)
+    super(...args);
   }
 
   componentDidMount() {
@@ -22,7 +22,7 @@ class Section extends React.Component {
         </div>
 
       </section>
-    )
+    );
   }
 }
 

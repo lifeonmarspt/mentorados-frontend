@@ -1,5 +1,4 @@
-import React from "react"
-import { Link } from "react-router-dom";
+import React from "react";
 
 import Section from "components/elements/Section";
 
@@ -14,7 +13,7 @@ class NotFound extends React.Component {
           </Section>
         </div>
       </div>
-    )
+    );
   }
 
 }

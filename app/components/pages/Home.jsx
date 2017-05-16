@@ -1,14 +1,11 @@
-import React from "react"
+import React from "react";
 import { Link } from "react-router-dom";
-
-import Login from "components/elements/Login";
 
 class Home extends React.Component {
 
   constructor(...args) {
     super(...args);
   }
-
 
   render() {
     return (
@@ -26,7 +23,7 @@ class Home extends React.Component {
           </section>
         </div>
       </div>
-    )
+    );
   }
 
 }

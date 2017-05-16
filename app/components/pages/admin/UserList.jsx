@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import { Link } from "react-router-dom";
 
 import { getUsers } from "lib/api";
@@ -44,12 +44,12 @@ class UserList extends React.Component {
 
   componentDidMount() {
 
-    getUsers().
-      then((response) => {
+    getUsers()
+      .then((response) => {
         this.state.loading = false;
         this.state.data = response.data;
         this.setState(this.state);
-      })
+      });
 
   }
 
@@ -71,7 +71,7 @@ class UserList extends React.Component {
           </section>
         </div>
       </div>
-    )
+    );
   }
 
 }

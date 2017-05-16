@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import { Link } from "react-router-dom";
 
 import { getMentors } from "lib/api";
@@ -40,12 +40,12 @@ class MentorList extends React.Component {
 
   componentDidMount() {
 
-    getMentors().
-      then((response) => {
+    getMentors()
+      .then((response) => {
         this.state.loading = false;
         this.state.data = response.data;
         this.setState(this.state);
-      })
+      });
 
   }
 
@@ -67,7 +67,7 @@ class MentorList extends React.Component {
           </section>
         </div>
       </div>
-    )
+    );
   }
 
 }

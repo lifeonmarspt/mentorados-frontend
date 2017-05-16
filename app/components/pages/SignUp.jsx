@@ -1,6 +1,4 @@
-import React from "react"
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import React from "react";
 
 import { errorTransform } from "lib/errorTransform";
 import { postRegistration } from "lib/api";
@@ -26,21 +24,21 @@ class Home extends React.Component {
   }
 
   onChange(field, event) {
-      this.state.fields[field] = event.target.value;
-      this.setState(this.state);
+    this.state.fields[field] = event.target.value;
+    this.setState(this.state);
   }
 
   onSubmit(event) {
-      event.preventDefault();
-      this.setState({ errors: {} })
+    event.preventDefault();
+    this.setState({ errors: {} });
 
-      postRegistration(this.state.fields)
-        .then((result) => {
-          this.setState({ sent: true });
-        })
-        .catch((error) => {
-          this.setState({ errors: errorTransform(error, { 404: 'login not found' }) });
-        });
+    postRegistration(this.state.fields)
+      .then((result) => {
+        this.setState({ sent: true });
+      })
+      .catch((error) => {
+        this.setState({ errors: errorTransform(error, { 404: "login not found" }) });
+      });
   }
 
   renderSignUpForm() {

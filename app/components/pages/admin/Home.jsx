@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import { Link } from "react-router-dom";
 
 class AdminHome extends React.Component {
@@ -18,14 +18,13 @@ class AdminHome extends React.Component {
             </header>
             <div className="post-description">
               <div className="pure-g">
-                <div className="pure-u-1-1">
-                </div>
+                <div className="pure-u-1-1" />
               </div>
             </div>
           </section>
         </div>
       </div>
-    )
+    );
   }
 
 }

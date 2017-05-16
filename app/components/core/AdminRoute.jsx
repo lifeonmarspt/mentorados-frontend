@@ -16,13 +16,13 @@ class AdminRoute extends React.Component {
 
   componentDidMount() {
     if (!this.context.session.state || !this.context.session.state.user.admin) {
-      this.context.router.history.replace('/');
+      this.context.router.history.replace("/");
     }
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    if (!this.context.session.state || !this.context.session.state.user.admin) {
-      this.context.router.history.replace('/');
+    if (!nextContext.session.state || !nextContext.session.state.user.admin) {
+      this.context.router.history.replace("/");
     }
   }
 

@@ -1,9 +1,9 @@
-import React from "react"
+import React from "react";
 
 class FieldError extends React.Component {
 
   constructor(...args) {
-    super(...args)
+    super(...args);
   }
 
   render() {
@@ -14,11 +14,12 @@ class FieldError extends React.Component {
     return (
       <ul className="pure-menu-list">
         {this.props.errors.map((error, n) =>
-          <li key={n}>
+          (<li key={n}>
             <span className="pure-form-message pure-form-field-error">
               {this.props.fieldName} {error}
             </span>
-          </li>)}
+          </li>)
+        )}
       </ul>
     );
   }
