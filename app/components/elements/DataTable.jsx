@@ -11,9 +11,8 @@ class DataTable extends React.Component {
   }
 
   render() {
-    console.log(this.props.fields);
     return (
-      <table className="pure-table pure-table-data">
+      <table className="pure-table pure-table-bordered pure-table-datatable">
           <thead>
               <tr>
                 {this.props.fields.map((field, n) =>

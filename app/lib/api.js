@@ -39,8 +39,17 @@ export const getMentors = (filters = {}) => {
   return api.get(url);
 };
 
+export const getMentor = (id) => {
+  return api.get(`/mentors/${id}`);
+};
+
+
 export const getUsers = () => {
   return api.get("/users");
+};
+
+export const getUser = (id) => {
+  return api.get(`/users/${id}`);
 };
 
 export const postLogin = (fields) => {

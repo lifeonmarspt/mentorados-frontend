@@ -17,6 +17,10 @@ class MentorList extends React.Component {
           get: (r) => <Link to={`/admin/mentors/${r.id}`}>{r.id}</Link>
         },
         {
+          label: "name",
+          get: (r) => r.name
+        },
+        {
           label: "email",
           get: (r) => r.email
         },

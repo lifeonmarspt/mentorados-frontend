@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { getUsers } from "lib/api";
-import DataTable from "components/elements/DataTable";
+import { getUser } from "lib/api";
+import DataSheet from "components/elements/DataSheet";
 
-class UserList extends React.Component {
+class UserView extends React.Component {
 
   constructor(...args) {
     super(...args);
@@ -14,7 +14,7 @@ class UserList extends React.Component {
       fields: [
         {
           label: "id",
-          get: (r) => (<Link to={`/admin/users/${r.id}`}>{r.id}</Link>),
+          get: (r) => r.id
         },
         {
           label: "email",
@@ -43,14 +43,12 @@ class UserList extends React.Component {
 
 
   componentDidMount() {
-
-    getUsers()
+    getUser(this.props.match.params.id)
       .then((response) => {
         this.state.loading = false;
         this.state.data = response.data;
         this.setState(this.state);
       });
-
   }
 
   render() {
@@ -64,7 +62,7 @@ class UserList extends React.Component {
             <div className="post-description">
               <div className="pure-g">
                 <div className="pure-u-1-1">
-                  <DataTable fields={this.state.fields} data={this.state.data} />
+                  <DataSheet fields={this.state.fields} data={this.state.data} />
                 </div>
               </div>
             </div>
@@ -76,4 +74,4 @@ class UserList extends React.Component {
 
 }
 
-export default UserList;
+export default UserView;

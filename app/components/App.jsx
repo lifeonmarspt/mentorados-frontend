@@ -11,8 +11,10 @@ import SignUp from "components/pages/SignUp";
 import Confirmation from "components/pages/Confirmation";
 import Home from "components/pages/Home";
 import AdminHome from "components/pages/admin/Home";
-import AdminUserList from "components/pages/Admin/UserList";
-import AdminMentorList from "components/pages/Admin/MentorList";
+import AdminUserList from "components/pages/admin/UserList";
+import AdminUserView from "components/pages/admin/UserView";
+import AdminMentorList from "components/pages/admin/MentorList";
+import AdminMentorView from "components/pages/admin/MentorView";
 import Mentors from "components/pages/Mentors";
 import NotFound from "components/pages/NotFound";
 
@@ -75,7 +77,9 @@ class App extends React.Component {
             <AuthenticatedRoute exact path="/mentors" component={({ ...args }) => <Mentors filters={this.state.filters} {...args} />} />
             <AdminRoute exact path="/admin" component={AdminHome} />
             <AdminRoute exact path="/admin/users" component={AdminUserList} />
+            <AdminRoute exact path="/admin/users/:id" component={AdminUserView} />
             <AdminRoute exact path="/admin/mentors" component={AdminMentorList} />
+            <AdminRoute exact path="/admin/mentors/:id" component={AdminMentorView} />
             <Route exact path="*" component={NotFound} />
           </Switch>
         </Layout>
