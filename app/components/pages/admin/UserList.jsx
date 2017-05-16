@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { getUsers } from "lib/api";
-import DataTable from "components/elements/DataTable";
+import EditableHorizontal from "components/elements/editable/Horizontal";
 
 class UserList extends React.Component {
 
@@ -57,14 +57,12 @@ class UserList extends React.Component {
     return !this.state.loading && (
       <div>
         <div className="posts">
+          <h1 className="content-subhead">Admin: User List</h1>
           <section className="post">
-            <header className="post-header">
-              <h2 className="post-title">Programa de Mentorados de Engenharia Informática - FEUP</h2>
-            </header>
             <div className="post-description">
               <div className="pure-g">
                 <div className="pure-u-1-1">
-                  <DataTable fields={this.state.fields} data={this.state.data} />
+                  <EditableHorizontal fields={this.state.fields} data={this.state.data} />
                 </div>
               </div>
             </div>

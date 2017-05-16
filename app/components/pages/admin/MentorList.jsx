@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { getMentors } from "lib/api";
-import DataTable from "components/elements/DataTable";
+import EditableHorizontal from "components/elements/editable/Horizontal";
 
 class MentorList extends React.Component {
 
@@ -14,27 +14,27 @@ class MentorList extends React.Component {
       fields: [
         {
           label: "id",
-          get: (r) => <Link to={`/admin/mentors/${r.id}`}>{r.id}</Link>
+          displayAs: (r) => <Link to={`/admin/mentors/${r.id}`}>{r.id}</Link>
         },
         {
           label: "name",
-          get: (r) => r.name
+          displayAs: (r) => r.name
         },
         {
           label: "email",
-          get: (r) => r.email
+          displayAs: (r) => r.email
         },
         {
           label: "user id",
-          get: (r) => r.user && <Link to={`/admin/users/${r.user.id}`}>{r.user.id}</Link>
+          displayAs: (r) => r.user && <Link to={`/admin/users/${r.user.id}`}>{r.user.id}</Link>
         },
         {
           label: "created at",
-          get: (r) => r.created_at
+          displayAs: (r) => r.created_at
         },
         {
           label: "updated at",
-          get: (r) => r.updated_at
+          displayAs: (r) => r.updated_at
         }
       ],
       data: []
@@ -43,28 +43,24 @@ class MentorList extends React.Component {
 
 
   componentDidMount() {
-
     getMentors()
       .then((response) => {
         this.state.loading = false;
         this.state.data = response.data;
         this.setState(this.state);
       });
-
   }
 
   render() {
     return !this.state.loading && (
       <div>
         <div className="posts">
+          <h1 className="content-subhead">Admin: Mentor List</h1>
           <section className="post">
-            <header className="post-header">
-              <h2 className="post-title">Programa de Mentorados de Engenharia Informática - FEUP</h2>
-            </header>
             <div className="post-description">
               <div className="pure-g">
                 <div className="pure-u-1-1">
-                  <DataTable fields={this.state.fields} data={this.state.data} />
+                  <EditableHorizontal fields={this.state.fields} data={this.state.data} />
                 </div>
               </div>
             </div>

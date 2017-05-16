@@ -1,72 +1,135 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { getMentor } from "lib/api";
-import DataSheet from "components/elements/DataSheet";
+import { getMentor, putMentor, postMentor, deleteMentor } from "lib/api";
+import EditableVertical from "components/elements/editable/Vertical";
 
 class UserView extends React.Component {
 
   constructor(...args) {
     super(...args);
-
     this.state = {
-      loading: true,
       fields: [
         {
-          label: "id",
-          get: (r) => <Link to={`/admin/mentors/${r.id}`}>{r.id}</Link>
+          id: "id",
+          label: "#",
+          displayAs: (r) => <Link to={`/admin/mentors/${r.id}`}>{r.id}</Link>
         },
         {
-          label: "user id",
-          get: (r) => r.user && <Link to={`/admin/users/${r.user.id}`}>{r.user.id}</Link>
+          id: "user_id",
+          label: "User #",
+          displayAs: (r) => r.user && <Link to={`/admin/users/${r.user.id}`}>{r.user.id}</Link>
         },
         {
-          label: "name",
-          get: (r) => r.name
+          id: "name",
+          label: "Name",
+          editableAs: "text",
+          displayAs: (r) => r.name
         },
         {
-          label: "email",
-          get: (r) => r.email
+          id: "email",
+          label: "Email",
+          editableAs: "text",
+          displayAs: (r) => r.email
         },
         {
-          label: "bio",
-          get: (r) => r.bio.split("\n").map((l, n) => <p key={n}>{l}</p>)
+          id: "gender",
+          label: "Gender",
+          editableAs: "radio",
+          editableChoices: [
+            { id: "F", description: "Female" },
+            { id: "M", description: "Male" },
+          ],
+          displayAs: (r) => r.gender
         },
         {
-          label: "created at",
-          get: (r) => r.created_at
+          id: "bio",
+          label: "Bio",
+          editableAs: "textarea",
+          displayAs: (r) => r.bio.split("\n").map((l, n) => <p key={n}>{l}</p>),
+          getValue: (r) => r.bio
         },
         {
-          label: "updated at",
-          get: (r) => r.updated_at
+          id: "year_in",
+          label: "Enrolled In",
+          editableAs: "text",
+          displayAs: (r) => r.year_in
+        },
+        {
+          id: "year_out",
+          label: "Graduated In",
+          editableAs: "text",
+          displayAs: (r) => r.year_out
+        },
+        {
+          id: "career_ids",
+          label: "Careers",
+          editableAs: "checkbox",
+          // @todo load this data from api, context or wtv
+          editableChoices: [
+            {
+              "id": 1,
+              "description": "Entrepreneurship"
+            },
+            {
+              "id": 2,
+              "description": "Freelance"
+            },
+            {
+              "id": 3,
+              "description": "Academia"
+            },
+            {
+              "id": 4,
+              "description": "Management"
+            },
+            {
+              "id": 5,
+              "description": "Startup/Scaleup"
+            },
+            {
+              "id": 6,
+              "description": "Established Company"
+            }
+          ],
+          displayAs: (r) => (r.careers || []).map((c, n) => <p key={n}>{c.description}</p>),
+          getValue: (r) => (r.careers || []).map((c) => c.id),
+        },
+        {
+          id: "location_ids",
+          label: "Locations",
+          editableAs: "choice",
+          displayAs: (r) => (r.locations || []).map((l, n) => <p key={n}>{l.description}</p>),
+        },
+        {
+          label: "Created At",
+          displayAs: (r) => r.created_at,
+        },
+        {
+          label: "Updated At",
+          displayAs: (r) => r.updated_at,
         }
-      ],
-      data: []
+      ]
     };
   }
 
-
-  componentDidMount() {
-    getMentor(this.props.match.params.id)
-      .then((response) => {
-        this.state.loading = false;
-        this.state.data = response.data;
-        this.setState(this.state);
-      });
-  }
-
   render() {
-    return !this.state.loading && (
+    let remoteActions = {
+      load: getMentor,
+      save: putMentor,
+      create: postMentor,
+      destroy: deleteMentor
+    };
+
+    return (
       <div>
         <div className="posts">
+          <h1 className="content-subhead">Admin: Mentor Details</h1>
           <section className="post">
-            <header className="post-header">
-              <h2 className="post-title">Programa de Mentorados de Engenharia Informática - FEUP</h2>
-            </header>
             <div className="post-description">
               <div className="pure-g">
                 <div className="pure-u-1-1">
-                  <DataSheet fields={this.state.fields} data={this.state.data} />
+                  <EditableVertical fields={this.state.fields} resourceId={this.props.match.params.id} remoteActions={remoteActions} />
                 </div>
               </div>
             </div>

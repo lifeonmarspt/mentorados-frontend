@@ -239,16 +239,34 @@ aside {
   color: #ff0000;
 }
 
-.pure-button-warning {
+.pure-button-orange {
   color: #ffffff;
   background: rgb(223, 117, 20);
 }
 
-.pure-table-datatable, .pure-table-datasheet {
+.pure-table-editable-horizontal, .pure-table-editable-vertical {
   width: 100%;
+
+  input[type=text] {
+    width: 100%;
+  }
+
+  textarea {
+    width: 100%;
+    height: 400px;
+  }
+
+  tfoot {
+    .pure-control-group {
+      button {
+        min-width: 100px;
+        margin-right: 10px;
+      }
+    }
+  }
 }
 
-.pure-table-datatable {
+.pure-table-editable-horizontal {
 
   th {
     border: 1px solid #cbcbcb;
@@ -260,10 +278,10 @@ aside {
 
 }
 
-.pure-table-datasheet {
+.pure-table-editable-vertical {
 
   th {
-    width: 10%;
+    width: 12%;
     background-color: #f2f2f2;
     border: 1px solid #cbcbcb;
   }

@@ -1,6 +1,6 @@
 import React from "react";
 
-class DataTable extends React.Component {
+class EditableHorizontal extends React.Component {
 
   constructor(...args) {
     super(...args);
@@ -12,7 +12,7 @@ class DataTable extends React.Component {
 
   render() {
     return (
-      <table className="pure-table pure-table-bordered pure-table-datatable">
+      <table className="pure-table pure-table-bordered pure-table-editable-horizontal">
           <thead>
               <tr>
                 {this.props.fields.map((field, n) =>
@@ -36,4 +36,4 @@ class DataTable extends React.Component {
   }
 }
 
-export default DataTable;
+export default EditableHorizontal;

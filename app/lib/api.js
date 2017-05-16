@@ -43,6 +43,17 @@ export const getMentor = (id) => {
   return api.get(`/mentors/${id}`);
 };
 
+export const postMentor = (id, data) => {
+  return api.post(`/mentors/${id}`, data);
+};
+
+export const putMentor = (id, data) => {
+  return api.put(`/mentors/${id}`, data);
+};
+
+export const deleteMentor = (id) => {
+  return api.delete(`/mentors/${id}`);
+};
 
 export const getUsers = () => {
   return api.get("/users");
