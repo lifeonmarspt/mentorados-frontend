@@ -12,10 +12,11 @@ import Confirmation from "components/pages/Confirmation";
 import Home from "components/pages/Home";
 import AdminHome from "components/pages/admin/Home";
 import AdminUserList from "components/pages/admin/UserList";
-import AdminUserView from "components/pages/admin/UserView";
+import AdminUserShow from "components/pages/admin/UserShow";
 import AdminMentorList from "components/pages/admin/MentorList";
-import AdminMentorView from "components/pages/admin/MentorView";
+import AdminMentorShow from "components/pages/admin/MentorShow";
 import AdminMentorNew from "components/pages/admin/MentorNew";
+import AdminMentorEdit from "components/pages/admin/MentorEdit";
 import Mentors from "components/pages/Mentors";
 import NotFound from "components/pages/NotFound";
 
@@ -78,10 +79,11 @@ class App extends React.Component {
             <AuthenticatedRoute exact path="/mentors" component={({ ...args }) => <Mentors filters={this.state.filters} {...args} />} />
             <AdminRoute exact path="/admin" component={AdminHome} />
             <AdminRoute exact path="/admin/users" component={AdminUserList} />
-            <AdminRoute exact path="/admin/users/:id" component={AdminUserView} />
+            <AdminRoute exact path="/admin/users/:id" component={AdminUserShow} />
             <AdminRoute exact path="/admin/mentors" component={AdminMentorList} />
             <AdminRoute exact path="/admin/mentors/new" component={AdminMentorNew} />
-            <AdminRoute exact path="/admin/mentors/:id" component={AdminMentorView} />
+            <AdminRoute exact path="/admin/mentors/:id" component={AdminMentorShow} />
+            <AdminRoute exact path="/admin/mentors/:id/edit" component={AdminMentorEdit} />
             <Route exact path="*" component={NotFound} />
           </Switch>
         </Layout>

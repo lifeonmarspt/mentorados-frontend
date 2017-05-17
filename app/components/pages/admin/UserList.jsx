@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { getUsers } from "lib/api";
-import EditableMultiple from "components/elements/editable/Multiple";
+import List from "components/elements/editable/List";
 
 class UserList extends React.Component {
 
@@ -62,7 +62,7 @@ class UserList extends React.Component {
             <div className="post-description">
               <div className="pure-g">
                 <div className="pure-u-1-1">
-                  <EditableMultiple fields={this.state.fields} data={this.state.data} />
+                  <List fields={this.state.fields} data={this.state.data} />
                 </div>
               </div>
             </div>

@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { getUser } from "lib/api";
-import EditableSingle from "components/elements/editable/Single";
+import Show from "components/elements/editable/Show";
 
-class UserView extends React.Component {
+class UserShow extends React.Component {
 
   constructor(...args) {
     super(...args);
@@ -60,7 +60,7 @@ class UserView extends React.Component {
             <div className="post-description">
               <div className="pure-g">
                 <div className="pure-u-1-1">
-                  <EditableSingle fields={this.state.fields} data={this.state.data} />
+                  <Show fields={this.state.fields} data={this.state.data} />
                 </div>
               </div>
             </div>
@@ -72,4 +72,4 @@ class UserView extends React.Component {
 
 }
 
-export default UserView;
+export default UserShow;

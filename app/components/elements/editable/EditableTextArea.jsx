@@ -10,7 +10,7 @@ class EditableTextArea extends React.Component {
 
   render() {
     return (
-      <textarea onChange={(e) => this.props.onChange(e.target.value)} className="pure-input" type="text" value={this.props.value} />
+      <textarea onChange={(e) => this.props.onChange(e.target.value)} className="pure-input" type="text" value={this.props.value || ""} />
     );
   }
 }

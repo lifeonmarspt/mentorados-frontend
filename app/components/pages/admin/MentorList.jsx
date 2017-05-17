@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { getMentors } from "lib/api";
-import EditableMultiple from "components/elements/editable/Multiple";
+import List from "components/elements/editable/List";
+import mentorResources from "resources/mentors";
 
 class MentorList extends React.Component {
 
@@ -11,32 +12,6 @@ class MentorList extends React.Component {
 
     this.state = {
       loading: true,
-      fields: [
-        {
-          label: "id",
-          displayAs: (r) => <Link to={`/admin/mentors/${r.id}`}>{r.id}</Link>
-        },
-        {
-          label: "name",
-          displayAs: (r) => r.name
-        },
-        {
-          label: "email",
-          displayAs: (r) => r.email
-        },
-        {
-          label: "user id",
-          displayAs: (r) => r.user && <Link to={`/admin/users/${r.user.id}`}>{r.user.id}</Link>
-        },
-        {
-          label: "created at",
-          displayAs: (r) => r.created_at
-        },
-        {
-          label: "updated at",
-          displayAs: (r) => r.updated_at
-        }
-      ],
       data: []
     };
   }
@@ -52,10 +27,6 @@ class MentorList extends React.Component {
   }
 
   render() {
-    let remoteActions = {
-      index: getMentors,
-    };
-
     return !this.state.loading && (
       <div>
         <div className="posts">
@@ -64,7 +35,7 @@ class MentorList extends React.Component {
             <div className="post-description">
               <div className="pure-g">
                 <div className="pure-u-1-1">
-                  <EditableMultiple fields={this.state.fields} data={this.state.data} />
+                  <List {...mentorResources} displayFieldNames={["id", "name", "email", "created_at", "updated_at"]} data={this.state.data} />
                 </div>
               </div>
             </div>

@@ -11,7 +11,7 @@ class EditableText extends React.Component {
   render() {
     //  <input onChange={this.onInputChange.bind(this, field)} className="pure-input" type="text" value={value} />
     return (
-      <input onChange={(e) => this.props.onChange(e.target.value)} className="pure-input" type="text" value={this.props.value} />
+      <input onChange={(e) => this.props.onChange(e.target.value)} className="pure-input" type="text" value={this.props.value || ""} />
     );
   }
 }

@@ -36,9 +36,16 @@ const temp_careers = [
 
 export const actions = {
   load: getMentor,
-  save: putMentor,
+  update: putMentor,
   create: postMentor,
   destroy: deleteMentor
+};
+
+export const routes = {
+  show: (id) => `/admin/mentors/${id}`,
+  edit: (id) => `/admin/mentors/${id}/edit`,
+  new: () => "/admin/mentors/new",
+  list: () => "/admin/mentors",
 };
 
 export const fields = [
@@ -75,7 +82,7 @@ export const fields = [
     id: "bio",
     label: "Bio",
     editableAs: EditableTextArea,
-    displayAs: (r) => r.bio.split("\n").map((l, n) => <p key={n}>{l}</p>),
+    displayAs: (r) => (r.bio || "").split("\n").map((l, n) => <p key={n}>{l}</p>),
   },
   {
     id: "year_in",
@@ -106,5 +113,11 @@ export const fields = [
   {
     id: "updated_at",
     label: "Updated At",
-  }
+  },
 ];
+
+export default {
+  actions,
+  routes,
+  fields,
+};

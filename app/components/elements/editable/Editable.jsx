@@ -1,14 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
-
 
 class Editable extends React.Component {
 
   constructor(...args) {
-    if (new.target === Editable) {
-      throw new TypeError("Cannot construct instance directly");
-    }
-
     super(...args);
 
     this.state = {
@@ -17,37 +11,6 @@ class Editable extends React.Component {
       data: {},
       changes: {}
     };
-
-    this.onClickEditToggle = this.onClickEditToggle.bind(this);
-    this.onClickSave = this.onClickSave.bind(this);
-    this.onClickDestroy = this.onClickDestroy.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
-    this.remoteLoad = this.remoteLoad.bind(this);
-    this.remoteCreate = this.remoteCreate.bind(this);
-    this.remoteSave = this.remoteSave.bind(this);
-    this.remoteDestroy = this.remoteDestroy.bind(this);
-    this.getTableComponent = this.getTableComponent.bind(this);
-  }
-
-  onClickEditToggle(event) {
-    event.preventDefault();
-    this.setState({ editing: !this.state.editing });
-  }
-
-  onClickSave(event) {
-    event.preventDefault();
-
-    let action = this.props.resourceId ? this.remoteSave : this.remoteCreate;
-    action()
-      .then(() => {
-        this.setState({
-          editing: false
-        });
-      });
-  }
-
-  onClickDestroy(event) {
-    event.preventDefault();
   }
 
   onInputChange(fieldMetadata, value) {
@@ -64,22 +27,32 @@ class Editable extends React.Component {
   }
 
   getTableComponent(field) {
+    const display = (field, value) => (field.displayAs ? field.displayAs(this.state.data) : value);
+
+    const EditComponent = field.editableAs || (({ fieldMetadata, value }) => {
+      const ReadComponent = display(fieldMetadata, value);
+
+      if (Array.isArray(ReadComponent)) {
+        return <div>{ReadComponent}</div>;
+      } else if (ReadComponent) {
+        return ReadComponent;
+      } else {
+        return null;
+      }
+
+    });
 
     let value = this.state.data[field.id];
 
     if (!this.state.editing) {
-      return field.displayAs ? field.displayAs(this.state.data) : value;
+      return display(field, value);
     }
 
-    if (field.editableAs) {
-      return (
-        <field.editableAs fieldMetadata={field} onChange={this.onInputChange.bind(this, field)} value={value} />
-      );
-    }
-
-    return field.displayAs ? field.displayAs(this.state.data) : value;
-
+    return (
+      <EditComponent fieldMetadata={field} onChange={this.onInputChange.bind(this, field)} value={value} />
+    );
   }
+
 
   remoteLoad() {
     return this.props.actions.load(this.props.resourceId)
@@ -88,27 +61,16 @@ class Editable extends React.Component {
           loading: false,
           data: response.data
         });
+        return response;
       });
   }
 
-  remoteSave() {
-    return this.props.actions.save(this.props.resourceId, this.state.changes)
-      .then((response) => {
-        this.setState({
-          loading: false,
-          data: response.data
-        });
-      });
+  remoteUpdate() {
+    return this.props.actions.update(this.props.resourceId, this.state.changes);
   }
 
   remoteCreate() {
-    return this.props.actions.create(this.state.changes)
-      .then((response) => {
-        this.setState({
-          loading: false,
-          data: response.data
-        });
-      });
+    return this.props.actions.create(this.state.changes);
   }
 
   remoteDestroy() {
@@ -117,6 +79,7 @@ class Editable extends React.Component {
         this.setState({
           loading: false
         });
+        return response;
       });
   }
 
