@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { getUser } from "lib/api";
-import EditableVertical from "components/elements/editable/Vertical";
+import EditableSingle from "components/elements/editable/Single";
 
 class UserView extends React.Component {
 
@@ -60,7 +60,7 @@ class UserView extends React.Component {
             <div className="post-description">
               <div className="pure-g">
                 <div className="pure-u-1-1">
-                  <EditableVertical fields={this.state.fields} data={this.state.data} />
+                  <EditableSingle fields={this.state.fields} data={this.state.data} />
                 </div>
               </div>
             </div>

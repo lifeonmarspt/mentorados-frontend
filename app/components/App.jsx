@@ -15,6 +15,7 @@ import AdminUserList from "components/pages/admin/UserList";
 import AdminUserView from "components/pages/admin/UserView";
 import AdminMentorList from "components/pages/admin/MentorList";
 import AdminMentorView from "components/pages/admin/MentorView";
+import AdminMentorNew from "components/pages/admin/MentorNew";
 import Mentors from "components/pages/Mentors";
 import NotFound from "components/pages/NotFound";
 
@@ -79,6 +80,7 @@ class App extends React.Component {
             <AdminRoute exact path="/admin/users" component={AdminUserList} />
             <AdminRoute exact path="/admin/users/:id" component={AdminUserView} />
             <AdminRoute exact path="/admin/mentors" component={AdminMentorList} />
+            <AdminRoute exact path="/admin/mentors/new" component={AdminMentorNew} />
             <AdminRoute exact path="/admin/mentors/:id" component={AdminMentorView} />
             <Route exact path="*" component={NotFound} />
           </Switch>

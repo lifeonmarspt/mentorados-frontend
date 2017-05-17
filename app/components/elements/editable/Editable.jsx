@@ -12,8 +12,8 @@ class Editable extends React.Component {
     super(...args);
 
     this.state = {
-      loading: true,
-      editing: false,
+      loading: !!this.props.resourceId,
+      editing: !this.props.resourceId,
       data: {},
       changes: {}
     };
@@ -23,6 +23,7 @@ class Editable extends React.Component {
     this.onClickDestroy = this.onClickDestroy.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.remoteLoad = this.remoteLoad.bind(this);
+    this.remoteCreate = this.remoteCreate.bind(this);
     this.remoteSave = this.remoteSave.bind(this);
     this.remoteDestroy = this.remoteDestroy.bind(this);
     this.getTableComponent = this.getTableComponent.bind(this);
@@ -81,7 +82,7 @@ class Editable extends React.Component {
   }
 
   remoteLoad() {
-    return this.props.remoteActions.load(this.props.resourceId)
+    return this.props.actions.load(this.props.resourceId)
       .then((response) => {
         this.setState({
           loading: false,
@@ -91,7 +92,7 @@ class Editable extends React.Component {
   }
 
   remoteSave() {
-    return this.props.remoteActions.save(this.props.resourceId, this.state.changes)
+    return this.props.actions.save(this.props.resourceId, this.state.changes)
       .then((response) => {
         this.setState({
           loading: false,
@@ -101,7 +102,7 @@ class Editable extends React.Component {
   }
 
   remoteCreate() {
-    return this.props.remoteActions.create(this.state.changes)
+    return this.props.actions.create(this.state.changes)
       .then((response) => {
         this.setState({
           loading: false,
@@ -111,7 +112,7 @@ class Editable extends React.Component {
   }
 
   remoteDestroy() {
-    return this.props.remoteActions.destroy(this.props.resourceId)
+    return this.props.actions.destroy(this.props.resourceId)
       .then((response) => {
         this.setState({
           loading: false

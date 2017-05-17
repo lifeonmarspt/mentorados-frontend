@@ -8,11 +8,7 @@ module.exports = {
   entry: "./app/index.jsx",
   resolve: {
     extensions: [".js",".jsx",".json"],
-    alias: {
-      components: path.resolve(__dirname, "app/components"),
-      lib: path.resolve(__dirname, "app/lib"),
-      stylesheets: path.resolve(__dirname, "app/stylesheets"),
-    },
+    modules: [path.resolve(__dirname, "app"), "node_modules"],
   },
   output: {
     filename: "bundle.js",

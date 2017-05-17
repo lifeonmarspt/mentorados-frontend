@@ -5,7 +5,7 @@ class EditableTextArea extends React.Component {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
     fieldMetadata: PropTypes.object.isRequired,
-    value: PropTypes.any.isRequired,
+    value: PropTypes.any,
   };
 
   render() {

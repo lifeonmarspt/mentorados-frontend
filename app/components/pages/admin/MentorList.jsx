@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { getMentors } from "lib/api";
-import EditableHorizontal from "components/elements/editable/Horizontal";
+import EditableMultiple from "components/elements/editable/Multiple";
 
 class MentorList extends React.Component {
 
@@ -64,7 +64,7 @@ class MentorList extends React.Component {
             <div className="post-description">
               <div className="pure-g">
                 <div className="pure-u-1-1">
-                  <EditableHorizontal fields={this.state.fields} data={this.state.data} />
+                  <EditableMultiple fields={this.state.fields} data={this.state.data} />
                 </div>
               </div>
             </div>

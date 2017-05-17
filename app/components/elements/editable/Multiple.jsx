@@ -1,6 +1,6 @@
 import React from "react";
 
-class EditableHorizontal extends React.Component {
+class EditableMultiple extends React.Component {
 
   constructor(...args) {
     super(...args);
@@ -36,4 +36,4 @@ class EditableHorizontal extends React.Component {
   }
 }
 
-export default EditableHorizontal;
+export default EditableMultiple;

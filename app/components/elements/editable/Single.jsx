@@ -1,16 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Conditional from "components/core/Conditional";
 import Editable from "components/elements/editable/Editable";
 
-class EditableVertical extends Editable {
+class EditableSingle extends Editable {
 
   constructor(...args) {
     super(...args);
   }
 
   componentWillMount() {
-    this.remoteLoad();
+    if (this.props.resourceId) {
+      this.remoteLoad();
+    }
   }
 
   render() {
@@ -31,7 +34,7 @@ class EditableVertical extends Editable {
                 <div className="pure-control-group">
                   <button type="button" onClick={this.onClickEditToggle} className="pure-button pure-button-primary">{ this.state.editing ? "Cancel" : "Edit" }</button>
                   <Conditional condition={!this.state.editing}>
-                    <button type="button" onClick={this.onClickEditNew} className="pure-button pure-button-primary">New</button>
+                    <Link to="/admin/mentors/new" className="pure-button pure-button-primary">New</Link>
                   </Conditional>
                   <Conditional condition={this.state.editing}>
                     <button type="submit" className="pure-button pure-button-primary">Save</button>
@@ -48,4 +51,4 @@ class EditableVertical extends Editable {
 
 }
 
-export default EditableVertical;
+export default EditableSingle;
