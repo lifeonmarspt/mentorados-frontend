@@ -52,6 +52,10 @@ class MentorList extends React.Component {
   }
 
   render() {
+    let remoteActions = {
+      index: getMentors,
+    };
+
     return !this.state.loading && (
       <div>
         <div className="posts">

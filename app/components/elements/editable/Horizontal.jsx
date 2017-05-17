@@ -25,7 +25,7 @@ class EditableHorizontal extends React.Component {
               (<tr key={n}>
                 {this.props.fields.map((field, n) =>
                   (<td key={n}>
-                    {field.get(row)}
+                    {field.displayAs(row)}
                   </td>)
                 )}
               </tr>)

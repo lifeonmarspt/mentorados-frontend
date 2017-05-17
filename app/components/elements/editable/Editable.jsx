@@ -20,6 +20,8 @@ class Editable extends React.Component {
     this.onClickSave = this.onClickSave.bind(this);
     this.onClickDestroy = this.onClickDestroy.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    this.transformRemoteToLocal = this.transformRemoteToLocal.bind(this);
+    this.transformLocalToRemote = this.transformLocalToRemote.bind(this);
     this.remoteLoad = this.remoteLoad.bind(this);
     this.remoteSave = this.remoteSave.bind(this);
     this.remoteDestroy = this.remoteDestroy.bind(this);
@@ -48,34 +50,32 @@ class Editable extends React.Component {
   }
 
   onInputChange(field, event) {
-    this.state.changes[field] = event.target.value;
-    this.state.data[field] = event.target.value;
-    this.setState(this.state);
+    this.setState({
+      data: {
+        ...this.state.data,
+        [field.id]: event.target.value,
+      },
+      changes: {
+        ...this.state.changes,
+        [field.id]: event.target.value,
+      },
+    });
   }
 
-  onCheckboxClick(field, event) {
-    let isChecked = field.getValue(this.state.data).findIndex((v) => v == event.target.value) >= 0;
-
-    if (!isChecked) {
-      this.state.changes[field].push(event.target.value);
-      this.state.data[field].push(event.target.value);
-    } else {
-      let i;
-      i = this.state.changes[field].indexOf(event.target.value);
-      if (i >= 0) {
-        this.state.changes[field].splice(i, 1);
+  onCheckboxChange(field, choiceId) {
+    this.setState({
+      data: {
+        ...this.state.data,
+        [field.id]: this.state.data[field.id].map((choice) => ({
+          ...choice,
+          checked: (choice.id === choiceId)  ? !choice.checked : choice.checked,
+        })),
       }
-
-      i = this.state.data[field].indexOf(event.target.value);
-      if (i >= 0) {
-        this.state.data[field].splice(i, 1);
-      }
-    }
-    this.setState(this.state);
-    console.log(this.state, event.target);
+    });
   }
 
   getTableComponent(field) {
+
     if (!this.state.editing) {
       return field.displayAs(this.state.data);
     }
@@ -85,17 +85,17 @@ class Editable extends React.Component {
     switch (field.editableAs) {
     case "text":
       return (
-        <input onChange={this.onInputChange.bind(this, field.id)} className="pure-input" type="text" value={value} />
+        <input onChange={this.onInputChange.bind(this, field)} className="pure-input" type="text" value={value} />
       );
 
     case "textarea":
       return (
-        <textarea onChange={this.onInputChange.bind(this, field.id)} className="pure-input" type="text" value={value} />
+        <textarea onChange={this.onInputChange.bind(this, field)} className="pure-input" type="text" value={value} />
       );
 
     case "select":
       return (
-        <textarea onChange={this.onInputChange.bind(this, field.id)} className="pure-input" type="text" value={value} />
+        <textarea onChange={this.onInputChange.bind(this, field)} className="pure-input" type="text" value={value} />
       );
 
     case "radio":
@@ -104,7 +104,7 @@ class Editable extends React.Component {
           {field.editableChoices.map((choice, n) => {
             let isChecked = choice.id === value;
             return (<label key={n} htmlFor={`radio-choices-${choice.id}`} className="pure-checkbox">
-              <input id={`radio-choices-${choice.id}`} type="radio" value={choice.id} checked={isChecked} onChange={this.onInputChange.bind(this, field.id)} />
+              <input id={`radio-choices-${choice.id}`} type="radio" value={choice.id} checked={isChecked} onChange={this.onInputChange.bind(this, field)} />
               {choice.description}
             </label>);
           })}
@@ -112,12 +112,12 @@ class Editable extends React.Component {
       );
 
     case "checkbox":
+      console.log(JSON.stringify(this.state.data[field.id]));
       return (
         <fieldset>
-          {field.editableChoices.map((choice, n) => {
-            let isChecked = value.findIndex((v) => v === choice.id) >= 0;
+          {this.state.data[field.id].map((choice, n) => {
             return (<label key={n} htmlFor={`checkbox-choices-${choice.id}`} className="pure-checkbox">
-              <input id={`checkbox-choices-${choice.id}`} type="checkbox" value={choice.id} checked={isChecked} onChange={this.onCheckboxClick.bind(this, field.id)} />
+              <input id={`checkbox-choices-${choice.id}`} type="checkbox" value={choice.id} checked={choice.checked} onChange={this.onCheckboxChange.bind(this, field, choice.id)} />
               {choice.description}
             </label>);
           })}
@@ -130,12 +130,33 @@ class Editable extends React.Component {
     }
   }
 
+  transformRemoteToLocal(data) {
+    /* iterate over this editable components' fields and see which values in data need transformations */
+    /* remote data that feeds checkboxes needs to be joined with the full range of options as the server only returns the active choices */
+    this.props.fields.forEach((field) => {
+      switch (field.editableAs) {
+      case "checkbox":
+        data[field.id] = field.editableChoices.map((choice) => {
+          choice.checked = (data[field.id].findIndex((d) => d.id === choice.id) > -1);
+          return choice;
+        });
+        break;
+      }
+    });
+
+    return data;
+  };
+
+  transformLocalToRemote(data) {
+
+  };
+
   remoteLoad() {
     return this.props.remoteActions.load(this.props.resourceId)
       .then((response) => {
         this.setState({
           loading: false,
-          data: response.data
+          data: this.transformRemoteToLocal(response.data)
         });
       });
   }
@@ -145,7 +166,7 @@ class Editable extends React.Component {
       .then((response) => {
         this.setState({
           loading: false,
-          data: response.data
+          data: this.transformRemoteToLocal(response.data)
         });
       });
   }
@@ -155,7 +176,7 @@ class Editable extends React.Component {
       .then((response) => {
         this.setState({
           loading: false,
-          data: response.data
+          data: this.transformRemoteToLocal(response.data)
         });
       });
   }
@@ -164,8 +185,7 @@ class Editable extends React.Component {
     return this.props.remoteActions.destroy(this.props.resourceId)
       .then((response) => {
         this.setState({
-          loading: false,
-          data: response.data
+          loading: false
         });
       });
   }
