@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 
 import { getMentor, putMentor, postMentor, deleteMentor } from "lib/api";
 import EditableVertical from "components/elements/editable/Vertical";
+import EditableCheckbox from "components/elements/editable/EditableCheckbox";
+import EditableRadio from "components/elements/editable/EditableRadio";
+import EditableTextArea from "components/elements/editable/EditableTextArea";
+import EditableText from "components/elements/editable/EditableText";
 
 const temp_careers = [
   {
@@ -45,68 +49,58 @@ const fields = [
   {
     id: "name",
     label: "Name",
-    editableAs: "text",
-    displayAs: (r) => r.name
+    editableAs: EditableText,
   },
   {
     id: "email",
     label: "Email",
-    editableAs: "text",
-    displayAs: (r) => r.email
+    editableAs: EditableText,
   },
   {
     id: "gender",
     label: "Gender",
-    editableAs: "radio",
+    editableAs: EditableRadio,
     editableChoices: [
       { id: "F", description: "Female" },
       { id: "M", description: "Male" },
     ],
-    displayAs: (r) => r.gender
   },
   {
     id: "bio",
     label: "Bio",
-    editableAs: "textarea",
+    editableAs: EditableTextArea,
     displayAs: (r) => r.bio.split("\n").map((l, n) => <p key={n}>{l}</p>),
-    getValue: (r) => r.bio
   },
   {
     id: "year_in",
     label: "Enrolled In",
-    editableAs: "text",
-    displayAs: (r) => r.year_in
+    editableAs: EditableText,
   },
   {
     id: "year_out",
     label: "Graduated In",
-    editableAs: "text",
-    displayAs: (r) => r.year_out
+    editableAs: EditableText,
   },
   {
     id: "careers",
-    sendAs: "career_ids",
     label: "Careers",
-    editableAs: "checkbox",
-    // @todo load this data from api, context or wtv
+    editableAs: EditableCheckbox,
     editableChoices: temp_careers,
-    displayAs: (r) => (r.careers || []).filter((c) => c.checked).map((c, n) => <p key={n}>{c.description}</p>),
-    getValue: (r) => (r.careers || []).map((c) => c.id),
+    displayAs: (r) => (r.careers || []).map((c, n) => <p key={n}>{c.description}</p>),
+    deserialize: (careers) => careers.map((c) => c.id),
   },
   {
     id: "locations",
-    sendAs: "location_ids",
     label: "Locations",
-    editableAs: "choice",
     displayAs: (r) => (r.locations || []).map((l, n) => <p key={n}>{l.description}</p>),
   },
   {
+    id: "created_at",
     label: "Created At",
-    displayAs: (r) => r.created_at,
   },
   {
+    id: "updated_at",
     label: "Updated At",
-    displayAs: (r) => r.updated_at,
   }
 ];
 
