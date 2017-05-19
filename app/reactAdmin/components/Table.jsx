@@ -1,15 +1,14 @@
 import React from "react";
 
 class Table extends React.Component {
-
   render() {
     return (
       <table className="pure-table pure-table-bordered pure-table-editable-vertical">
         <tbody>
         {this.props.data.map((dat, n) =>
           (<tr key={n}>
-            <th>{dat[0]}</th>
-            <td>{dat[1]}</td>
+            <th>{dat.label}</th>
+            <td>{dat.field}</td>
           </tr>)
         )}
         </tbody>

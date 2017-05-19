@@ -1,6 +1,6 @@
 import React from "react";
 
-import New from "components/elements/editable/New";
+import New from "reactAdmin/components/New";
 import mentorResources from "resources/mentors";
 
 class MentorNew extends React.Component {

@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { getMentor, putMentor, postMentor, deleteMentor } from "lib/api";
-import EditableCheckbox from "components/elements/editable/EditableCheckbox";
-import EditableRadio from "components/elements/editable/EditableRadio";
-import EditableTextArea from "components/elements/editable/EditableTextArea";
-import EditableText from "components/elements/editable/EditableText";
+import { getMentors, getMentor, putMentor, postMentor, deleteMentor } from "lib/api";
+import EditableCheckbox from "reactAdmin/components/formFields/EditableCheckbox";
+import EditableRadio from "reactAdmin/components/formFields/EditableRadio";
+import EditableTextArea from "reactAdmin/components/formFields/EditableTextArea";
+import EditableText from "reactAdmin/components/formFields/EditableText";
 
 const temp_careers = [
   {
@@ -35,6 +35,7 @@ const temp_careers = [
 ];
 
 export const actions = {
+  list: getMentors,
   load: getMentor,
   update: putMentor,
   create: postMentor,
@@ -52,12 +53,12 @@ export const fields = [
   {
     id: "id",
     label: "#",
-    displayAs: (r) => <Link to={`/admin/mentors/${r.id}`}>{r.id}</Link>
+    displayAs: (r) => <Link to={routes.show(r.id)}>{r.id}</Link>
   },
   {
     id: "user_id",
     label: "User #",
-    displayAs: (r) => r.user && <Link to={`/admin/users/${r.user.id}`}>{r.user.id}</Link>
+    displayAs: (r) => r.user ? <Link to={`/admin/users/${r.user.id}`}>{r.user.id}</Link> : null
   },
   {
     id: "name",

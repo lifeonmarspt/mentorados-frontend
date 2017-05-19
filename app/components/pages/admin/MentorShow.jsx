@@ -1,10 +1,10 @@
 import React from "react";
 
-import Show from "components/elements/editable/Show";
-import mentorResources from "resources/mentors";
+import Show from "reactAdmin/components/Show";
+import resourceDescription from "resources/mentors";
+
 
 class MentorShow extends React.Component {
-
   render() {
     return (
       <div>
@@ -14,7 +14,7 @@ class MentorShow extends React.Component {
             <div className="post-description">
               <div className="pure-g">
                 <div className="pure-u-1-1">
-                  <Show {...mentorResources} resourceId={this.props.match.params.id} />
+                  <Show {...resourceDescription} resourceId={this.props.match.params.id} />
                 </div>
               </div>
             </div>
@@ -23,7 +23,6 @@ class MentorShow extends React.Component {
       </div>
     );
   }
-
 }
 
 export default MentorShow;

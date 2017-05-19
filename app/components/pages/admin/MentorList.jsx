@@ -1,33 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-import { getMentors } from "lib/api";
-import List from "components/elements/editable/List";
-import mentorResources from "resources/mentors";
+import List from "reactAdmin/components/List";
+import resourceDescription from "resources/mentors";
+
 
 class MentorList extends React.Component {
-
-  constructor(...args) {
-    super(...args);
-
-    this.state = {
-      loading: true,
-      data: []
-    };
-  }
-
-
-  componentDidMount() {
-    getMentors()
-      .then((response) => {
-        this.state.loading = false;
-        this.state.data = response.data;
-        this.setState(this.state);
-      });
-  }
-
   render() {
-    return !this.state.loading && (
+    return (
       <div>
         <div className="posts">
           <h1 className="content-subhead">Admin: Mentor List</h1>
@@ -35,7 +14,10 @@ class MentorList extends React.Component {
             <div className="post-description">
               <div className="pure-g">
                 <div className="pure-u-1-1">
-                  <List {...mentorResources} displayFieldNames={["id", "name", "email", "created_at", "updated_at"]} data={this.state.data} />
+                  <List
+                    {...resourceDescription}
+                    displayFieldNames={["id", "name", "email", "created_at", "updated_at"]}
+                  />
                 </div>
               </div>
             </div>
@@ -44,7 +26,6 @@ class MentorList extends React.Component {
       </div>
     );
   }
-
 }
 
 export default MentorList;

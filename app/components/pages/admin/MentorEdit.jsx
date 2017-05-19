@@ -1,10 +1,10 @@
 import React from "react";
 
-import Edit from "components/elements/editable/Edit";
+import Edit from "reactAdmin/components/Edit";
 import mentorResources from "resources/mentors";
 
-class MentorEdit extends React.Component {
 
+class MentorEdit extends React.Component {
   render() {
     return (
       <div>
@@ -23,7 +23,6 @@ class MentorEdit extends React.Component {
       </div>
     );
   }
-
 }
 
 export default MentorEdit;

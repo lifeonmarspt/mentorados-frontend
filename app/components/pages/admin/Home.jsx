@@ -1,13 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+
 class AdminHome extends React.Component {
-
-  constructor(...args) {
-    super(...args);
-
-  }
-
   render() {
     return (
       <div>
@@ -31,7 +26,6 @@ class AdminHome extends React.Component {
       </div>
     );
   }
-
 }
 
 export default AdminHome;
