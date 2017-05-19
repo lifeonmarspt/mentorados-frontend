@@ -13,6 +13,7 @@ import Home from "components/pages/Home";
 import AdminHome from "components/pages/admin/Home";
 import AdminUserList from "components/pages/admin/UserList";
 import AdminUserShow from "components/pages/admin/UserShow";
+import AdminUserEdit from "components/pages/admin/UserEdit";
 import AdminMentorList from "components/pages/admin/MentorList";
 import AdminMentorShow from "components/pages/admin/MentorShow";
 import AdminMentorNew from "components/pages/admin/MentorNew";
@@ -80,6 +81,7 @@ class App extends React.Component {
             <AdminRoute exact path="/admin" component={AdminHome} />
             <AdminRoute exact path="/admin/users" component={AdminUserList} />
             <AdminRoute exact path="/admin/users/:id" component={AdminUserShow} />
+            <AdminRoute exact path="/admin/users/:id/edit" component={AdminUserEdit} />
             <AdminRoute exact path="/admin/mentors" component={AdminMentorList} />
             <AdminRoute exact path="/admin/mentors/new" component={AdminMentorNew} />
             <AdminRoute exact path="/admin/mentors/:id" component={AdminMentorShow} />

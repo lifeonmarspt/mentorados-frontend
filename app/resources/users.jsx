@@ -7,7 +7,7 @@ import EditableTextArea from "reactAdmin/components/formFields/EditableTextArea"
 import EditableText from "reactAdmin/components/formFields/EditableText";
 import { defaultRoutes } from "reactAdmin/helpers";
 
-import { getUsers, getUser } from "lib/api";
+import { getUsers, getUser, putUser, } from "lib/api";
 
 
 export const resourceName = "users";
@@ -15,6 +15,7 @@ export const resourceName = "users";
 export const actions = {
   list: getUsers,
   load: getUser,
+  update: putUser,
 };
 
 export const routes = defaultRoutes(resourceName);

@@ -63,6 +63,10 @@ export const getUser = (id) => {
   return api.get(`/users/${id}`);
 };
 
+export const putUser = (id, data) => {
+  return api.put(`/users/${id}`, data);
+};
+
 export const postLogin = (fields) => {
   return api.post("/login", {
     auth: fields
