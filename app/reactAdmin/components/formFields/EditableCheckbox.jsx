@@ -11,41 +11,24 @@ class EditableCheckbox extends React.Component {
     errors: PropTypes.array,
   };
 
-  onChange(choice, e) {
-    let newValue;
-    if (e.target.checked) {
-      newValue = this.value().concat(choice);
-    } else {
-      newValue = this.value().filter((v) => v.id !== choice.id);
-    }
-    this.props.onChange(newValue);
+  onChange(e) {
+    this.props.onChange(e.target.checked);
   }
 
-  value() {
-    return this.props.resource[this.props.fieldMetadata.id] || [];
+  checked() {
+    return this.props.resource[this.props.fieldMetadata.id];
   }
 
   render() {
     return (
       <fieldset>
-        {this.props.fieldMetadata.editableChoices.map((choice, n) => {
-          let isChecked = this.value().findIndex((c) => c.id === choice.id) > -1;
-          return (
-            <label
-              key={n}
-              htmlFor={`checkbox-choices-${this.props.fieldMetadata.id}-${choice.id}`}
-              className="pure-checkbox"
-            >
-              <input
-                id={`checkbox-choices-${this.props.fieldMetadata.id}-${choice.id}`}
-                type="checkbox"
-                value={choice.id}
-                checked={isChecked}
-                onChange={this.onChange.bind(this, choice)}
-              />
-            {choice.description}
-          </label>);
-        })}
+        <input
+          id={`checkbox-${this.props.fieldMetadata.id}`}
+          type="checkbox"
+          value="1"
+          checked={this.checked()}
+          onChange={this.onChange.bind(this)}
+        />
         <Errors errors={this.props.errors} />
       </fieldset>
     );

@@ -33,7 +33,7 @@ export const fields = [
     id: "admin",
     label: "Admin?",
     displayAs: (r) => r.admin ? "yes" : "no",
-    editableAs: EditableCheckbox, // TODO
+    editableAs: EditableCheckbox,
   },
   {
     id: "mentor_id",

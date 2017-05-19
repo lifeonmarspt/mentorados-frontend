@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { getMentors, getMentor, putMentor, postMentor, deleteMentor } from "lib/api";
 import EditableCheckbox from "reactAdmin/components/formFields/EditableCheckbox";
+import EditableCheckboxList from "reactAdmin/components/formFields/EditableCheckboxList";
 import EditableRadio from "reactAdmin/components/formFields/EditableRadio";
 import EditableTextArea from "reactAdmin/components/formFields/EditableTextArea";
 import EditableText from "reactAdmin/components/formFields/EditableText";
@@ -96,7 +97,7 @@ export const fields = [
   {
     id: "careers",
     label: "Careers",
-    editableAs: EditableCheckbox,
+    editableAs: EditableCheckboxList,
     editableChoices: temp_careers,
     displayAs: (r) => (r.careers || []).map((c, n) => <p key={n}>{c.description}</p>),
   },
