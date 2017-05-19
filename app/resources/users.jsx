@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { getUsers, getUser } from "lib/api";
 import EditableCheckbox from "reactAdmin/components/formFields/EditableCheckbox";
 import EditableRadio from "reactAdmin/components/formFields/EditableRadio";
 import EditableTextArea from "reactAdmin/components/formFields/EditableTextArea";
 import EditableText from "reactAdmin/components/formFields/EditableText";
 import { defaultRoutes } from "reactAdmin/helpers";
+
+import { getUsers, getUser } from "lib/api";
 
 
 export const resourceName = "users";
