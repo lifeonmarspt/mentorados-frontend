@@ -6,6 +6,7 @@ import EditableCheckbox from "reactAdmin/components/formFields/EditableCheckbox"
 import EditableRadio from "reactAdmin/components/formFields/EditableRadio";
 import EditableTextArea from "reactAdmin/components/formFields/EditableTextArea";
 import EditableText from "reactAdmin/components/formFields/EditableText";
+import { defaultRoutes } from "reactAdmin/helpers";
 
 const temp_careers = [
   {
@@ -34,6 +35,8 @@ const temp_careers = [
   }
 ];
 
+export const resourceName = "mentors";
+
 export const actions = {
   list: getMentors,
   load: getMentor,
@@ -42,12 +45,7 @@ export const actions = {
   destroy: deleteMentor
 };
 
-export const routes = {
-  show: (id) => `/admin/mentors/${id}`,
-  edit: (id) => `/admin/mentors/${id}/edit`,
-  new: () => "/admin/mentors/new",
-  list: () => "/admin/mentors",
-};
+export const routes = defaultRoutes(resourceName);
 
 export const fields = [
   {

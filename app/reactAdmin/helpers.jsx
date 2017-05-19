@@ -19,3 +19,10 @@ export const EditComponent = ({ fieldMetadata, resource, onChange, errors, }) =>
     errors={errors}
   />
 };
+
+export const defaultRoutes = (resourceName) => ({
+  show: (id) => `/admin/${resourceName}/${id}`,
+  edit: (id) => `/admin/${resourceName}/${id}/edit`,
+  new: () => `/admin/${resourceName}/new`,
+  list: () => `/admin/${resourceName}`,
+});

@@ -6,6 +6,7 @@ import EditableCheckbox from "reactAdmin/components/formFields/EditableCheckbox"
 import EditableRadio from "reactAdmin/components/formFields/EditableRadio";
 import EditableTextArea from "reactAdmin/components/formFields/EditableTextArea";
 import EditableText from "reactAdmin/components/formFields/EditableText";
+import { defaultRoutes } from "reactAdmin/helpers";
 
 
 export const resourceName = "users";
@@ -15,12 +16,7 @@ export const actions = {
   load: getUser,
 };
 
-export const routes = {
-  show: (id) => `/admin/${resourceName}/${id}`,
-  edit: (id) => `/admin/${resourceName}/${id}/edit`,
-  new: () => `/admin/${resourceName}/new`,
-  list: () => `/admin/${resourceName}`,
-};
+export const routes = defaultRoutes(resourceName);
 
 export const fields = [
   {
