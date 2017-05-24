@@ -34,8 +34,10 @@ h3 {
 }
 
 .sidebar {
-    background: rgb(61, 79, 93);
-    color: #fff;
+  height: 100%;
+  background: rgb(61, 79, 93);
+  color: #fff;
+  padding: 0px 10px;
 }
 
 .brand-title,
@@ -143,9 +145,10 @@ h3 {
     text-shadow: 0 1px 1px #333;
 }
 
-.footer {
-    padding: 1em 0;
+footer {
+    padding: 0.5em 1em;
 }
+
 .footer a {
     color: #ccc;
     font-size: 80%;
@@ -166,12 +169,6 @@ h3 {
         text-align: right;
     }
 
-    .sidebar {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-    }
-
     .footer {
         text-align: center;
     }
@@ -179,9 +176,13 @@ h3 {
 
 
 /* * */
-div.filters {
-  margin: 2em;
+.filters {
+  padding: 2em 1em 2em 2em;
   text-align: right;
+}
+
+.posts {
+  padding: 2em 2em 2em 1em;
 }
 
 .push-right {
@@ -207,17 +208,36 @@ input {
       width: 100%;
     }
   }
-
 }
 
-h1.brand {
+body {
+  max-width: 1190px;
+}
+
+.brand {
     margin-top: 0;
     margin-bottom: 0;
 }
 
-.sidebar h1.brand a {
+.sidebar .brand a {
   color: #fff;
   text-decoration: none;
+}
+
+header {
+  .brand-tagline {
+    padding: 0.5em 1em;
+    font-size: 1.5em;
+  }
+
+  .user-pane {
+    text-align: right;
+    padding: 0.5em;
+
+    * + * {
+      margin-left: 1em;
+    }
+  }
 }
 
 aside {

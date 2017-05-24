@@ -20,9 +20,18 @@ export const EditComponent = ({ fieldMetadata, resource, onChange, errors, }) =>
   />
 };
 
-export const defaultRoutes = (resourceName) => ({
-  show: (id) => `/admin/${resourceName}/${id}`,
-  edit: (id) => `/admin/${resourceName}/${id}/edit`,
-  new: () => `/admin/${resourceName}/new`,
-  list: () => `/admin/${resourceName}`,
+export const defaultRoutes = (resourceName, { prefix } = { prefix: "" }) => ({
+  show: (id) => `${prefix}/${resourceName}/${id}`,
+  edit: (id) => `${prefix}/${resourceName}/${id}/edit`,
+  delete: (id) => `${prefix}/${resourceName}/${id}/delete`,
+  new: () => `${prefix}/${resourceName}/new`,
+  index: () => `${prefix}/${resourceName}`,
+});
+
+export const defaultActions = ({ api, routes }) => ({
+  index: () => api.get(routes.index()),
+  show: (id) => api.get(routes.show(id)),
+  create: (data) => api.post(routes.index(), data),
+  update: (id, data) => api.put(routes.show(id), data),
+  destroy: (id) => api.delete(routes.show(id)),
 });

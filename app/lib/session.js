@@ -1,33 +1,30 @@
 import JWTdecode from "jwt-decode";
 
-import { setAuthorization } from "../lib/api";
 
-/* `loadSession`, `doLogin` and `doLogout` are expected to have .bind called upon it in the component we want to keep session state in */
-
-export const persistSession = function(session) {
-  localStorage.setItem('session', JSON.stringify(session));
-}
-
-export const loadSession = function() {
-  let storedSession = localStorage.getItem('session');
-  storedSession = storedSession == null ? null : JSON.parse(storedSession);
-
-  if (storedSession) {
-    doLogin.bind(this)(storedSession);
+export const save = function(session) {
+  if (session.jwt) {
+    window.localStorage.setItem('session', session.jwt);
+  } else {
+    window.localStorage.removeItem('session');
   }
 }
 
-export const doLogin = function(session) {
-  session = {
-    jwt: session.jwt,
-    user: JWTdecode(session.jwt)
-  };
-  setAuthorization(session.jwt);
-  persistSession(session);
-  this.setState({ session: session })
+export const load = function() {
+  let jwt = window.localStorage.getItem('session');
+
+
+  if (!jwt) {
+    return {};
+  }
+
+  return unpack(jwt);
 }
 
-export const doLogout = function() {
-  persistSession(null);
-  this.setState({ session: null })
+export const unpack = function(jwt) {
+  return {
+    jwt: jwt,
+    user: JWTdecode(jwt),
+  }
 }
+
+export default { save, load, unpack };

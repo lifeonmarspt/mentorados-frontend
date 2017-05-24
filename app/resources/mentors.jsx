@@ -6,9 +6,10 @@ import EditableCheckboxList from "reactAdmin/components/formFields/EditableCheck
 import EditableRadio from "reactAdmin/components/formFields/EditableRadio";
 import EditableTextArea from "reactAdmin/components/formFields/EditableTextArea";
 import EditableText from "reactAdmin/components/formFields/EditableText";
-import { defaultRoutes } from "reactAdmin/helpers";
+import { defaultRoutes, defaultActions } from "reactAdmin/helpers";
 
-import { getMentors, getMentor, putMentor, postMentor, deleteMentor } from "lib/api";
+import { api } from "lib/api";
+
 
 const temp_careers = [
   {
@@ -37,28 +38,21 @@ const temp_careers = [
   }
 ];
 
-export const resourceName = "mentors";
-
-export const actions = {
-  list: getMentors,
-  load: getMentor,
-  update: putMentor,
-  create: postMentor,
-  destroy: deleteMentor
-};
-
-export const routes = defaultRoutes(resourceName);
+export const name = "mentors";
+export const routes = defaultRoutes(name, { prefix: "/admin" });
+export const actions = defaultActions({ api, routes: defaultRoutes(name) });
+export const listColumns = ["id", "name", "email"];
 
 export const fields = [
   {
     id: "id",
     label: "#",
-    displayAs: (r) => <Link to={routes.show(r.id)}>{r.id}</Link>
+    displayAs: (r) => <Link to={routes.show(r.id)}>{r.id}</Link>,
   },
   {
     id: "user_id",
     label: "User #",
-    displayAs: (r) => r.user ? <Link to={`/admin/users/${r.user.id}`}>{r.user.id}</Link> : null
+    displayAs: (r) => r.user ? <Link to={`/admin/users/${r.user.id}`}>{r.user.id}</Link> : null,
   },
   {
     id: "name",
@@ -107,18 +101,12 @@ export const fields = [
     label: "Locations",
     displayAs: (r) => (r.locations || []).map((l, n) => <p key={n}>{l.description}</p>),
   },
-  {
-    id: "created_at",
-    label: "Created At",
-  },
-  {
-    id: "updated_at",
-    label: "Updated At",
-  },
 ];
 
 export default {
   actions,
   routes,
   fields,
+  name,
+  listColumns,
 };

@@ -1,19 +1,16 @@
 import React from "react";
 
-import New from "reactAdmin/components/New";
-import mentorResources from "resources/mentors";
-
-class MentorNew extends React.Component {
+class Page extends React.Component {
   render() {
     return (
       <div>
         <div className="posts">
-          <h1 className="content-subhead">Admin: Create New Mentor</h1>
+          <h1 className="content-subhead">Admin: {this.props.resource.name}</h1>
           <section className="post">
             <div className="post-description">
               <div className="pure-g">
                 <div className="pure-u-1-1">
-                  <New {...mentorResources} />
+                  <this.props.Component {...this.props.resource} resourceId={this.props.id} />
                 </div>
               </div>
             </div>
@@ -24,4 +21,4 @@ class MentorNew extends React.Component {
   }
 }
 
-export default MentorNew;
+export default Page;

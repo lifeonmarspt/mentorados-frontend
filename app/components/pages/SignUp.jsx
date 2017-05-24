@@ -1,82 +1,42 @@
 import React from "react";
 
-import { errorTransform } from "lib/errorTransform";
-import { postRegistration } from "lib/api";
-
 import Section from "components/elements/Section";
-import FormError from "components/elements/FormError";
-import FieldError from "components/elements/FieldError";
+import SignUpForm from "components/forms/SignUpForm";
+import Login from "components/elements/Login";
 
-class Home extends React.Component {
-
+class SignUp extends React.Component {
   constructor(...args) {
     super(...args);
 
+    this.ref = {};
     this.state = {
-      sent: false,
-      fields: {
-        email: "",
-        password: "",
-        password_confirmation: ""
-      },
-      errors: {},
+      registered: false,
     };
   }
 
-  onChange(field, event) {
-    this.state.fields[field] = event.target.value;
-    this.setState(this.state);
-  }
-
   onSubmit(event) {
-    event.preventDefault();
-    this.setState({ errors: {} });
-
-    postRegistration(this.state.fields)
-      .then((result) => {
-        this.setState({ sent: true });
-      })
-      .catch((error) => {
-        this.setState({ errors: errorTransform(error, { 404: "login not found" }) });
-      });
+    this.setState({ registered: true });
   }
 
   renderSignUpForm() {
     return (
-      <div className="pure-g">
-        <div className="pure-u-1-5">
-          <form className="pure-form" onSubmit={this.onSubmit.bind(this)}>
-            <h1 className="content-subhead">Registration</h1>
-            <FormError error={this.state.errors.serverError} />
-            <fieldset>
-              <input onChange={this.onChange.bind(this, "email")} type="email" required placeholder="Email" />
-              <FieldError fieldName="email" errors={this.state.errors.email} />
-            </fieldset>
-            <fieldset>
-              <input onChange={this.onChange.bind(this, "password")} type="password" required placeholder="Password" />
-              <FieldError fieldName="password" errors={this.state.errors.password} />
-            </fieldset>
-            <fieldset>
-              <input onChange={this.onChange.bind(this, "password_confirmation")} type="password" required placeholder="Confirm Password" />
-              <FieldError fieldName="password confirmation" errors={this.state.errors.password_confirmation} />
-            </fieldset>
-            <fieldset>
-              <button type="submit" className="pure-button pure-button-primary">Sign Up</button>
-            </fieldset>
-          </form>
-        </div>
-      </div>
+      <SignUpForm onSuccess={this.onSubmit.bind(this)} />
     );
   }
 
-  renderSentMessage() {
+  renderRegisteredMessage() {
     return (
       <Section>Registration sent! Check your email at <code>{this.state.fields.email}</code> for confirmation instructions!</Section>
     );
   }
 
   render() {
-    let content = (!this.state.sent) ? this.renderSignUpForm() : this.renderSentMessage();
+    let content = (!this.state.registered) ?
+      <div>
+        {this.renderSignUpForm()}
+        <Login />
+      </div> :
+      this.renderRegisteredMessage();
 
     return (
       <div className="page-registration">
@@ -89,7 +49,6 @@ class Home extends React.Component {
       </div>
     );
   }
-
 }
 
-export default Home;
+export default SignUp;

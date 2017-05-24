@@ -16,7 +16,6 @@ class MentorList extends React.Component {
                 <div className="pure-u-1-1">
                   <List
                     {...resourceDescription}
-                    displayFieldNames={["id", "name", "email", "created_at", "updated_at"]}
                   />
                 </div>
               </div>

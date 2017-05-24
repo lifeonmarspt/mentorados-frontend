@@ -6,7 +6,6 @@ import { postConfirmation } from "lib/api";
 import FormError from "components/elements/FormError";
 
 class Confirmation extends React.Component {
-
   static contextTypes = {
     router: PropTypes.object,
     session: PropTypes.object,

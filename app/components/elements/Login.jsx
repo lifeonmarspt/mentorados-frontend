@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 import { postLogin } from "lib/api";
 import { errorTransform } from "lib/errorTransform";
 import FormError from "components/elements/FormError";
 
 class Login extends React.Component {
-
   static contextTypes = {
     router: PropTypes.object,
     session: PropTypes.object
@@ -38,7 +38,7 @@ class Login extends React.Component {
         this.context.session.doLogin(result.data);
       })
       .catch((error) => {
-        this.setState({ errors: errorTransform(error, { 404: "login not found" }) });
+        this.setState({ errors: errorTransform(error, { 404: "Invalid credentials" }) });
         throw error;
       });
   }
@@ -47,9 +47,7 @@ class Login extends React.Component {
     return (
       <form className="pure-form" onSubmit={this.onSubmit.bind(this)}>
         <h1 className="content-subhead">Login</h1>
-        <fieldset>
         <FormError error={this.state.errors.serverError} />
-        </fieldset>
         <fieldset>
           <input onChange={this.onChange.bind(this, "email")} type="email" required placeholder="Email" />
         </fieldset>
@@ -57,6 +55,7 @@ class Login extends React.Component {
           <input onChange={this.onChange.bind(this, "password")} type="password" required placeholder="Password" />
         </fieldset>
         <fieldset>
+          <Link to="/recover-password">Forgot password?</Link>
           <button type="submit" className="pure-button pure-button-primary">Sign in</button>
         </fieldset>
       </form>

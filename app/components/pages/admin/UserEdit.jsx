@@ -26,5 +26,3 @@ class UserEdit extends React.Component {
 }
 
 export default UserEdit;
-
-

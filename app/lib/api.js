@@ -2,33 +2,31 @@ import axios from "axios";
 import { stringify } from "query-string";
 
 import config from "../config";
+import { cancelable } from "lib/tapete";
 
-const api = axios.create({
+export const api = cancelable(axios.create({
   baseURL: config.apiBaseURL
-});
+}));
 
-export const setAuthorization = (jwt) => {
-  if (jwt) {
-    api.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
+export const setAuthorization = (session) => {
+  if (session && session.jwt) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${session.jwt}`;
   } else {
     delete api.defaults.headers.common["Authorization"];
   }
 };
 
-export const getCareers = () => {
-  return api.get("/careers");
-};
+export const getCareers = () => api.get("/careers");
+
+export const getMeta = () => api.get("/meta");
 
 export const getMentors = (filters = {}) => {
   let url = "/mentors";
 
   let serializable = {
-    string: filters.string ?
-      filters.string : undefined,
-    gender: filters.genders ?
-      (filters.genders.find((gender) => gender.checked && gender.id !== "A") || {}).id : undefined,
-    career_ids: filters.careers ?
-      filters.careers.filter((career) => career.checked).map((career) => career.id) : undefined
+    string: filters.query ? filters.query : undefined,
+    gender: filters.gender && filters.gender != "A" ? filters.gender : undefined,
+    career_ids: filters.careers ? filters.careers : undefined,
   };
 
   let qs = stringify(serializable, { arrayFormat: "bracket" });
@@ -39,46 +37,14 @@ export const getMentors = (filters = {}) => {
   return api.get(url);
 };
 
-export const getMentor = (id) => {
-  return api.get(`/mentors/${id}`);
-};
+export const postLogin = (fields) => api.post("/login", { auth: fields });
 
-export const postMentor = (data) => {
-  return api.post(`/mentors`, data);
-};
+export const postRegistration = (fields) => api.post("/users", fields);
 
-export const putMentor = (id, data) => {
-  return api.put(`/mentors/${id}`, data);
-};
+export const postConfirmation = (id, confirmation_token) => api.post(`/users/${id}/confirm`, { confirmation_token });
 
-export const deleteMentor = (id) => {
-  return api.delete(`/mentors/${id}`);
-};
+export const postRecoverPassword = (fields) => api.post("/users/recover", fields);
 
-export const getUsers = () => {
-  return api.get("/users");
-};
+export const getResetPasswordToken = (token) => api.get(`/users/reset-token/${token}`);
 
-export const getUser = (id) => {
-  return api.get(`/users/${id}`);
-};
-
-export const putUser = (id, data) => {
-  return api.put(`/users/${id}`, data);
-};
-
-export const postLogin = (fields) => {
-  return api.post("/login", {
-    auth: fields
-  });
-};
-
-export const postRegistration = (fields) => {
-  return api.post("/users", fields);
-};
-
-export const postConfirmation = (id, confirmation_token) => {
-  return api.post(`/users/${id}/confirm`, {
-    confirmation_token: confirmation_token
-  });
-};
+export const putPassword = (fields) => api.put("/users/password", fields);

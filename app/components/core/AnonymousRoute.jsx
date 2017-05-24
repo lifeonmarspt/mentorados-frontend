@@ -15,13 +15,13 @@ class AnonymousRoute extends React.Component {
   }
 
   componentDidMount() {
-    if (this.context.session.state) {
+    if (this.context.session.user) {
       this.context.router.history.replace("/mentors");
     }
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    if (nextContext.session.state) {
+    if (nextContext.session.user) {
       this.context.router.history.replace("/mentors");
     }
   }

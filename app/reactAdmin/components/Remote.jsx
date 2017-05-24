@@ -3,7 +3,7 @@ import React from "react";
 import { ShowComponent, EditComponent } from 'reactAdmin/helpers'
 
 
-class Editable extends React.Component {
+class Remote extends React.Component {
   constructor(...args) {
     super(...args);
 
@@ -42,7 +42,7 @@ class Editable extends React.Component {
   }
 
   remoteLoad() {
-    return this.props.actions.load(this.props.resourceId).then((response) => {
+    return this.props.actions.show(this.props.resourceId).then((response) => {
       this.setState({ resource: response.data, });
       return response;
     });
@@ -80,4 +80,4 @@ class Editable extends React.Component {
   }
 }
 
-export default Editable;
+export default Remote;

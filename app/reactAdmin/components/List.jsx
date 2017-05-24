@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { ShowComponent } from 'reactAdmin/helpers'
 
@@ -11,7 +12,7 @@ class List extends React.Component {
   }
 
   componentDidMount() {
-    this.props.actions.list().then((response) => {
+    this.props.actions.index().then((response) => {
       this.setState({ resources: response.data, });
     });
   }
@@ -29,15 +30,16 @@ class List extends React.Component {
       <table className="pure-table pure-table-bordered pure-table-editable-horizontal">
         <thead>
           <tr>
-            {this.props.displayFieldNames.map((fieldName, n) =>
+            {this.props.listColumns.map((fieldName, n) =>
               <th key={n}>{this.field(fieldName).label}</th>
             )}
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {this.state.resources.map((row, n) => (
             <tr key={n}>
-              {this.props.displayFieldNames.map((fieldName, n) => (
+              {this.props.listColumns.map((fieldName, n) => (
                 <td key={n}>
                   <ShowComponent
                     fieldMetadata={this.field(fieldName)}
@@ -45,9 +47,26 @@ class List extends React.Component {
                   />
                 </td>
               ))}
+              <td>
+                <Link to={this.props.routes.show(row.id)}>Show</Link> {
+                } | {
+                } <Link to={this.props.routes.edit(row.id)}>Edit</Link> {
+                } | {
+                } <Link to={this.props.routes.delete(row.id)}>Delete</Link>
+              </td>
             </tr>
           ))}
         </tbody>
+        <tfoot>
+          <tr className="pure-table-odd">
+            <td colSpan={this.props.listColumns.length + 1}>
+              <div className="pure-control-group">
+                <Link to="/admin" className="pure-button pure-button-primary">Cancel</Link>
+                <Link to={this.props.routes.new()} className="pure-button pure-button-primary">New</Link>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
       </table>
     );
   }

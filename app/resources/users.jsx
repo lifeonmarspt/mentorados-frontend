@@ -2,29 +2,22 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import EditableCheckbox from "reactAdmin/components/formFields/EditableCheckbox";
-import EditableRadio from "reactAdmin/components/formFields/EditableRadio";
-import EditableTextArea from "reactAdmin/components/formFields/EditableTextArea";
 import EditableText from "reactAdmin/components/formFields/EditableText";
-import { defaultRoutes } from "reactAdmin/helpers";
+import { defaultRoutes, defaultActions } from "reactAdmin/helpers";
 
-import { getUsers, getUser, putUser, } from "lib/api";
+import { api } from "lib/api";
 
 
-export const resourceName = "users";
-
-export const actions = {
-  list: getUsers,
-  load: getUser,
-  update: putUser,
-};
-
-export const routes = defaultRoutes(resourceName);
+export const name = "users";
+export const routes = defaultRoutes(name, { prefix: "/admin" });
+export const actions = defaultActions({ api, routes: defaultRoutes(name) });
+export const listColumns = ["id", "email"];
 
 export const fields = [
   {
     id: "id",
-    label: "#",
-    displayAs: (r) => (<Link to={routes.show(r.id)}>{r.id}</Link>),
+    label: "User #",
+    displayAs: (r) => <Link to={routes.show(r.id)}>{r.id}</Link>,
   },
   {
     id: "email",
@@ -38,23 +31,17 @@ export const fields = [
     editableAs: EditableCheckbox,
   },
   {
-    id: "mentor_id",
-    label: "Mentor #",
-    displayAs: (r) => r.mentor ? <Link to={`/admin/mentors/${r.mentor.id}`}>{r.mentor.id}</Link> : null,
+    id: "password",
+    label: "Password",
+    displayAs: (r) => "************",
+    editableAs: EditableText,
   },
-  {
-    id: "created_at",
-    label: "Created at",
-  },
-  {
-    id: "updated_at",
-    label: "Updated at",
-  }
 ];
 
 export default {
   actions,
   routes,
   fields,
+  name,
+  listColumns,
 };
-
