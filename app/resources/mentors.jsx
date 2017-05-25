@@ -40,7 +40,7 @@ const temp_careers = [
 
 export const name = "mentors";
 export const routes = defaultRoutes(name, { prefix: "/admin" });
-export const actions = defaultActions({ api, routes: defaultRoutes(name) });
+export const actions = defaultActions({ api, routes: defaultRoutes(name, { prefix: "/admin" }) });
 export const listColumns = ["id", "name", "email"];
 
 export const fields = [

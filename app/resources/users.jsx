@@ -10,7 +10,7 @@ import { api } from "lib/api";
 
 export const name = "users";
 export const routes = defaultRoutes(name, { prefix: "/admin" });
-export const actions = defaultActions({ api, routes: defaultRoutes(name) });
+export const actions = defaultActions({ api, routes: defaultRoutes(name, { prefix: "/admin" }) });
 export const listColumns = ["id", "email"];
 
 export const fields = [
