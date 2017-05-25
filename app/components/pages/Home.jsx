@@ -3,9 +3,28 @@ import { Link } from "react-router-dom";
 
 import SignUpForm from "components/forms/SignUpForm";
 import Login from "components/elements/Login";
+import Section from "components/elements/Section";
 
 
 class Home extends React.Component {
+  constructor(...args) {
+    super(...args);
+
+    this.state = { registered: false };
+  }
+
+  onSubmit(event) {
+    this.setState({ registered: event.email });
+  }
+
+  renderRegisteredMessage() {
+    return (
+      <Section>
+        Registration sent! Check your email at <code>{this.state.registered}</code> for confirmation instructions!
+      </Section>
+    );
+  }
+
   render() {
     return (
       <div className="posts">
@@ -22,14 +41,18 @@ class Home extends React.Component {
           </div>
         </section>
 
-        <div className="pure-g">
-          <div className="pure-u-1-2">
-            <SignUpForm />
-          </div>
-          <div className="pure-u-1-2">
-            <Login />
-          </div>
-        </div>
+        {
+          this.state.registered ?
+            this.renderRegisteredMessage() :
+            <div className="pure-g">
+              <div className="pure-u-1-2">
+                <SignUpForm onSuccess={this.onSubmit.bind(this)} />
+              </div>
+              <div className="pure-u-1-2">
+                <Login />
+              </div>
+            </div>
+        }
       </div>
     );
   }
