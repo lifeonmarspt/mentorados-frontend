@@ -31,7 +31,7 @@ class Filters extends React.Component {
 
   render() {
     return (
-      <form className="filters pure-form">
+      <form className="filters pure-form" onSubmit={e => e.preventDefault()}>
         <h1 className="content-subhead">Gender</h1>
         <fieldset>
           {this.context.meta.genders.map((gender, n) => (
