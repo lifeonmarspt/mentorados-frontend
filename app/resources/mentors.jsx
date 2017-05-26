@@ -6,6 +6,8 @@ import EditableCheckboxList from "reactAdmin/components/formFields/EditableCheck
 import EditableRadio from "reactAdmin/components/formFields/EditableRadio";
 import EditableTextArea from "reactAdmin/components/formFields/EditableTextArea";
 import EditableText from "reactAdmin/components/formFields/EditableText";
+import EditableArrayOf from "reactAdmin/components/formFields/EditableArrayOf";
+
 import { defaultRoutes, defaultActions } from "reactAdmin/helpers";
 
 import { api } from "lib/api";
@@ -90,16 +92,22 @@ export const fields = [
     editableAs: EditableText,
   },
   {
-    id: "careers",
+    id: "career_ids",
     label: "Careers",
     editableAs: EditableCheckboxList,
     editableChoices: temp_careers,
-    displayAs: (r) => (r.careers || []).map((c, n) => <p key={n}>{c.description}</p>),
+    displayAs: (r) => (r.career_ids || []).map((id) => <p key={id}>{temp_careers.find((c) => c.id === id).description}</p>),
   },
   {
     id: "locations",
     label: "Locations",
     displayAs: (r) => (r.locations || []).map((l, n) => <p key={n}>{l.description}</p>),
+  },
+  {
+    id: "links",
+    label: "Links",
+    displayAs: (r) => (r.links || []).map((link, n) => <p key={n}><a href={link}>{link}</a></p>),
+    editableAs: EditableArrayOf(EditableText),
   },
 ];
 

@@ -1,15 +1,6 @@
 import React from "react";
 
 class Mentor extends React.Component {
-
-  constructor(...args) {
-    super(...args);
-  }
-
-  componentDidMount() {
-
-  }
-
   render() {
     return (
       <section className="post">
@@ -25,6 +16,11 @@ class Mentor extends React.Component {
             </span>
             <span>
               {this.props.mentor.locations.map((location, n) => <span key={n} className="post-category post-category-pure">{location.description}</span>)}
+            </span>
+          </p>
+          <p>
+            <span>
+              {this.props.mentor.links.map((link, n) => <a href={link} key={n} className="post-category post-category-yui">{link}</a>)}
             </span>
           </p>
           <p className="post-description">

@@ -13,7 +13,7 @@ class EditableText extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="editable-text">
         <input
           onChange={(e) => this.props.onChange(e.target.value)}
           className="pure-input"

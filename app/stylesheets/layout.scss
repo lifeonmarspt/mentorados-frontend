@@ -264,6 +264,21 @@ aside {
   background: rgb(223, 117, 20);
 }
 
+.editable-array-of-row {
+  margin-bottom: 16px;
+
+  display: flex;
+  align-items: center;
+
+  .editable-text {
+    width: 100%;
+  }
+
+  a {
+    margin-left: 16px;
+  }
+}
+
 .pure-table-editable-horizontal, .pure-table-editable-vertical {
   width: 100%;
 

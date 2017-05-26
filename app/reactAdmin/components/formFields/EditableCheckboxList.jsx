@@ -14,9 +14,9 @@ class EditableCheckboxList extends React.Component {
   onChange(choice, e) {
     let newValue;
     if (e.target.checked) {
-      newValue = this.value().concat(choice);
+      newValue = this.value().concat(choice.id);
     } else {
-      newValue = this.value().filter((v) => v.id !== choice.id);
+      newValue = this.value().filter((id) => id !== choice.id);
     }
     this.props.onChange(newValue);
   }
@@ -29,7 +29,7 @@ class EditableCheckboxList extends React.Component {
     return (
       <fieldset>
         {this.props.fieldMetadata.editableChoices.map((choice, n) => {
-          let isChecked = this.value().findIndex((c) => c.id === choice.id) > -1;
+          let isChecked = this.value().findIndex((id) => id === choice.id) > -1;
           return (
             <label
               key={n}
