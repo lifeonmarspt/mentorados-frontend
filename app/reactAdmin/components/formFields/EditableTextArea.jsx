@@ -5,10 +5,11 @@ import Errors from "reactAdmin/components/Errors";
 
 class EditableTextArea extends React.Component {
   static propTypes = {
-    onChange: PropTypes.func.isRequired,
-    fieldMetadata: PropTypes.object.isRequired,
     resource: PropTypes.object.isRequired,
-    errors: PropTypes.array,
+    field: PropTypes.string.isRequired,
+    metadata: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
+    errors: PropTypes.object,
   };
 
   render() {
@@ -18,9 +19,9 @@ class EditableTextArea extends React.Component {
           onChange={(e) => this.props.onChange(e.target.value)}
           className="pure-input"
           type="text"
-          value={this.props.resource[this.props.fieldMetadata.id] || ""}
+          value={this.props.resource[this.props.field] || ""}
         />
-        <Errors errors={this.props.errors} />
+        <Errors errors={this.props.errors[this.props.field]} />
       </div>
     );
   }

@@ -5,10 +5,11 @@ import Errors from "reactAdmin/components/Errors";
 
 class EditableRadio extends React.Component {
   static propTypes = {
-    onChange: PropTypes.func.isRequired,
-    fieldMetadata: PropTypes.object.isRequired,
     resource: PropTypes.object.isRequired,
-    errors: PropTypes.array,
+    field: PropTypes.string.isRequired,
+    metadata: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
+    errors: PropTypes.object,
   };
 
   static contextTypes = {
@@ -19,15 +20,15 @@ class EditableRadio extends React.Component {
     return (
       <fieldset>
         {this.context.choices.map((choice, n) => {
-          let isChecked = choice.id === this.props.resource[this.props.fieldMetadata.id];
+          let isChecked = choice.id === this.props.resource[this.props.field];
           return (
             <label
               key={n}
-              htmlFor={`radio-choices-${this.props.fieldMetadata.id}-${choice.id}`}
+              htmlFor={`radio-choices-${this.props.field}-${choice.id}`}
               className="pure-checkbox"
             >
               <input
-                id={`radio-choices-${this.props.fieldMetadata.id}-${choice.id}`}
+                id={`radio-choices-${this.props.field}-${choice.id}`}
                 type="radio"
                 value={choice.id}
                 checked={isChecked}
@@ -37,7 +38,7 @@ class EditableRadio extends React.Component {
             </label>
           );
         })}
-        <Errors errors={this.props.errors} />
+        <Errors errors={this.props.errors[this.props.field]} />
       </fieldset>
     );
   }

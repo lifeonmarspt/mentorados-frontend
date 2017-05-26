@@ -15,7 +15,7 @@ class New extends Remote {
 
     this.remoteCreate().then((resource) => {
       if (success) {
-        this.context.router.history.push(this.props.routes.show(resource.id));
+        this.context.router.history.push(this.props.metadata.routes.show(resource.id));
       }
     });
   }
@@ -26,7 +26,7 @@ class New extends Remote {
     return (
       <form className="pure-form" onSubmit={this.create.bind(this)}>
         <Table data={tableRows}>
-          <Link to={this.props.routes.index()} className="pure-button pure-button-primary">Cancel</Link>
+          <Link to={this.props.metadata.routes.index()} className="pure-button pure-button-primary">Cancel</Link>
           <button type="submit" className="pure-button pure-button-primary">Save</button>
         </Table>
       </form>

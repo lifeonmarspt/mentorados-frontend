@@ -12,13 +12,13 @@ class List extends React.Component {
   }
 
   componentDidMount() {
-    this.props.actions.index().then((response) => {
+    this.props.metadata.actions.index().then((response) => {
       this.setState({ resources: response.data, });
     });
   }
 
   field(id) {
-    return this.props.fields.find((f) => f.id === id);
+    return this.props.metadata.fields[id];
   }
 
   render() {
@@ -30,7 +30,7 @@ class List extends React.Component {
       <table className="pure-table pure-table-bordered pure-table-editable-horizontal">
         <thead>
           <tr>
-            {this.props.listColumns.map((fieldName, n) =>
+            {this.props.metadata.listColumns.map((fieldName, n) =>
               <th key={n}>{this.field(fieldName).label}</th>
             )}
             <th>Actions</th>
@@ -39,30 +39,31 @@ class List extends React.Component {
         <tbody>
           {this.state.resources.map((row, n) => (
             <tr key={n}>
-              {this.props.listColumns.map((fieldName, n) => (
+              {this.props.metadata.listColumns.map((fieldName, n) => (
                 <td key={n}>
                   <ShowComponent
-                    fieldMetadata={this.field(fieldName)}
                     resource={row}
+                    field={fieldName}
+                    metadata={this.props.metadata}
                   />
                 </td>
               ))}
               <td>
-                <Link to={this.props.routes.show(row.id)}>Show</Link> {
+                <Link to={this.props.metadata.routes.show(row.id)}>Show</Link> {
                 } | {
-                } <Link to={this.props.routes.edit(row.id)}>Edit</Link> {
+                } <Link to={this.props.metadata.routes.edit(row.id)}>Edit</Link> {
                 } | {
-                } <Link to={this.props.routes.delete(row.id)}>Delete</Link>
+                } <Link to={this.props.metadata.routes.delete(row.id)}>Delete</Link>
               </td>
             </tr>
           ))}
         </tbody>
         <tfoot>
           <tr className="pure-table-odd">
-            <td colSpan={this.props.listColumns.length + 1}>
+            <td colSpan={this.props.metadata.listColumns.length + 1}>
               <div className="pure-control-group">
                 <Link to="/admin" className="pure-button pure-button-primary">Cancel</Link>
-                <Link to={this.props.routes.new()} className="pure-button pure-button-primary">New</Link>
+                <Link to={this.props.metadata.routes.new()} className="pure-button pure-button-primary">New</Link>
               </div>
             </td>
           </tr>

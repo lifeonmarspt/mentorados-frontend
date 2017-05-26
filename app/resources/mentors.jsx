@@ -8,10 +8,10 @@ import EditableRadio from "reactAdmin/components/formFields/EditableRadio";
 import EditableTextArea from "reactAdmin/components/formFields/EditableTextArea";
 import EditableText from "reactAdmin/components/formFields/EditableText";
 import EditableArrayOf from "reactAdmin/components/formFields/EditableArrayOf";
-
 import { defaultRoutes, defaultActions } from "reactAdmin/helpers";
 
 import { api } from "lib/api";
+import users from "resources/users";
 
 
 const createMetaChoiceProvider = (field) => class extends React.Component {
@@ -34,73 +34,80 @@ const createMetaChoiceProvider = (field) => class extends React.Component {
   }
 }
 
-export const name = "mentors";
-export const routes = defaultRoutes(name, { prefix: "/admin" });
-export const actions = defaultActions({ api, routes: defaultRoutes(name, { prefix: "/admin" }) });
-export const listColumns = ["id", "name", "email"];
+const ChoiceList = (formatter) => ({ resource, field, choices }) => (
+  <div>
+    {choices.filter(
+      (c) => resource[field].includes(c.id),
+    ).map(
+      (choice) => <p key={choice.id}>{formatter(choice)}</p>,
+    )}
+  </div>
+);
 
-export const fields = [
-  {
-    id: "id",
-    label: "#",
-    displayAs: ({ resource }) => <Link to={routes.show(resource.id)}>{resource.id}</Link>,
+const DisplayResourceLink = (metadata, label) => ({ resource, field }) => (
+  resource[field] ? <Link to={metadata.routes.show(resource[field])}>{label}{resource[field]}</Link> : null
+);
+
+
+const name = "mentors";
+const routes = defaultRoutes(name, { prefix: "/admin" });
+const actions = defaultActions({ api, routes: defaultRoutes(name, { prefix: "/admin" }) });
+
+const listColumns = ["id", "name", "email"];
+const showColumns = ["id", "user_id", "name", "email", "location", "gender", "bio", "year_in", "year_out", "career_ids", "links"];
+const editColumns = showColumns;
+
+const fields = {
+  id: {
+    label: "Mentor #",
+    displayAs: DisplayResourceLink({ routes }, "Mentor #"),
   },
-  {
-    id: "user_id",
+  user_id: {
     label: "User #",
-    displayAs: ({ resource }) => resource.user ? <Link to={`/admin/users/${resource.user.id}`}>{resource.user.id}</Link> : null,
+    displayAs: DisplayResourceLink(users, "User #"),
   },
-  {
-    id: "name",
+  name: {
     label: "Name",
     editableAs: EditableText,
   },
-  {
-    id: "email",
+  email: {
     label: "Email",
     editableAs: EditableText,
   },
-  {
-    id: "location",
+  location: {
     label: "Location",
     editableAs: EditableText,
   },
-  {
-    id: "gender",
+  gender: {
     label: "Gender",
     editableAs: EditableRadio,
     choicesProvider: createMetaChoiceProvider("genders"),
   },
-  {
-    id: "bio",
+  bio: {
     label: "Bio",
     editableAs: EditableTextArea,
     displayAs: ({ resource }) => <div>{(resource.bio || "").split("\n").map((l, n) => <p key={n}>{l}</p>)}</div>,
   },
-  {
-    id: "year_in",
+  year_in: {
     label: "Enrolled In",
     editableAs: EditableText,
   },
-  {
-    id: "year_out",
+  year_out: {
     label: "Graduated In",
     editableAs: EditableText,
   },
-  {
-    id: "career_ids",
+  career_ids: {
     label: "Careers",
     editableAs: EditableCheckboxList,
     choicesProvider: createMetaChoiceProvider("careers"),
-    displayAs: ({ resource, choices }) => <div>{(resource.career_ids || []).map((id) => <p key={id}>{choices.find((c) => c.id === id).description}</p>)}</div>,
+    displayAs: ChoiceList((career) => career.description),
   },
-  {
-    id: "links",
+  links: {
     label: "Links",
     displayAs: ({ resource }) => <div>{(resource.links || []).map((link, n) => <p key={n}><a href={link}>{link}</a></p>)}</div>,
     editableAs: EditableArrayOf(EditableText),
   },
-];
+};
 
 export default {
   actions,
@@ -108,4 +115,6 @@ export default {
   fields,
   name,
   listColumns,
+  editColumns,
+  showColumns,
 };

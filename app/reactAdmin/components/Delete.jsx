@@ -16,7 +16,7 @@ class Delete extends Remote {
 
   destroy() {
     this.remoteDestroy().then(
-      () => this.context.router.history.push(this.props.routes.index())
+      () => this.context.router.history.push(this.props.metadata.routes.index())
     )
   }
 
@@ -31,7 +31,7 @@ class Delete extends Remote {
       <div>
         <h1>Deleting thingamajig</h1>
         <Table data={tableRows}>
-          <Link to={this.props.routes.show(this.props.resourceId)} className="pure-button pure-button-primary">Cancel</Link>
+          <Link to={this.props.metadata.routes.show(this.props.resourceId)} className="pure-button pure-button-primary">Cancel</Link>
           <button type="button" onClick={this.destroy.bind(this)} className="pure-button pure-button-primary">Destroy</button>
         </Table>
       </div>

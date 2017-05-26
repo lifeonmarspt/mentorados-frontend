@@ -18,9 +18,9 @@ class Show extends Remote {
 
     return (
       <Table data={tableRows}>
-        <Link to={this.props.routes.index()} className="pure-button pure-button-primary">Back</Link>
-        <Link to={this.props.routes.edit(this.props.resourceId)} className="pure-button pure-button-primary">Edit</Link>
-        <Link to={this.props.routes.delete(this.props.resourceId)} className="pure-button pure-button-primary">Delete</Link>
+        <Link to={this.props.metadata.routes.index()} className="pure-button pure-button-primary">Back</Link>
+        <Link to={this.props.metadata.routes.edit(this.props.resourceId)} className="pure-button pure-button-primary">Edit</Link>
+        <Link to={this.props.metadata.routes.delete(this.props.resourceId)} className="pure-button pure-button-primary">Delete</Link>
       </Table>
     );
   }

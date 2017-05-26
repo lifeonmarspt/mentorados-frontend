@@ -4,15 +4,16 @@ import PropTypes from "prop-types";
 
 const EditableArrayOf = (Component) => class extends React.Component {
   static propTypes = {
-    onChange: PropTypes.func.isRequired,
-    fieldMetadata: PropTypes.object.isRequired,
     resource: PropTypes.object,
-    errors: PropTypes.array,
+    field: PropTypes.string.isRequired,
+    metadata: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
+    errors: PropTypes.object,
   };
 
   onChange(index, value) {
     this.props.onChange(
-      this.props.resource[this.props.fieldMetadata.id].map(
+      this.props.resource[this.props.field].map(
         (v, i) => i == index ? value : v,
       ),
     );
@@ -22,7 +23,7 @@ const EditableArrayOf = (Component) => class extends React.Component {
     event.preventDefault();
 
     this.props.onChange(
-      this.props.resource[this.props.fieldMetadata.id].filter(
+      this.props.resource[this.props.field].filter(
         (_, i) => i != index,
       ),
     );
@@ -32,19 +33,20 @@ const EditableArrayOf = (Component) => class extends React.Component {
     event.preventDefault();
 
     this.props.onChange(
-      this.props.resource[this.props.fieldMetadata.id].concat([""]),
+      this.props.resource[this.props.field].concat([""]),
     );
   }
 
   render() {
     return (
       <div className="editable-array-of">
-        {this.props.resource[this.props.fieldMetadata.id].map((element, n) =>
+        {(this.props.resource[this.props.field] || []).map((element, n) =>
           <div key={n} className="editable-array-of-row">
             <Component
+              resource={{ [this.props.field]: element }}
+              field={this.props.field}
+              metadata={this.props.metadata}
               onChange={(v) => this.onChange(n, v)}
-              resource={{ [this.props.fieldMetadata.id]: element }}
-              fieldMetadata={this.props.fieldMetadata}
               errors={this.props.error}
             />
             <a href="" onClick={(e) => this.onRemove(e, n)}>Remove</a>

@@ -5,9 +5,10 @@ import Errors from "reactAdmin/components/Errors";
 
 class EditableCheckbox extends React.Component {
   static propTypes = {
-    onChange: PropTypes.func.isRequired,
-    fieldMetadata: PropTypes.object.isRequired,
     resource: PropTypes.object.isRequired,
+    field: PropTypes.string.isRequired,
+    metadata: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
     errors: PropTypes.array,
   };
 
@@ -16,14 +17,14 @@ class EditableCheckbox extends React.Component {
   }
 
   checked() {
-    return this.props.resource[this.props.fieldMetadata.id];
+    return this.props.resource[this.props.field];
   }
 
   render() {
     return (
       <fieldset>
         <input
-          id={`checkbox-${this.props.fieldMetadata.id}`}
+          id={`checkbox-${this.props.field}`}
           type="checkbox"
           value="1"
           checked={this.checked()}

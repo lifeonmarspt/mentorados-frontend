@@ -14,42 +14,49 @@ class Remote extends React.Component {
     };
   }
 
-  onInputChange(fieldMetadata, value) {
+  onInputChange(field, value) {
     this.setState({
       resource: {
         ...this.state.resource,
-        [fieldMetadata.id]: value,
+        [field]: value,
       },
       changes: {
         ...this.state.changes,
-        [fieldMetadata.id]: value,
+        [field]: value,
       },
     });
+  }
+
+  field(id) {
+    return this.props.metadata.fields[id];
   }
 
   tableComponents({ editable, }) {
     const Component = (editable ? EditComponent : ShowComponent);
 
-    return this.props.fields.map((field) => ({
-      label: field.label,
+    const columns = this.props.metadata[editable ? "editColumns" : "showColumns"];
+
+    return columns.map((fieldName) => ({
+      label: this.field(fieldName).label,
       field: <Component
-        fieldMetadata={field}
         resource={this.state.resource}
-        onChange={this.onInputChange.bind(this, field)}
-        errors={this.state.errors[field.id]}
+        field={fieldName}
+        metadata={this.props.metadata}
+        onChange={this.onInputChange.bind(this, fieldName)}
+        errors={this.state.errors}
       />,
     }));
   }
 
   remoteLoad() {
-    return this.props.actions.show(this.props.resourceId).then((response) => {
+    return this.props.metadata.actions.show(this.props.resourceId).then((response) => {
       this.setState({ resource: response.data, });
       return response;
     });
   }
 
   remoteUpdate() {
-    return this.props.actions.update(
+    return this.props.metadata.actions.update(
       this.props.resourceId,
       this.state.changes,
     ).then(
@@ -63,7 +70,7 @@ class Remote extends React.Component {
   }
 
   remoteCreate() {
-    return this.props.actions.create(
+    return this.props.metadata.actions.create(
       this.state.changes,
     ).then(
       (response) => response.data,
@@ -76,7 +83,7 @@ class Remote extends React.Component {
   }
 
   remoteDestroy() {
-    return this.props.actions.destroy(this.props.resourceId);
+    return this.props.metadata.actions.destroy(this.props.resourceId);
   }
 }
 

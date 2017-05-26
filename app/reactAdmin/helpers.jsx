@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 
-const ShowInsideSpan = ({ resource, fieldMetadata }) => (
-  <span>{resource[fieldMetadata.id]}</span>
+const ShowInsideSpan = ({ resource, field }) => (
+  <span>{resource[field]}</span>
 );
 
 class NoOpProvider extends React.Component {
@@ -12,11 +12,12 @@ class NoOpProvider extends React.Component {
   }
 }
 
-export const DisplayComponent = ({ fieldMetadata, ...rest }, { choices }) => {
-  const DisplayAs = fieldMetadata.displayAs || ShowInsideSpan;
+export const DisplayComponent = ({ field, metadata, ...rest }, { choices }) => {
+  const DisplayAs = metadata.fields[field].displayAs || ShowInsideSpan;
 
   return <DisplayAs
-    fieldMetadata={fieldMetadata}
+    field={field}
+    metadata={metadata}
     choices={choices}
     {...rest}
   />
@@ -26,30 +27,30 @@ DisplayComponent.contextTypes = {
   choices: PropTypes.array,
 };
 
-export const ShowComponent = ({ fieldMetadata, ...rest }) => {
-  const ChoicesProvider = fieldMetadata.choicesProvider || NoOpProvider;
+export const ShowComponent = ({ field, metadata, ...rest }) => {
+  const ChoicesProvider = metadata.fields[field].choicesProvider || NoOpProvider;
 
   return (
     <ChoicesProvider>
       <DisplayComponent
-        fieldMetadata={fieldMetadata}
+        field={field}
+        metadata={metadata}
         {...rest}
       />
     </ChoicesProvider>
   );
 };
 
-export const EditComponent = ({ fieldMetadata, resource, onChange, errors }) => {
-  const EditableAs = fieldMetadata.editableAs || fieldMetadata.displayAs || ShowInsideSpan;
-  const ChoicesProvider = fieldMetadata.choicesProvider || NoOpProvider;
+export const EditComponent = ({ field, metadata, ...rest }) => {
+  const EditableAs = metadata.fields[field].editableAs || metadata.fields[field].displayAs || ShowInsideSpan;
+  const ChoicesProvider = metadata.fields[field].choicesProvider || NoOpProvider;
 
   return (
     <ChoicesProvider>
       <EditableAs
-        fieldMetadata={fieldMetadata}
-        resource={resource}
-        onChange={onChange}
-        errors={errors}
+        field={field}
+        metadata={metadata}
+        {...rest}
       />
     </ChoicesProvider>
   );

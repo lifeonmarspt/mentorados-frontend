@@ -10,7 +10,7 @@ class Page extends React.Component {
             <div className="post-description">
               <div className="pure-g">
                 <div className="pure-u-1-1">
-                  <this.props.Component {...this.props.resource} resourceId={this.props.id} />
+                  <this.props.Component metadata={this.props.resource} resourceId={this.props.id} />
                 </div>
               </div>
             </div>

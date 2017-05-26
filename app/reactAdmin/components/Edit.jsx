@@ -19,7 +19,7 @@ class Edit extends Remote {
 
     this.remoteUpdate().then((success) => {
       if (success) {
-        this.context.router.history.push(this.props.routes.show(this.props.resourceId));
+        this.context.router.history.push(this.props.metadata.routes.show(this.props.resourceId));
       }
     });
   }
@@ -34,7 +34,7 @@ class Edit extends Remote {
     return (
       <form className="pure-form" onSubmit={this.update.bind(this)}>
         <Table data={tableRows}>
-          <Link to={this.props.routes.show(this.props.resourceId)} className="pure-button pure-button-primary">Cancel</Link>
+          <Link to={this.props.metadata.routes.show(this.props.resourceId)} className="pure-button pure-button-primary">Cancel</Link>
           <button type="submit" className="pure-button pure-button-primary">Save</button>
         </Table>
       </form>

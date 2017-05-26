@@ -8,35 +8,34 @@ import { defaultRoutes, defaultActions } from "reactAdmin/helpers";
 import { api } from "lib/api";
 
 
-export const name = "users";
-export const routes = defaultRoutes(name, { prefix: "/admin" });
-export const actions = defaultActions({ api, routes: defaultRoutes(name, { prefix: "/admin" }) });
-export const listColumns = ["id", "email"];
+const name = "users";
+const routes = defaultRoutes(name, { prefix: "/admin" });
+const actions = defaultActions({ api, routes: defaultRoutes(name, { prefix: "/admin" }) });
 
-export const fields = [
-  {
-    id: "id",
+const listColumns = ["id", "email"];
+const showColumns = ["id", "email", "admin", "password"];
+const editColumns = showColumns;
+
+const fields = {
+  id: {
     label: "#",
     displayAs: ({ resource }) => <Link to={routes.show(resource.id)}>{resource.id}</Link>,
   },
-  {
-    id: "email",
+  email: {
     label: "Email",
     editableAs: EditableText,
   },
-  {
-    id: "admin",
+  admin: {
     label: "Admin?",
     displayAs: ({ resource }) => <span>{resource.admin ? "yes" : "no"}</span>,
     editableAs: EditableCheckbox,
   },
-  {
-    id: "password",
+  password: {
     label: "Password",
     displayAs: ({ resource }) => <span>************</span>,
     editableAs: EditableText,
   },
-];
+};
 
 export default {
   actions,
@@ -44,4 +43,6 @@ export default {
   fields,
   name,
   listColumns,
+  editColumns,
+  showColumns,
 };
