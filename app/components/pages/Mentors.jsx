@@ -8,6 +8,17 @@ import Filters from "components/elements/Filters"
 import debounce from "debounce";
 
 
+const sortByKey = (array, keyFunction) => (
+  [].concat(array).sort((a, b) => {
+    const ak = keyFunction(a);
+    const bk = keyFunction(b);
+
+    if (ak < bk) return -1;
+    if (bk < ak) return +1;
+    return 0;
+  })
+);
+
 class Mentors extends React.Component {
   constructor(...args) {
     super(...args);
@@ -37,7 +48,7 @@ class Mentors extends React.Component {
 
   reloadMentors(filters) {
     this.getMentorsPromise = getMentors(filters).then((response) => this.setState({
-      mentors: response.data,
+      mentors: sortByKey(response.data, (m) => m.name),
       loading: false,
     }));
   }
