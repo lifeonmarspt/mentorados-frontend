@@ -12,17 +12,17 @@ class Mentor extends React.Component {
           </p>
           <p>
             <span>
-              {this.props.mentor.careers.map((career, n) => <span key={n} className="post-category">{career.description}</span>)}
-            </span>
-            <span>
-              {this.props.mentor.locations.map((location, n) => <span key={n} className="post-category post-category-pure">{location.description}</span>)}
+              {this.props.mentor.careers.map((career, n) => <span key={n} className="post-category post-category">{career.description}</span>)}
             </span>
           </p>
           <p>
             <span>
-              {this.props.mentor.links.map((link, n) => <a href={link} key={n} className="post-category post-category-yui">{link}</a>)}
+              {this.props.mentor.links.map((link, n) => <a href={link} key={n} className="post-category post-category-pure">{link}</a>)}
             </span>
           </p>
+
+          {this.props.mentor.location && <p className="post-description">Living/Working in {this.props.mentor.location}</p>}
+
           <p className="post-description">
             {this.props.mentor.year_out ?
               "Attended from " + this.props.mentor.year_in + " to " + this.props.mentor.year_out :

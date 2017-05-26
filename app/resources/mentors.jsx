@@ -67,6 +67,11 @@ export const fields = [
     editableAs: EditableText,
   },
   {
+    id: "location",
+    label: "Location",
+    editableAs: EditableText,
+  },
+  {
     id: "gender",
     label: "Gender",
     editableAs: EditableRadio,
@@ -97,11 +102,6 @@ export const fields = [
     editableAs: EditableCheckboxList,
     editableChoices: temp_careers,
     displayAs: (r) => (r.career_ids || []).map((id) => <p key={id}>{temp_careers.find((c) => c.id === id).description}</p>),
-  },
-  {
-    id: "locations",
-    label: "Locations",
-    displayAs: (r) => (r.locations || []).map((l, n) => <p key={n}>{l.description}</p>),
   },
   {
     id: "links",
