@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 import EditableCheckbox from "reactAdmin/components/formFields/EditableCheckbox";
@@ -13,32 +14,25 @@ import { defaultRoutes, defaultActions } from "reactAdmin/helpers";
 import { api } from "lib/api";
 
 
-const temp_careers = [
-  {
-    "id": 1,
-    "description": "Entrepreneurship"
-  },
-  {
-    "id": 2,
-    "description": "Freelance"
-  },
-  {
-    "id": 3,
-    "description": "Academia"
-  },
-  {
-    "id": 4,
-    "description": "Management"
-  },
-  {
-    "id": 5,
-    "description": "Startup/Scaleup"
-  },
-  {
-    "id": 6,
-    "description": "Established Company"
+const createMetaChoiceProvider = (field) => class extends React.Component {
+  static contextTypes = {
+    meta: PropTypes.object.isRequired,
+  };
+
+  static childContextTypes = {
+    choices: PropTypes.array.isRequired,
+  };
+
+  getChildContext() {
+    return {
+      choices: this.context.meta[field],
+    };
   }
-];
+
+  render() {
+    return React.Children.only(this.props.children);
+  }
+}
 
 export const name = "mentors";
 export const routes = defaultRoutes(name, { prefix: "/admin" });
@@ -49,12 +43,12 @@ export const fields = [
   {
     id: "id",
     label: "#",
-    displayAs: (r) => <Link to={routes.show(r.id)}>{r.id}</Link>,
+    displayAs: ({ resource }) => <Link to={routes.show(resource.id)}>{resource.id}</Link>,
   },
   {
     id: "user_id",
     label: "User #",
-    displayAs: (r) => r.user ? <Link to={`/admin/users/${r.user.id}`}>{r.user.id}</Link> : null,
+    displayAs: ({ resource }) => resource.user ? <Link to={`/admin/users/${resource.user.id}`}>{resource.user.id}</Link> : null,
   },
   {
     id: "name",
@@ -75,16 +69,13 @@ export const fields = [
     id: "gender",
     label: "Gender",
     editableAs: EditableRadio,
-    editableChoices: [
-      { id: "F", description: "Female" },
-      { id: "M", description: "Male" },
-    ],
+    choicesProvider: createMetaChoiceProvider("genders"),
   },
   {
     id: "bio",
     label: "Bio",
     editableAs: EditableTextArea,
-    displayAs: (r) => (r.bio || "").split("\n").map((l, n) => <p key={n}>{l}</p>),
+    displayAs: ({ resource }) => <div>{(resource.bio || "").split("\n").map((l, n) => <p key={n}>{l}</p>)}</div>,
   },
   {
     id: "year_in",
@@ -100,13 +91,13 @@ export const fields = [
     id: "career_ids",
     label: "Careers",
     editableAs: EditableCheckboxList,
-    editableChoices: temp_careers,
-    displayAs: (r) => (r.career_ids || []).map((id) => <p key={id}>{temp_careers.find((c) => c.id === id).description}</p>),
+    choicesProvider: createMetaChoiceProvider("careers"),
+    displayAs: ({ resource, choices }) => <div>{(resource.career_ids || []).map((id) => <p key={id}>{choices.find((c) => c.id === id).description}</p>)}</div>,
   },
   {
     id: "links",
     label: "Links",
-    displayAs: (r) => (r.links || []).map((link, n) => <p key={n}><a href={link}>{link}</a></p>),
+    displayAs: ({ resource }) => <div>{(resource.links || []).map((link, n) => <p key={n}><a href={link}>{link}</a></p>)}</div>,
     editableAs: EditableArrayOf(EditableText),
   },
 ];

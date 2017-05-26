@@ -1,23 +1,58 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 
-export const ShowComponent = ({ fieldMetadata, resource, }) => {
-  const displayAs = fieldMetadata.displayAs ||
-    ((r) => r[fieldMetadata.id]);
+const ShowInsideSpan = ({ resource, fieldMetadata }) => (
+  <span>{resource[fieldMetadata.id]}</span>
+);
 
-  return <span>{displayAs(resource)}</span>;
+class NoOpProvider extends React.Component {
+  render() {
+    return React.Children.only(this.props.children);
+  }
+}
+
+export const DisplayComponent = ({ fieldMetadata, ...rest }, { choices }) => {
+  const DisplayAs = fieldMetadata.displayAs || ShowInsideSpan;
+
+  return <DisplayAs
+    fieldMetadata={fieldMetadata}
+    choices={choices}
+    {...rest}
+  />
 };
 
-export const EditComponent = ({ fieldMetadata, resource, onChange, errors, }) => {
-  const EditableAs = fieldMetadata.editableAs ||
-    (({ fieldMetadata, resource }) => ShowComponent({ fieldMetadata, resource }));
+DisplayComponent.contextTypes = {
+  choices: PropTypes.array,
+};
 
-  return <EditableAs
-    fieldMetadata={fieldMetadata}
-    resource={resource}
-    onChange={onChange}
-    errors={errors}
-  />
+export const ShowComponent = ({ fieldMetadata, ...rest }) => {
+  const ChoicesProvider = fieldMetadata.choicesProvider || NoOpProvider;
+
+  return (
+    <ChoicesProvider>
+      <DisplayComponent
+        fieldMetadata={fieldMetadata}
+        {...rest}
+      />
+    </ChoicesProvider>
+  );
+};
+
+export const EditComponent = ({ fieldMetadata, resource, onChange, errors }) => {
+  const EditableAs = fieldMetadata.editableAs || fieldMetadata.displayAs || ShowInsideSpan;
+  const ChoicesProvider = fieldMetadata.choicesProvider || NoOpProvider;
+
+  return (
+    <ChoicesProvider>
+      <EditableAs
+        fieldMetadata={fieldMetadata}
+        resource={resource}
+        onChange={onChange}
+        errors={errors}
+      />
+    </ChoicesProvider>
+  );
 };
 
 export const defaultRoutes = (resourceName, { prefix } = { prefix: "" }) => ({

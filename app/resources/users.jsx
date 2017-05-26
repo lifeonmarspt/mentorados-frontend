@@ -16,8 +16,8 @@ export const listColumns = ["id", "email"];
 export const fields = [
   {
     id: "id",
-    label: "User #",
-    displayAs: (r) => <Link to={routes.show(r.id)}>{r.id}</Link>,
+    label: "#",
+    displayAs: ({ resource }) => <Link to={routes.show(resource.id)}>{resource.id}</Link>,
   },
   {
     id: "email",
@@ -27,13 +27,13 @@ export const fields = [
   {
     id: "admin",
     label: "Admin?",
-    displayAs: (r) => r.admin ? "yes" : "no",
+    displayAs: ({ resource }) => <span>{resource.admin ? "yes" : "no"}</span>,
     editableAs: EditableCheckbox,
   },
   {
     id: "password",
     label: "Password",
-    displayAs: (r) => "************",
+    displayAs: ({ resource }) => <span>************</span>,
     editableAs: EditableText,
   },
 ];

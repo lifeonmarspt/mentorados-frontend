@@ -11,10 +11,14 @@ class EditableRadio extends React.Component {
     errors: PropTypes.array,
   };
 
+  static contextTypes = {
+    choices: PropTypes.array.isRequired,
+  }
+
   render() {
     return (
       <fieldset>
-        {this.props.fieldMetadata.editableChoices.map((choice, n) => {
+        {this.context.choices.map((choice, n) => {
           let isChecked = choice.id === this.props.resource[this.props.fieldMetadata.id];
           return (
             <label

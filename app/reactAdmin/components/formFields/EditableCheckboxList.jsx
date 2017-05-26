@@ -11,6 +11,10 @@ class EditableCheckboxList extends React.Component {
     errors: PropTypes.array,
   };
 
+  static contextTypes = {
+    choices: PropTypes.array.isRequired,
+  }
+
   onChange(choice, e) {
     let newValue;
     if (e.target.checked) {
@@ -28,7 +32,7 @@ class EditableCheckboxList extends React.Component {
   render() {
     return (
       <fieldset>
-        {this.props.fieldMetadata.editableChoices.map((choice, n) => {
+        {this.context.choices.map((choice, n) => {
           let isChecked = this.value().findIndex((id) => id === choice.id) > -1;
           return (
             <label
