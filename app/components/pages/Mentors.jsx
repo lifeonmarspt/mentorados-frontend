@@ -40,6 +40,10 @@ class Mentors extends React.Component {
     this.reloadMentors(this.props.filters);
   }
 
+  componentWillUnmount() {
+    this.debouncedReloadMentors.clear();
+  }
+
   filtersDidChange(filters) {
     this.setState({ filters });
 
