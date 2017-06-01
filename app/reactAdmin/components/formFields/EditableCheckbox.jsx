@@ -14,7 +14,7 @@ class EditableCheckbox extends React.Component {
 
   render() {
     return (
-      <fieldset>
+      <div className="editable-checkbox">
         <input
           id={`checkbox-${this.props.field}`}
           type="checkbox"
@@ -23,7 +23,7 @@ class EditableCheckbox extends React.Component {
           onChange={(e) => this.props.onChange(e.target.checked)}
         />
         <Errors errors={this.props.errors[this.props.field]} />
-      </fieldset>
+      </div>
     );
   }
 }

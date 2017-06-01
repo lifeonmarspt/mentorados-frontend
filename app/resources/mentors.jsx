@@ -68,7 +68,8 @@ const fields = {
   },
   active: {
     label: "Active",
-    displayAs: EditableCheckbox,
+    displayAs: ({ resource }) => <span>{resource.active ? "yes" : "no"}</span>,
+    editableAs: EditableCheckbox,
   },
   name: {
     label: "Name",
