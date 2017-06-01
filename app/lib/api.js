@@ -37,6 +37,8 @@ export const getMentors = (filters = {}) => {
   return api.get(url);
 };
 
+export const getUser = (id) => api.get(`/users/${id}`);
+
 export const postLogin = (fields) => api.post("/login", { auth: fields });
 
 export const postRegistration = (fields) => api.post("/users", fields);

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import sessionStore from "lib/session";
-import { setAuthorization } from "lib/api";
+import { setAuthorization, getUser } from "lib/api";
 
 class AuthProvider extends React.Component {
   static childContextTypes = {
@@ -22,12 +22,6 @@ class AuthProvider extends React.Component {
     };
   }
 
-  componentWillMount() {
-    this.loadSession();
-
-    this.setState({ loading: false });
-  }
-
   getChildContext() {
     return {
       session: {
@@ -39,10 +33,22 @@ class AuthProvider extends React.Component {
     };
   }
 
+  componentWillMount() {
+    this.loadSession();
+  }
+
   setSession(session) {
     setAuthorization(session);
 
-    this.setState({ session });
+    new Promise(
+      (resolve, reject) => resolve(session.user.id)
+    ).then(
+      (id) => getUser(id),
+    ).then(
+      () => this.setState({ session, loading: false }),
+    ).catch(
+      () => this.setState({ session: {}, loading: false }),
+    );
   }
 
   loadSession() {
