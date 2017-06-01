@@ -54,7 +54,7 @@ const routes = defaultRoutes(name, { prefix: "/admin" });
 const actions = defaultActions({ api, routes: defaultRoutes(name, { prefix: "/admin" }) });
 
 const listColumns = ["id", "name", "email"];
-const showColumns = ["id", "user_id", "name", "email", "location", "gender", "bio", "year_in", "year_out", "career_ids", "links"];
+const showColumns = ["id", "user_id", "active", "name", "email", "location", "gender", "bio", "year_in", "year_out", "career_ids", "links"];
 const editColumns = showColumns;
 
 const fields = {
@@ -65,6 +65,10 @@ const fields = {
   user_id: {
     label: "User #",
     displayAs: DisplayResourceLink(users, "User #"),
+  },
+  active: {
+    label: "Active",
+    displayAs: EditableCheckbox,
   },
   name: {
     label: "Name",

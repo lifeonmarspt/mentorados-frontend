@@ -9,16 +9,8 @@ class EditableCheckbox extends React.Component {
     field: PropTypes.string.isRequired,
     metadata: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
-    errors: PropTypes.array,
+    errors: PropTypes.object,
   };
-
-  onChange(e) {
-    this.props.onChange(e.target.checked);
-  }
-
-  checked() {
-    return this.props.resource[this.props.field];
-  }
 
   render() {
     return (
@@ -27,10 +19,10 @@ class EditableCheckbox extends React.Component {
           id={`checkbox-${this.props.field}`}
           type="checkbox"
           value="1"
-          checked={this.checked()}
-          onChange={this.onChange.bind(this)}
+          checked={this.props.resource[this.props.field]}
+          onChange={(e) => this.props.onChange(e.target.checked)}
         />
-        <Errors errors={this.props.errors} />
+        <Errors errors={this.props.errors[this.props.field]} />
       </fieldset>
     );
   }
