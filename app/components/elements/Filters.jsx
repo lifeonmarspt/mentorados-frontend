@@ -69,13 +69,19 @@ class Filters extends React.Component {
                 checked={(this.props.filters.careers ||  []).find((id) => id === career.id) ? true : false}
                 onChange={(e) => this.handleCareerClick(career, e.target.checked)}
               />
-            </label>
+            </div>
           ))}
         </fieldset>
 
         <h1 className="content-subhead">Search</h1>
         <fieldset>
-          <input type="text" className="pure-input" value={this.props.filters.query} onChange={this.handleInputChange.bind(this)} />
+          <input
+            type="text"
+            className="pure-input"
+            value={this.props.filters.query}
+            onChange={this.handleInputChange.bind(this)}
+            placeholder="Search for name, bio, etc"
+          />
         </fieldset>
       </form>
     );

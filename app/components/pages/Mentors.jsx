@@ -25,7 +25,6 @@ class Mentors extends React.Component {
 
     this.state = {
       loading: true,
-      mentors: [],
       filters: {
         query: "",
         gender: "A",
@@ -51,7 +50,10 @@ class Mentors extends React.Component {
   }
 
   reloadMentors(filters) {
-    this.getMentorsPromise = getMentors(filters).then((response) => this.setState({
+    this.setState({ loading: true });
+
+    this.getMentorsPromise = getMentors(filters).
+      then((response) => this.setState({
       mentors: sortByKey(response.data, (m) => m.name),
       loading: false,
     }));
@@ -69,9 +71,12 @@ class Mentors extends React.Component {
         </div>
 
         <div className="pure-u-1 pure-u-md-18-24 posts">
-          <h1 className="content-subhead">Mentors</h1>
+          <h1 className="content-subhead">
+            Mentors {}
+            {this.state.loading && <strong>(loading...)</strong>}
+          </h1>
           {
-            this.state.loading ?
+            this.state.mentors === undefined ?
               null :
             this.state.mentors.length == 0 ?
               <Section title="Oops...">
