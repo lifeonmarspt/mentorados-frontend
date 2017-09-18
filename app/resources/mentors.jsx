@@ -53,9 +53,10 @@ const name = "mentors";
 const routes = defaultRoutes(name, { prefix: "/admin" });
 const actions = defaultActions({ api, routes: defaultRoutes(name, { prefix: "/admin" }) });
 
-const listColumns = ["id", "name", "email"];
+const newColumns = ["name", "email"];
+const listColumns = ["name", "email"];
 const showColumns = ["id", "user_id", "active", "name", "email", "location", "gender", "bio", "year_in", "year_out", "career_ids", "links"];
-const editColumns = showColumns;
+const editColumns = ["active", "name", "email", "location", "gender", "bio", "year_in", "year_out", "career_ids", "links"];
 
 const fields = {
   id: {
@@ -119,6 +120,7 @@ export default {
   routes,
   fields,
   name,
+  newColumns,
   listColumns,
   editColumns,
   showColumns,

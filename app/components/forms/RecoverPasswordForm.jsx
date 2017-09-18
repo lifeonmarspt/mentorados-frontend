@@ -1,31 +1,20 @@
 import React from "react";
 
 import { errorTransform } from "lib/errorTransform";
-import { postRecoverPassword } from "lib/api";
+import { password_recovery_tokens } from "lib/api";
 
 import Section from "components/elements/Section";
 import FormError from "components/elements/FormError";
 import FieldError from "components/elements/FieldError";
+
+import t from "translations/pt.yml";
 
 
 class RecoverPasswordForm extends React.Component {
   constructor(...args) {
     super(...args);
 
-    this.references = {};
     this.state = { errors: {} };
-  }
-
-  componentDidUpdate() {
-    if (!this.references.password_confirmation) {
-      return;
-    }
-
-    if (this.state.password != this.state.password_confirmation) {
-      this.references.password_confirmation.setCustomValidity("Password confirmation does not match.");
-    } else {
-      this.references.password_confirmation.setCustomValidity("");
-    }
   }
 
   onChange(field, event) {
@@ -36,7 +25,7 @@ class RecoverPasswordForm extends React.Component {
     event.preventDefault();
     this.setState({ errors: {} });
 
-    postRecoverPassword(
+    password_recovery_tokens.create(
       { email: this.state.email },
     ).then(
       (result) => this.props.onSuccess(this.state.email),
@@ -57,13 +46,16 @@ class RecoverPasswordForm extends React.Component {
           <input
             onChange={this.changeEventHandler("email")}
             type="email"
+            className="recover__input"
             required
-            placeholder="Email"
+            placeholder={t.recover.placeholder.email}
           />
           <FieldError fieldName="email" errors={this.state.errors.email} />
         </fieldset>
         <fieldset>
-          <button type="submit" className="pure-button pure-button-primary">Recover password</button>
+          <button type="submit" className="pure-button pure-button-primary">
+            {t.recover.submit}
+          </button>
         </fieldset>
       </form>
     );

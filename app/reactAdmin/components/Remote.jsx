@@ -31,10 +31,10 @@ class Remote extends React.Component {
     return this.props.metadata.fields[id];
   }
 
-  tableComponents({ editable, }) {
+  tableComponents({ editable, columnList }) {
     const Component = (editable ? EditComponent : ShowComponent);
 
-    const columns = this.props.metadata[editable ? "editColumns" : "showColumns"];
+    const columns = this.props.metadata[columnList ? columnList : editable ? "editColumns" : "showColumns"];
 
     return columns.map((fieldName) => ({
       label: this.field(fieldName).label,

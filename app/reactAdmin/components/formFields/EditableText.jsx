@@ -22,6 +22,7 @@ class EditableText extends React.Component {
           value={this.props.resource[this.props.field] || ""}
         />
         <Errors errors={this.props.errors[this.props.field]} />
+        {JSON.stringify(this.props.errors)}
       </div>
     );
   }

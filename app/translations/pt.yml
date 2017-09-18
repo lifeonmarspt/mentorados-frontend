@@ -1,0 +1,12 @@
+login:
+  title: Iniciar sessão
+  submit: Iniciar sessão
+  recover: Recuperar password
+  placeholder:
+    email: Email
+    password: Password
+
+recover:
+  submit: Recuperar password
+  placeholder:
+    email: Email

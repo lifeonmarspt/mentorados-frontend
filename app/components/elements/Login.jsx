@@ -6,6 +6,8 @@ import { postLogin } from "lib/api";
 import { errorTransform } from "lib/errorTransform";
 import FormError from "components/elements/FormError";
 
+import t from "translations/pt.yml";
+
 class Login extends React.Component {
   static contextTypes = {
     router: PropTypes.object,
@@ -39,24 +41,41 @@ class Login extends React.Component {
       })
       .catch((error) => {
         this.setState({ errors: errorTransform(error, { 404: "Invalid credentials" }) });
-        throw error;
       });
   }
 
   render() {
     return (
-      <form className="pure-form" onSubmit={this.onSubmit.bind(this)}>
-        <h1 className="content-subhead">Login</h1>
+      <form className="login pure-form" onSubmit={this.onSubmit.bind(this)}>
+        <h1 className="content-subhead">
+          {t.login.title}
+        </h1>
         <FormError error={this.state.errors.serverError} />
         <fieldset>
-          <input onChange={this.onChange.bind(this, "email")} type="email" required placeholder="Email" />
+          <input
+            className="login__input"
+            onChange={this.onChange.bind(this, "email")}
+            type="email"
+            required
+            placeholder={t.login.placeholder.email}
+          />
         </fieldset>
         <fieldset>
-          <input onChange={this.onChange.bind(this, "password")} type="password" required placeholder="Password" />
+          <input
+            className="login__input"
+            onChange={this.onChange.bind(this, "password")}
+            type="password"
+            required
+            placeholder={t.login.placeholder.password}
+          />
         </fieldset>
         <fieldset>
-          <Link to="/recover-password">Forgot password?</Link>
-          <button type="submit" className="pure-button pure-button-primary">Sign in</button>
+          <button type="submit" className="pure-button pure-button-primary">
+            {t.login.submit}
+          </button>
+          <Link to="/recover-password">
+            {t.login.recover}
+          </Link>
         </fieldset>
       </form>
     );

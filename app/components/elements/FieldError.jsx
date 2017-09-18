@@ -16,7 +16,7 @@ class FieldError extends React.Component {
         {this.props.errors.map((error, n) =>
           (<li key={n}>
             <span className="pure-form-message pure-form-field-error">
-              {this.props.fieldName} {error}
+              {this.props.fieldName} {error.message}
             </span>
           </li>)
         )}

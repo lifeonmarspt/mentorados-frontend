@@ -14,14 +14,14 @@ class New extends Remote {
     event.preventDefault();
 
     this.remoteCreate().then((resource) => {
-      if (success) {
+      if (resource) {
         this.context.router.history.push(this.props.metadata.routes.show(resource.id));
       }
     });
   }
 
   render() {
-    const tableRows = this.tableComponents({ editable: true });
+    const tableRows = this.tableComponents({ editable: true, columnList: 'newColumns' });
 
     return (
       <form className="pure-form" onSubmit={this.create.bind(this)}>

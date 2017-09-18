@@ -39,14 +39,21 @@ export const getMentors = (filters = {}) => {
 
 export const getUser = (id) => api.get(`/users/${id}`);
 
-export const postLogin = (fields) => api.post("/login", { auth: fields });
-
-export const postRegistration = (fields) => api.post("/users", fields);
+export const postLogin = (fields) => api.post("/sessions", { session: fields });
 
 export const postConfirmation = (id, confirmation_token) => api.post(`/users/${id}/confirm`, { confirmation_token });
 
-export const postRecoverPassword = (fields) => api.post("/users/recover", fields);
-
-export const getResetPasswordToken = (token) => api.get(`/users/reset-token/${token}`);
-
 export const putPassword = (fields) => api.put("/users/password", fields);
+
+export const users = {
+  create: (attributes) => api.post("/users", attributes),
+  update: (id, attributes, token) => {
+    const headers = token ? { "Authorization": `Bearer ${token}` } : {};
+    return api.patch(`/users/${id}`, { user: attributes }, { headers })
+  }
+};
+
+export const password_recovery_tokens = {
+  create: (attributes) => api.post("/password_recovery_tokens", { password_recovery_token: attributes }),
+  get: (token) => api.get(`/password_recovery_tokens/${token}`),
+};

@@ -7,6 +7,8 @@ import Section from "components/elements/Section";
 import RecoverPasswordForm from "components/forms/RecoverPasswordForm";
 
 
+const email = "mentoria@alumniei.pt";
+
 class RecoverPassword extends React.Component {
   constructor(...args) {
     super(...args);
@@ -28,12 +30,10 @@ class RecoverPassword extends React.Component {
 
   renderForm() {
     return (
-      <div className="pure-g">
-        <div className="pure-u-1-2">
-          <RecoverPasswordForm
-            onSuccess={this.onSubmit.bind(this)}
-          />
-        </div>
+      <div style={{margin: "4em auto", maxWidth: '30em'}}>
+        <RecoverPasswordForm
+          onSuccess={this.onSubmit.bind(this)}
+        />
       </div>
     );
   }
@@ -58,17 +58,28 @@ class RecoverPassword extends React.Component {
     let content = !this.state.sent ? this.renderForm() : this.renderSentMessage();
 
     return (
-      <div className="page-registration">
-        <div className="posts">
-          <Section title="Programa de Mentorados de Engenharia Informática - FEUP">
-            <p>
-              O registo é obrigatório e requer um endereço de email {}
-              <code>fe.up.pt</code>. Ah, e há mais coisas que convém dizer,
-              como por exemplo nao tomar banho depois de comer.
-            </p>
-          </Section>
+      <div className="posts">
+        <section className="post">
+          <header className="post-header">
+            <h1 className="post-title">Programa de Mentorados de Engenharia Informática - FEUP</h1>
+          </header>
+          <p>
+            O registo é obrigatório e requer um endereço de email {}
+            <code>fe.up.pt</code>. Ah, e há mais coisas que convém dizer,
+            como por exemplo nao tomar banho depois de comer.
+          </p>
           {content}
-        </div>
+        </section>
+
+        <section>
+          <h2>Contacto</h2>
+
+          <p>
+            Se quiserdes contactar as pessoas responsaveis pela manutencao da
+            plataforma, com queixas, sugestoes, ou qualquer cena, mandai email
+            para <a href={`mailto:${email}`}>{email}</a>.
+          </p>
+        </section>
       </div>
     );
   }

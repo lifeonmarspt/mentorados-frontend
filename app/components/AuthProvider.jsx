@@ -13,24 +13,26 @@ class AuthProvider extends React.Component {
     router: PropTypes.object.isRequired,
   };
 
-  constructor(...args) {
-    super(...args);
-
-    this.state = {
-      session: {},
-      loading: true,
-    };
+  state = {
+    session: {},
+    user: {},
+    loading: true,
   }
 
   getChildContext() {
     return {
       session: {
-        user: this.state.session.user,
+        user: this.state.user,
         jwt: this.state.session.jwt,
         doLogin: this.doLogin.bind(this),
         doLogout: this.doLogout.bind(this),
+        refreshUser: this.refreshUser.bind(this),
       },
     };
+  }
+
+  refreshUser(user) {
+    this.setState({ user });
   }
 
   componentWillMount() {
@@ -42,12 +44,10 @@ class AuthProvider extends React.Component {
 
     new Promise(
       (resolve, reject) => resolve(session.user.id)
-    ).then(
-      (id) => getUser(id),
-    ).then(
-      () => this.setState({ session, loading: false }),
+    ).then(getUser).then(
+      (response) => this.setState({ user: response.data, session, loading: false }),
     ).catch(
-      () => this.setState({ session: {}, loading: false }),
+      () => this.setState({ user: {}, session: {}, loading: false }),
     );
   }
 

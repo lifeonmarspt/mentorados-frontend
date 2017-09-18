@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-import { getResetPasswordToken } from "lib/api";
+import { password_recovery_tokens } from "lib/api";
 import Section from "components/elements/Section";
 import ResetPasswordForm from "components/forms/ResetPasswordForm";
 import RecoverPasswordForm from "components/forms/RecoverPasswordForm";
@@ -10,8 +10,9 @@ import RecoverPasswordForm from "components/forms/RecoverPasswordForm";
 
 class ResetPassword extends React.Component {
   static contextTypes = {
-    session: PropTypes.object
-  }
+    session: PropTypes.object,
+    router: PropTypes.object,
+  };
 
   constructor(...args) {
     super(...args);
@@ -20,17 +21,17 @@ class ResetPassword extends React.Component {
   }
 
   componentWillMount() {
-    getResetPasswordToken(
+    password_recovery_tokens.get(
       this.props.match.params.token,
     ).then(
-      (response) => this.setState({ loading: false, valid: true, user: response.data }),
+      (response) => this.setState({ loading: false, valid: true, user: response.data.user }),
     ).catch(
       () => this.setState({ loading: false, valid: false }),
     )
   }
 
   onSuccessfulReset(data) {
-    this.context.session.doLogin(data);
+    this.context.session.doLogin({ jwt: this.props.match.params.token });
   }
 
   onSuccessfulRecover(email) {

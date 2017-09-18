@@ -17,7 +17,9 @@ module.exports = {
   },
   devServer: {
     host: "0.0.0.0",
-    historyApiFallback: true,
+    historyApiFallback: {
+      disableDotRule: true,
+    }
   },
   devtool: "source-map",
   module: {
@@ -26,6 +28,7 @@ module.exports = {
       { test: /\.css$/, use: ["style-loader", "css-loader"] },
       { test: /\.js$/, use: "babel-loader", exclude: /node_modules/ },
       { test: /\.jsx$/, use: "babel-loader", exclude: /node_modules/ },
+      { test: /\.yml$/, use: ["json-loader", "yaml-loader"], exclude: /node_modules/ },
     ],
   },
   plugins: [

@@ -11,18 +11,18 @@ class UserPane extends React.Component {
 
   render() {
     return (
-      <div className="pure-u-1-2 user-pane">
+      <div className="user-pane">
         {
           this.context.session.user &&
-            <Link className="pure-button pure-button" to="/account">
-              {this.context.session.user.email}
+            <Link className="pure-button" to="/account">
+              Profile
             </Link>
         }
 
         {
           this.context.session.user && this.context.session.user.admin &&
-            <Link to="/admin">
-              <button className="pure-button pure-button">Admin</button>
+            <Link className="pure-button" to="/admin">
+              Admin
             </Link>
         }
 
@@ -30,7 +30,7 @@ class UserPane extends React.Component {
           this.context.session.user &&
             <button
               onClick={this.context.session.doLogout}
-              className="pure-button pure-button"
+              className="pure-button"
             >
               Logout
             </button>
@@ -43,11 +43,10 @@ class UserPane extends React.Component {
 class Header extends React.Component {
   render() {
     return (
-      <header>
-        <div className="pure-u-1-2 brand-tagline">
-          <Link to="/">AlumniEI</Link> {}
-          Mentorship Program
-        </div>
+      <header className="navigation">
+        <Link className="brand-tagline" to="/">
+          AlumniEI Mentorship Program
+        </Link>
         <UserPane />
       </header>
     );

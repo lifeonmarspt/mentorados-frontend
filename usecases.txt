@@ -1,0 +1,63 @@
+i18n?
+
+as a student:
+
+  when I get to the platform:
+    understand what the platform is for
+    see the code of conduct
+    have a way to contact the staff
+
+    be assured that no logs are being registered
+    understand that I should register with my @fe.up.pt email
+    register with my email address
+    login with my credentials
+    recover my password
+
+  after login:
+    change my own password
+    find mentors with life experience similar to mine
+    find mentors in areas or companies that I'm interested in
+    read about the mentors professional history
+    get mentors contact information
+    be encouraged to contact mentors
+
+
+as a potential mentor:
+
+  when I get to the platform:
+    understand what the platform is for
+    see the code of conduct
+    have a way to contact the staff
+
+    be encouraged to contact the staff to sign up as a mentor
+
+
+as a mentor:
+
+  when I get to the platform:
+    understand what the platform is for
+    see the code of conduct
+    have a way to contact the staff
+
+    login with credentials previously provided by staff
+    recover my password
+
+  after login:
+    change my own password
+    see other mentors information to get an idea of the tone and content
+    edit my professional and personal information
+
+    unlist myself from the platform
+    make myself available for being contacted
+
+
+as an admin:
+
+  when I get to the platform:
+    login with my credentials
+    recover my password
+
+  after login:
+    create other admin accounts
+    change my own password
+    revoke access of mentors, students, and admins to the platform

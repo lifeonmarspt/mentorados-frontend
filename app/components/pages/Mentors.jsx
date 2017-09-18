@@ -53,10 +53,12 @@ class Mentors extends React.Component {
     this.setState({ loading: true });
 
     this.getMentorsPromise = getMentors(filters).
-      then((response) => this.setState({
-      mentors: sortByKey(response.data, (m) => m.name),
-      loading: false,
-    }));
+      then((response) => {
+        this.setState({
+          mentors: sortByKey(response.data, (m) => m.name),
+          loading: false,
+        })
+      });
   }
 
   componentWillUnmount() {

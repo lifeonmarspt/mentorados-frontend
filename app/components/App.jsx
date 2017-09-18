@@ -29,29 +29,33 @@ class App extends React.Component {
       <Router>
         <AuthProvider>
           <MetaProvider>
-            <Layout>
-              <Switch>
-                <AnonymousRoute exact path="/" component={Home} />
-                <AnonymousRoute exact path="/signup" component={SignUp} />
-                <AnonymousRoute exact path="/recover-password" component={RecoverPassword} />
-                <AnonymousRoute exact path="/users/:id/confirm/:token" component={Confirmation} />
-                <AnonymousRoute exact path="/users/:id/reset/:token" component={ResetPassword} />
+            <Switch>
+              <AnonymousRoute exact path="/" component={Home} />
+              <AnonymousRoute exact path="/recover-password" component={RecoverPassword} />
+              <Route path="*">
+                <Layout>
+                  <Switch>
+                    <AnonymousRoute exact path="/signup" component={SignUp} />
+                    <AnonymousRoute exact path="/users/:id/confirm/:token" component={Confirmation} />
+                    <AnonymousRoute exact path="/users/:id/reset/:token" component={ResetPassword} />
 
-                <AuthenticatedRoute exact path="/mentors" component={Mentors} />
-                <AuthenticatedRoute exact path="/account" component={Account} />
+                    <AuthenticatedRoute exact path="/mentors" component={Mentors} />
+                    <AuthenticatedRoute exact path="/account" component={Account} />
 
-                <AdminRoute exact path="/admin" component={AdminHome} />
+                    <AdminRoute exact path="/admin" component={AdminHome} />
 
-                <AdminRoute path="/admin/users">
-                  <Resource path="/admin/users" resource={userDescription} />
-                </AdminRoute>
-                <AdminRoute path="/admin/mentors">
-                  <Resource path="/admin/mentors" resource={mentorDescription} />
-                </AdminRoute>
+                    <AdminRoute path="/admin/users">
+                      <Resource path="/admin/users" resource={userDescription} />
+                    </AdminRoute>
+                    <AdminRoute path="/admin/mentors">
+                      <Resource path="/admin/mentors" resource={mentorDescription} />
+                    </AdminRoute>
 
-                <Route exact path="*" component={NotFound} />
-              </Switch>
-            </Layout>
+                    <Route exact path="*" component={NotFound} />
+                  </Switch>
+                </Layout>
+              </Route>
+            </Switch>
           </MetaProvider>
         </AuthProvider>
       </Router>

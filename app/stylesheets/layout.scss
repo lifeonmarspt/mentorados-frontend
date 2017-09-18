@@ -1,3 +1,5 @@
+$link-color: rgb(61, 146, 201);
+
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -6,7 +8,7 @@
 
 a {
     text-decoration: none;
-    color: rgb(61, 146, 201);
+    color: $link-color;
 }
 a:hover,
 a:focus {
@@ -40,18 +42,6 @@ h3 {
   padding: 0px 10px;
 }
 
-.brand-title,
-.brand-tagline {
-    margin: 0;
-}
-.brand-title {
-    text-transform: uppercase;
-}
-.brand-tagline {
-    font-weight: 300;
-    color: rgb(176, 202, 219);
-}
-
 .nav-list {
     margin: 0;
     padding: 0;
@@ -59,7 +49,6 @@ h3 {
 }
 .nav-item {
     display: inline-block;
-    *display: inline;
     zoom: 1;
 }
 .nav-item a {
@@ -73,7 +62,7 @@ h3 {
 }
 .nav-item a:hover,
 .nav-item a:focus {
-    border: 2px solid rgb(61, 146, 201);
+    border: 2px solid $link-color;
     text-decoration: none;
 }
 
@@ -158,31 +147,50 @@ footer {
     background: none;
 }
 
+@media (max-width: 48em) {
+  header.navigation {
+    //display: block !important;
+  }
+}
+
 @media (min-width: 48em) {
-    .content {
-        padding: 2em 3em 0;
-        margin-left: 16.666%;
-    }
+  .content {
+    padding: 2em 3em 0;
+    margin-left: 16.666%;
+  }
 
-    .header {
-        margin: 2em 2em 0;
-        text-align: right;
-    }
+  .header {
+    margin: 2em 2em 0;
+    text-align: right;
+  }
 
-    .footer {
-        text-align: center;
-    }
+  .footer {
+    text-align: center;
+  }
 }
 
 
-/* * */
 .filters {
   padding: 2em 1em 2em 2em;
   text-align: right;
+
+  input[type=text] {
+    width: 100%;
+  }
+
+  .filter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+
+    input[type=checkbox] {
+      margin-left: 10px;
+    }
+  }
 }
 
 .posts {
-  padding: 2em 2em 2em 1em;
+  padding: 2em;
 }
 
 .push-right {
@@ -212,22 +220,19 @@ input {
 
 body {
   max-width: 1190px;
+  margin: 0px auto;
 }
 
-.brand {
-    margin-top: 0;
-    margin-bottom: 0;
-}
+header.navigation {
+  display: flex;
+  justify-content: space-between;
 
-.sidebar .brand a {
-  color: #fff;
-  text-decoration: none;
-}
-
-header {
   .brand-tagline {
+    margin: 0;
     padding: 0.5em 1em;
     font-size: 1.5em;
+    font-weight: 300;
+    color: rgb(176, 202, 219);
   }
 
   .user-pane {
@@ -326,3 +331,14 @@ aside {
   }
 
 }
+
+
+.login__input, .signup__input, .recover__input {
+  width: 100%;
+}
+
+@media screen and (min-width: 35.5em) {
+  .u-sm-pr-1 { padding-right: 1em; }
+  .u-sm-pr-2 { padding-right: 2em; }
+}
+

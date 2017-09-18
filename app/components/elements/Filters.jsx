@@ -56,12 +56,13 @@ class Filters extends React.Component {
         <h1 className="content-subhead">Career Orientation</h1>
         <fieldset>
           {this.context.meta.careers.map((career, n) => (
+            <div className="filter" key={n}>
             <label
-              key={n}
               htmlFor={"filter-career-" + career.id}
               className="pure-checkbox"
             >
               {career.description} {}
+            </label>
               <input
                 id={"filter-career-" + career.id}
                 type="checkbox"
