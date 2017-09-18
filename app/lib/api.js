@@ -50,7 +50,8 @@ export const users = {
   update: (id, attributes, token) => {
     const headers = token ? { "Authorization": `Bearer ${token}` } : {};
     return api.patch(`/users/${id}`, { user: attributes }, { headers })
-  }
+  },
+  me: () => api.get("/users/me"),
 };
 
 export const password_recovery_tokens = {
