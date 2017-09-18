@@ -15,6 +15,7 @@ class MetaProvider extends React.Component {
 
   state = {
     loading: true,
+    careers: [],
     error: null,
   }
 
@@ -37,7 +38,6 @@ class MetaProvider extends React.Component {
     return {
       meta: {
         careers: this.state.careers,
-        genders: this.state.genders,
       },
     };
   }
