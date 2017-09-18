@@ -13,12 +13,10 @@ class MetaProvider extends React.Component {
     router: PropTypes.object.isRequired,
   };
 
-  constructor(...args) {
-    super(...args);
-
-    this.state = {
-      loading: true,
-    };
+  state = {
+    loading: true,
+    careers: [],
+    error: null,
   }
 
   componentWillMount() {
@@ -28,14 +26,18 @@ class MetaProvider extends React.Component {
         careers: response.data.careers,
         genders: response.data.genders,
       }),
-    )
+    ).catch(error => {
+      this.setState({
+        error: error.response.status,
+        loading: false,
+      });
+    });
   }
 
   getChildContext() {
     return {
       meta: {
         careers: this.state.careers,
-        genders: this.state.genders,
       },
     };
   }

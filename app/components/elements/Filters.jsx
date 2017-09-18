@@ -32,27 +32,6 @@ class Filters extends React.Component {
   render() {
     return (
       <form className="filters pure-form" onSubmit={e => e.preventDefault()}>
-        <h1 className="content-subhead">Gender</h1>
-        <fieldset>
-          {this.context.meta.genders.map((gender, n) => (
-            <label
-              key={n}
-              htmlFor={"filter-gender-" + gender.id}
-              className="pure-checkbox"
-            >
-              {gender.description} {}
-              <input
-                id={"filter-gender-" + gender.id}
-                type="radio"
-                name="filter-gender"
-                value={gender.id}
-                checked={this.props.filters.gender === gender.id}
-                onChange={() => this.handleGenderClick(gender)}
-              />
-            </label>
-          ))}
-        </fieldset>
-
         <h1 className="content-subhead">Career Orientation</h1>
         <fieldset>
           {this.context.meta.careers.map((career, n) => (

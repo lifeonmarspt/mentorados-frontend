@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 import AuthProvider from "components/AuthProvider";
 import MetaProvider from "components/MetaProvider";
@@ -18,24 +18,27 @@ import AdminHome from "components/pages/admin/Home";
 import Mentors from "components/pages/Mentors";
 import Account from "components/pages/Account";
 import NotFound from "components/pages/NotFound";
+import Blocked from "components/pages/Blocked";
 
 import mentorDescription from "resources/mentors";
 import userDescription from "resources/users";
-
 
 class App extends React.Component {
   render() {
     return (
       <Router>
         <AuthProvider>
-          <MetaProvider>
-            <Switch>
-              <AnonymousRoute exact path="/" component={Home} />
-              <AnonymousRoute exact path="/recover-password" component={RecoverPassword} />
-              <Route path="*">
-                <Layout>
+          <Switch>
+            <AnonymousRoute exact path="/" component={Home} />
+            <AnonymousRoute exact path="/recover-password" component={RecoverPassword} />
+
+            <Route exact path="/blocked" component={Blocked} />
+            <Route exact path="/not-found" component={NotFound} />
+
+            <Route path="*">
+              <Layout>
+                <MetaProvider>
                   <Switch>
-                    <AnonymousRoute exact path="/signup" component={SignUp} />
                     <AnonymousRoute exact path="/users/:id/confirm/:token" component={Confirmation} />
                     <AnonymousRoute exact path="/users/:id/reset/:token" component={ResetPassword} />
 
@@ -51,12 +54,12 @@ class App extends React.Component {
                       <Resource path="/admin/mentors" resource={mentorDescription} />
                     </AdminRoute>
 
-                    <Route exact path="*" component={NotFound} />
+                    <Redirect to="/not-found" />
                   </Switch>
-                </Layout>
-              </Route>
-            </Switch>
-          </MetaProvider>
+                </MetaProvider>
+              </Layout>
+            </Route>
+          </Switch>
         </AuthProvider>
       </Router>
     );
