@@ -10,23 +10,26 @@ class AuthenticatedRoute extends React.Component {
     session: PropTypes.object,
   }
 
-  constructor(...args) {
-    super(...args);
+  componentWillMount() {
+    const redir = this._redirect();
+    if (redir) this.context.router.history.replace(redir);
   }
 
-  componentDidMount() {
-    if (!this.context.session.user.id) {
-      this.context.router.history.replace("/");
-    }
+  componentWillReceiveProps(_, nextContext) {
+    const redir = this._redirect(nextContext);
+    if (redir) this.context.router.history.replace(redir);
   }
 
-  componentWillReceiveProps(nextProps, nextContext) {
-    if (!nextContext.session.user.id) {
-      this.context.router.history.replace("/");
-    }
+  _redirect(context = this.context) {
+    if (!context.session.user.id) return "/";
+    if (context.session.user.blocked) return "/blocked";
+
+    return null;
   }
 
   render() {
+    if (this._redirect()) return null;
+
     return <Route {...this.props} />;
   }
 
