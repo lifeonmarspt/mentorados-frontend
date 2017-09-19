@@ -49,10 +49,13 @@ class Account extends React.Component {
   };
 
   onInputChange = (e) => {
+    let value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    if (e.target.name === "traits_list") value = value.split(",");
+
     this.setState({
       changes: {
         ...this.state.changes,
-        [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value,
+        [e.target.name]: value,
       }
     });
   }
@@ -117,8 +120,10 @@ class Account extends React.Component {
               onChange={this.onListChange}
             />
 
-            <p>Se quiseres sair da programacao:</p>
+            <p>Traits (comma separated)</p>
+            <input type="text" name="traits_list" value={this.formValue("traits_list").join(",")} onChange={this.onInputChange} />
 
+            <p>Se quiseres sair da programacao:</p>
             <input type="checkbox" name="active" checked={this.formValue("active")} onChange={this.onInputChange} />
           </fieldset>
           }
