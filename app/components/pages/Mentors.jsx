@@ -1,10 +1,9 @@
 import React from "react";
-import { Route } from "react-router";
 
 import { getMentors } from "lib/api";
 import Mentor from "components/elements/Mentor";
 import Section from "components/elements/Section";
-import Filters from "components/elements/Filters"
+import Filters from "components/elements/Filters";
 import debounce from "debounce";
 
 
@@ -52,12 +51,12 @@ class Mentors extends React.Component {
   reloadMentors(filters) {
     this.setState({ loading: true });
 
-    this.getMentorsPromise = getMentors(filters).
-      then((response) => {
+    this.getMentorsPromise = getMentors(filters)
+      .then((response) => {
         this.setState({
           mentors: sortByKey(response.data, (m) => m.name),
           loading: false,
-        })
+        });
       });
   }
 
@@ -66,6 +65,8 @@ class Mentors extends React.Component {
   }
 
   render() {
+    const { mentors } = this.state;
+
     return (
       <div id="layout" className="pure-g">
         <div className="pure-u-1 pure-u-md-6-24">
@@ -77,16 +78,14 @@ class Mentors extends React.Component {
             Mentors {}
             {this.state.loading && <strong>(loading...)</strong>}
           </h1>
-          {
-            this.state.mentors === undefined ?
-              null :
-            this.state.mentors.length == 0 ?
-              <Section title="Oops...">
-                <p>No mentors found for the specified criteria</p>
-              </Section> :
-              this.state.mentors.map(
-                (mentor) => <Mentor key={mentor.id} mentor={mentor} />
-              )}
+
+          {mentors && mentors.length === 0 && (
+            <Section title="Oops...">
+              <p>No mentors found for the specified criteria</p>
+            </Section>
+          )}
+
+          {mentors && mentors.map(m => <Mentor key={m.id} mentor={m} />)}
         </div>
       </div>
     );

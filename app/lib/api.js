@@ -25,7 +25,7 @@ export const getMentors = (filters = {}) => {
 
   let serializable = {
     string: filters.query ? filters.query : undefined,
-    gender: filters.gender && filters.gender != "A" ? filters.gender : undefined,
+    gender: filters.gender && filters.gender !== "A" ? filters.gender : undefined,
     career_ids: filters.careers ? filters.careers : undefined,
   };
 
@@ -49,7 +49,7 @@ export const users = {
   create: (attributes) => api.post("/users", attributes),
   update: (id, attributes, token) => {
     const headers = token ? { "Authorization": `Bearer ${token}` } : {};
-    return api.patch(`/users/${id}`, { user: attributes }, { headers })
+    return api.patch(`/users/${id}`, { user: attributes }, { headers });
   },
   me: () => api.get("/users/me"),
 };

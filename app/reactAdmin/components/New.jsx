@@ -21,7 +21,7 @@ class New extends Remote {
   }
 
   render() {
-    const tableRows = this.tableComponents({ editable: true, columnList: 'newColumns' });
+    const tableRows = this.tableComponents({ editable: true, columnList: "newColumns" });
 
     return (
       <form className="pure-form" onSubmit={this.create.bind(this)}>

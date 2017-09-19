@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
 import { password_recovery_tokens } from "lib/api";
 import Section from "components/elements/Section";
@@ -27,7 +26,7 @@ class ResetPassword extends React.Component {
       (response) => this.setState({ loading: false, valid: true, user: response.data.user }),
     ).catch(
       () => this.setState({ loading: false, valid: false }),
-    )
+    );
   }
 
   onSuccessfulReset(data) {

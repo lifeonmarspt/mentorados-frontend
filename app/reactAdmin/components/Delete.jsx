@@ -17,7 +17,7 @@ class Delete extends Remote {
   destroy() {
     this.remoteDestroy().then(
       () => this.context.router.history.push(this.props.metadata.routes.index())
-    )
+    );
   }
 
   render() {

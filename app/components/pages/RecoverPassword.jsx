@@ -1,8 +1,5 @@
 import React from "react";
 
-import { errorTransform } from "lib/errorTransform";
-import { postRecoverPassword } from "lib/api";
-
 import Section from "components/elements/Section";
 import RecoverPasswordForm from "components/forms/RecoverPasswordForm";
 
@@ -30,7 +27,7 @@ class RecoverPassword extends React.Component {
 
   renderForm() {
     return (
-      <div style={{margin: "4em auto", maxWidth: '30em'}}>
+      <div style={{margin: "4em auto", maxWidth: "30em"}}>
         <RecoverPasswordForm
           onSuccess={this.onSubmit.bind(this)}
         />

@@ -1,7 +1,6 @@
 import React from "react";
 
-import { ShowComponent, EditComponent } from 'reactAdmin/helpers'
-
+import { ShowComponent, EditComponent } from "reactAdmin/helpers";
 
 class Remote extends React.Component {
   constructor(...args) {
@@ -32,9 +31,13 @@ class Remote extends React.Component {
   }
 
   tableComponents({ editable, columnList }) {
+    const { metadata } = this.props;
     const Component = (editable ? EditComponent : ShowComponent);
 
-    const columns = this.props.metadata[columnList ? columnList : editable ? "editColumns" : "showColumns"];
+    const columns = metadata[
+      columnList ||
+      editable ? "editColumns" : "showColumns"
+    ];
 
     return columns.map((fieldName) => ({
       label: this.field(fieldName).label,
@@ -66,7 +69,7 @@ class Remote extends React.Component {
         this.setState({ errors: e.response.data });
         return false;
       },
-    )
+    );
   }
 
   remoteCreate() {

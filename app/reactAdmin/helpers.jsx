@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-
 const ShowInsideSpan = ({ resource, field }) => (
   <span>{resource[field]}</span>
 );
@@ -15,12 +14,14 @@ class NoOpProvider extends React.Component {
 export const DisplayComponent = ({ field, metadata, ...rest }, { choices }) => {
   const DisplayAs = metadata.fields[field].displayAs || ShowInsideSpan;
 
-  return <DisplayAs
-    field={field}
-    metadata={metadata}
-    choices={choices}
-    {...rest}
-  />
+  return (
+    <DisplayAs
+      field={field}
+      metadata={metadata}
+      choices={choices}
+      {...rest}
+    />
+  );
 };
 
 DisplayComponent.contextTypes = {
