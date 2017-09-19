@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-
 const EditableArrayOf = (Component) => class extends React.Component {
   static propTypes = {
     resource: PropTypes.object,
@@ -14,7 +13,7 @@ const EditableArrayOf = (Component) => class extends React.Component {
   onChange(index, value) {
     this.props.onChange(
       this.props.resource[this.props.field].map(
-        (v, i) => i == index ? value : v,
+        (v, i) => i === index ? value : v,
       ),
     );
   }
@@ -24,7 +23,7 @@ const EditableArrayOf = (Component) => class extends React.Component {
 
     this.props.onChange(
       this.props.resource[this.props.field].filter(
-        (_, i) => i != index,
+        (_, i) => i !== index,
       ),
     );
   }
@@ -40,7 +39,7 @@ const EditableArrayOf = (Component) => class extends React.Component {
   render() {
     return (
       <div className="editable-array-of">
-        {(this.props.resource[this.props.field] || []).map((element, n) =>
+        {(this.props.resource[this.props.field] || []).map((element, n) => (
           <div key={n} className="editable-array-of-row">
             <Component
               resource={{ [this.props.field]: element }}
@@ -51,7 +50,7 @@ const EditableArrayOf = (Component) => class extends React.Component {
             />
             <a href="" onClick={(e) => this.onRemove(e, n)}>Remove</a>
           </div>
-        )}
+        ))}
         <a href="" onClick={this.onAddMore.bind(this)}>Add more</a>
       </div>
     );

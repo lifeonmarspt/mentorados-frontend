@@ -24,10 +24,11 @@ module.exports = {
   devtool: "source-map",
   module: {
     rules: [
+      { test: /\.jsx?$/, use: "eslint-loader", exclude: /node_modules/, enforce: "pre" },
+      { test: /\.jsx?$/, use: "babel-loader", exclude: /node_modules/ },
+      { test: /\.jsx?$/, use: "babel-loader", exclude: /node_modules/ },
       { test: /\.scss$/, use: ["style-loader", "css-loader", "sass-loader"], exclude: /node_modules/ },
       { test: /\.css$/, use: ["style-loader", "css-loader"] },
-      { test: /\.js$/, use: "babel-loader", exclude: /node_modules/ },
-      { test: /\.jsx$/, use: "babel-loader", exclude: /node_modules/ },
       { test: /\.yml$/, use: ["json-loader", "yaml-loader"], exclude: /node_modules/ },
     ],
   },

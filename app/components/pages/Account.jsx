@@ -6,10 +6,13 @@ import { users } from "lib/api";
 
 class SelectionList extends React.Component {
   onChange = (e) => {
+    const { onChange, checked } = this.props;
+    const toggledId = parseInt(e.target.value, 10);
+
     if (e.target.checked) {
-      this.props.onChange(this.props.checked.concat([parseInt(e.target.value, 10)]));
+      onChange(checked.concat([ toggledId ]));
     } else {
-      this.props.onChange(this.props.checked.filter(id => id != e.target.value));
+      onChange(checked.filter(id => id !== toggledId));
     }
   }
 
@@ -49,7 +52,7 @@ class Account extends React.Component {
     this.setState({
       changes: {
         ...this.state.changes,
-        [e.target.name]: e.target.type == "checkbox" ? e.target.checked : e.target.value,
+        [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value,
       }
     });
   }
@@ -90,33 +93,33 @@ class Account extends React.Component {
           </fieldset>
 
           { isMentor && <fieldset>
-            <input type="email" name="email" required placeholder="Email" value={this.formValue('email')} onChange={this.onInputChange} />
-            <input type="text" name="name" required placeholder="Nome" value={this.formValue('name')} onChange={this.onInputChange} />
-            <textarea name="bio" required placeholder="Historia da tua vida" value={this.formValue('bio')} onChange={this.onInputChange} />
-            <input type="number" required name="year_in" placeholder="Ano de entrada" value={this.formValue('year_in')} onChange={this.onInputChange} />
-            <input type="number" name="year_out" placeholder="Ano de conclusão" value={this.formValue('year_out')} onChange={this.onInputChange} />
+            <input type="email" name="email" required placeholder="Email" value={this.formValue("email")} onChange={this.onInputChange} />
+            <input type="text" name="name" required placeholder="Nome" value={this.formValue("name")} onChange={this.onInputChange} />
+            <textarea name="bio" required placeholder="Historia da tua vida" value={this.formValue("bio")} onChange={this.onInputChange} />
+            <input type="number" required name="year_in" placeholder="Ano de entrada" value={this.formValue("year_in")} onChange={this.onInputChange} />
+            <input type="number" name="year_out" placeholder="Ano de conclusão" value={this.formValue("year_out")} onChange={this.onInputChange} />
 
             <p>
               Nos usamos gravatar, mas bota ai se quiseres. Vamos por a imagem
               no esconderijo, se quiseres anda aqui outra vez.
             </p>
-            <input type="url" name="picture_url" value={this.formValue('picture_url')} onChange={this.onInputChange} />
+            <input type="url" name="picture_url" value={this.formValue("picture_url")} onChange={this.onInputChange} />
             <img src={this.context.session.user.picture} />
 
             <p>Links de programacao, um por linha:</p>
-            <textarea name="links" value={this.formValue('links')} onChange={this.onInputChange} />
+            <textarea name="links" value={this.formValue("links")} onChange={this.onInputChange} />
 
-            <input type="text" name="location" placeholder="Localização" value={this.formValue('location')} onChange={this.onInputChange} />
+            <input type="text" name="location" placeholder="Localização" value={this.formValue("location")} onChange={this.onInputChange} />
 
             <SelectionList
               items={this.context.meta.careers}
-              checked={this.formValue('career_ids')}
+              checked={this.formValue("career_ids")}
               onChange={this.onListChange}
             />
 
             <p>Se quiseres sair da programacao:</p>
 
-            <input type="checkbox" name="active" checked={this.formValue('active')} onChange={this.onInputChange} />
+            <input type="checkbox" name="active" checked={this.formValue("active")} onChange={this.onInputChange} />
           </fieldset>
           }
 

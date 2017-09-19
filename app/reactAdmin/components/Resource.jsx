@@ -20,8 +20,8 @@ class Resource extends React.Component {
             ["/:id/edit", Edit],
             ["/:id/delete", Delete],
           ].map(
-            ([path, Component]) => {
-              return <Route
+            ([path, Component]) => (
+              <Route
                 exact
                 key={path}
                 path={`${this.props.path}${path}`}
@@ -33,7 +33,7 @@ class Resource extends React.Component {
                   />
                 )}
               />
-            }
+            )
           )
         }
       </Switch>

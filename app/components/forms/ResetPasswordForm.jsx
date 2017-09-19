@@ -1,13 +1,10 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import { errorTransform } from "lib/errorTransform";
 import { users } from "lib/api";
 
-import Section from "components/elements/Section";
 import FormError from "components/elements/FormError";
 import FieldError from "components/elements/FieldError";
-
 
 class ResetPasswordForm extends React.Component {
   state = {

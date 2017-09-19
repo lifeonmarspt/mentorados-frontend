@@ -93,14 +93,14 @@
 
     "no-undefined": 0,
 
-    "no-unused-vars": 2,
+    "no-unused-vars": [2, { "args": "none" } ],
 
     //-------------------------------------------------------------------------
     // Code style
     //-------------------------------------------------------------------------
 
     // The one true brace style.
-    "brace-style": [2, "1tbs"],
+    "brace-style": [2, "1tbs", { "allowSingleLine": true }],
 
     "camelcase": 0,
 
@@ -157,7 +157,7 @@
     "react/jsx-uses-react": 2,
 
     // Display name is not needed when using ES6-style components
-    "react/display-name": 1,
+    "react/display-name": 0,
 
     // Make things consistent and readable – prefer `x` over `x={true}`
     "react/jsx-boolean-value": 2,
@@ -168,7 +168,7 @@
     "react/jsx-sort-prop-types": 0,
     "react/no-did-mount-set-state": 1,
     "react/no-did-update-set-state": 1,
-    "react/no-multi-comp": 2,
+    "react/no-multi-comp": 0,
     "react/no-unknown-property": 2,
     "react/react-in-jsx-scope": 0,
     "react/self-closing-comp": 2,

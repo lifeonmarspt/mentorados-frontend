@@ -18,15 +18,16 @@ class Filters extends React.Component {
   }
 
   handleGenderClick(gender) {
-    this.setFilter('gender', gender.id);
+    this.setFilter("gender", gender.id);
   }
 
   handleCareerClick(career, checked) {
-    this.setFilter('careers', checked ? this.props.filters.careers.concat([career.id]) : this.props.filters.careers.filter((id) => id != career.id));
+    const { careers } = this.props.filters;
+    this.setFilter("careers", checked ? careers.concat([career.id]) : careers.filter((id) => id !== career.id));
   }
 
   handleInputChange(event) {
-    this.setFilter('query', event.target.value);
+    this.setFilter("query", event.target.value);
   }
 
   render() {

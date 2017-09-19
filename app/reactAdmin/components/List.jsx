@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { ShowComponent } from 'reactAdmin/helpers'
+import { ShowComponent } from "reactAdmin/helpers";
 
 
 class List extends React.Component {

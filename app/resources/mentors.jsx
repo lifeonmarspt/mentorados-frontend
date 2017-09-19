@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -14,7 +15,9 @@ import { api } from "lib/api";
 import users from "resources/users";
 
 
-const createMetaChoiceProvider = (field) => class extends React.Component {
+const createMetaChoiceProvider = (field) => (class extends React.Component {
+  static displayName = "createMetaChoiceProvider";
+
   static contextTypes = {
     meta: PropTypes.object.isRequired,
   };
@@ -32,7 +35,7 @@ const createMetaChoiceProvider = (field) => class extends React.Component {
   render() {
     return React.Children.only(this.props.children);
   }
-}
+});
 
 const ChoiceList = (formatter) => ({ resource, field, choices }) => (
   <div>
@@ -125,3 +128,5 @@ export default {
   editColumns,
   showColumns,
 };
+
+/* eslint-enable new-cap */

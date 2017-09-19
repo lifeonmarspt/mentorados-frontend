@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 import AuthProvider from "components/AuthProvider";
@@ -9,7 +8,6 @@ import Resource from "reactAdmin/components/Resource";
 import AnonymousRoute from "components/core/AnonymousRoute";
 import AuthenticatedRoute from "components/core/AuthenticatedRoute";
 import AdminRoute from "components/core/AdminRoute";
-import SignUp from "components/pages/SignUp";
 import RecoverPassword from "components/pages/RecoverPassword";
 import ResetPassword from "components/pages/ResetPassword";
 import Confirmation from "components/pages/Confirmation";

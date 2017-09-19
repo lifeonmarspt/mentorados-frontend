@@ -5,7 +5,7 @@ const cancelledPromise = () => (
     then: function(...args) { return this; },
     catch: function(...args) { return this; },
   }
-)
+);
 
 const cancelablePromise = (promise, source) => (
   {
