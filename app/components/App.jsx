@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { Provider as ReduxProvider } from "react-redux";
 
 import AuthProvider from "components/AuthProvider";
 import MetaProvider from "components/MetaProvider";
@@ -21,45 +22,49 @@ import Blocked from "components/pages/Blocked";
 import mentorDescription from "resources/mentors";
 import userDescription from "resources/users";
 
+import store from "store";
+
 class App extends React.Component {
   render() {
     return (
-      <Router>
-        <AuthProvider>
-          <Switch>
-            <AnonymousRoute exact path="/" component={Home} />
-            <AnonymousRoute exact path="/recover-password" component={RecoverPassword} />
+      <ReduxProvider store={store}>
+        <Router>
+          <AuthProvider>
+            <Switch>
+              <AnonymousRoute exact path="/" component={Home} />
+              <AnonymousRoute exact path="/recover-password" component={RecoverPassword} />
 
-            <Route exact path="/blocked" component={Blocked} />
-            <Route exact path="/not-found" component={NotFound} />
+              <Route exact path="/blocked" component={Blocked} />
+              <Route exact path="/not-found" component={NotFound} />
 
-            <Route path="*">
-              <Layout>
-                <MetaProvider>
-                  <Switch>
-                    <AnonymousRoute exact path="/users/:id/confirm/:token" component={Confirmation} />
-                    <AnonymousRoute exact path="/users/:id/reset/:token" component={ResetPassword} />
+              <Route path="*">
+                <Layout>
+                  <MetaProvider>
+                    <Switch>
+                      <AnonymousRoute exact path="/users/:id/confirm/:token" component={Confirmation} />
+                      <AnonymousRoute exact path="/users/:id/reset/:token" component={ResetPassword} />
 
-                    <AuthenticatedRoute exact path="/mentors" component={Mentors} />
-                    <AuthenticatedRoute exact path="/account" component={Account} />
+                      <AuthenticatedRoute exact path="/mentors" component={Mentors} />
+                      <AuthenticatedRoute exact path="/account" component={Account} />
 
-                    <AdminRoute exact path="/admin" component={AdminHome} />
+                      <AdminRoute exact path="/admin" component={AdminHome} />
 
-                    <AdminRoute path="/admin/users">
-                      <Resource path="/admin/users" resource={userDescription} />
-                    </AdminRoute>
-                    <AdminRoute path="/admin/mentors">
-                      <Resource path="/admin/mentors" resource={mentorDescription} />
-                    </AdminRoute>
+                      <AdminRoute path="/admin/users">
+                        <Resource path="/admin/users" resource={userDescription} />
+                      </AdminRoute>
+                      <AdminRoute path="/admin/mentors">
+                        <Resource path="/admin/mentors" resource={mentorDescription} />
+                      </AdminRoute>
 
-                    <Redirect to="/not-found" />
-                  </Switch>
-                </MetaProvider>
-              </Layout>
-            </Route>
-          </Switch>
-        </AuthProvider>
-      </Router>
+                      <Redirect to="/not-found" />
+                    </Switch>
+                  </MetaProvider>
+                </Layout>
+              </Route>
+            </Switch>
+          </AuthProvider>
+        </Router>
+      </ReduxProvider>
     );
   }
 }
