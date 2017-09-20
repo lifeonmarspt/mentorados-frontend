@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Route } from "react-router-dom";
+import { compose } from "recompose";
 import { connect } from "react-redux";
 
 import { addToast } from "actions/toasts";
@@ -40,9 +41,6 @@ class AuthenticatedRoute extends React.Component {
 
 }
 
-export default connect(
-  f => f,
-  {
-    addToast,
-  },
+export default compose(
+  connect(f => f, { addToast }),
 )(AuthenticatedRoute);

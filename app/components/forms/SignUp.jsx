@@ -1,4 +1,6 @@
 import React from "react";
+import { compose } from "recompose";
+import { translate } from "react-i18next";
 
 import { errorTransform } from "lib/errorTransform";
 import { users } from "lib/api";
@@ -31,9 +33,11 @@ class SignUp extends React.Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <form className="signup pure-form" onSubmit={this.onSubmit.bind(this)}>
-        <h1 className="content-subhead">Registo</h1>
+        <h1 className="content-subhead">{t("title")}</h1>
         <FormError error={this.state.errors.serverError} />
         <fieldset>
           <input
@@ -46,11 +50,13 @@ class SignUp extends React.Component {
           <FieldError fieldName="email" errors={this.state.errors.email} />
         </fieldset>
         <fieldset>
-          <button type="submit" className="pure-button pure-button-primary">Sign Up</button>
+          <button type="submit" className="pure-button pure-button-primary">{t("submit")}</button>
         </fieldset>
       </form>
     );
   }
 };
 
-export default SignUp;
+export default compose(
+  translate([ "signup" ]),
+)(SignUp);

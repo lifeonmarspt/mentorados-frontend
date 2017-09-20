@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { compose } from "recompose";
+import { translate } from "react-i18next";
 
 import { postLogin } from "lib/api";
 import { errorTransform } from "lib/errorTransform";
 import FormError from "components/elements/FormError";
-
-import t from "translations/pt.yml";
 
 class Login extends React.Component {
   static contextTypes = {
@@ -14,16 +14,12 @@ class Login extends React.Component {
     session: PropTypes.object
   }
 
-  constructor(...args) {
-    super(...args);
-
-    this.state = {
-      fields: {
-        email: "",
-        password: ""
-      },
-      errors: {}
-    };
+  state = {
+    fields: {
+      email: "",
+      password: "",
+    },
+    errors: {},
   }
 
   onChange(field, event) {
@@ -45,10 +41,12 @@ class Login extends React.Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <form className="login pure-form" onSubmit={this.onSubmit.bind(this)}>
         <h1 className="content-subhead">
-          {t.login.title}
+          {t("title")}
         </h1>
         <FormError error={this.state.errors.serverError} />
         <fieldset>
@@ -57,7 +55,7 @@ class Login extends React.Component {
             onChange={this.onChange.bind(this, "email")}
             type="email"
             required
-            placeholder={t.login.placeholder.email}
+            placeholder={t("placeholder.email")}
           />
         </fieldset>
         <fieldset>
@@ -66,15 +64,15 @@ class Login extends React.Component {
             onChange={this.onChange.bind(this, "password")}
             type="password"
             required
-            placeholder={t.login.placeholder.password}
+            placeholder={t("placeholder.password")}
           />
         </fieldset>
         <fieldset>
           <button type="submit" className="pure-button pure-button-primary">
-            {t.login.submit}
+            {t("submit")}
           </button>
           <Link to="/recover-password">
-            {t.login.recover}
+            {t("recover")}
           </Link>
         </fieldset>
       </form>
@@ -82,4 +80,6 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default compose(
+  translate([ "login" ]),
+)(Login);

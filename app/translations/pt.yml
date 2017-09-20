@@ -1,3 +1,9 @@
+home:
+  title: Programa de Mentorados de Engenharia Informática - FEUP
+  contact:
+    title: Contacto
+    content: Se quiserdes contactar as pessoas responsaveis pela manutencao da plataforma, com queixas, sugestoes, ou qualquer cena, mandai email para <a href="mailto:{{email}}">{{email}}</a>
+
 login:
   title: Iniciar sessão
   submit: Iniciar sessão
@@ -5,6 +11,10 @@ login:
   placeholder:
     email: Email
     password: Password
+
+signup:
+  title: Registo
+  submit: Registar
 
 recover:
   submit: Recuperar password

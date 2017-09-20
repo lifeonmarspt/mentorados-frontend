@@ -1,4 +1,6 @@
 import React from "react";
+import { compose } from "recompose";
+import { translate } from "react-i18next";
 
 import Section from "components/elements/Section";
 import SignUpForm from "components/forms/SignUpForm";
@@ -51,4 +53,6 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+export default compose(
+  translate([ "signup" ]),
+)(SignUp);

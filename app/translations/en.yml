@@ -1,0 +1,22 @@
+home:
+  title: Mentorship Program for Software Engineering - FEUP
+  contact:
+    title: Contact
+    content: If you wish to contact the people responsible for the platform maintenance with complaints, suggestions, or any other questions, send an email to <a href="mailto:{{email}}">{{email}}</a>
+
+login:
+  title: Sign In
+  submit: Sign In
+  recover: Recover password
+  placeholder:
+    email: Email
+    password: Password
+
+signup:
+  title: Registration
+  submit: Sign up
+
+recover:
+  submit: Recover password
+  placeholder:
+    email: Email
