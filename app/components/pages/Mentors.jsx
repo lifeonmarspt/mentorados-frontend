@@ -26,7 +26,7 @@ class Mentors extends React.Component {
       loading: true,
       filters: {
         query: "",
-        gender: "A",
+        traits: [],
         careers: [],
       },
     };
@@ -42,7 +42,7 @@ class Mentors extends React.Component {
     this.debouncedReloadMentors.clear();
   }
 
-  filtersDidChange(filters) {
+  filtersDidChange = (filters) => {
     this.setState({ filters });
 
     this.debouncedReloadMentors(filters);
@@ -70,7 +70,7 @@ class Mentors extends React.Component {
     return (
       <div id="layout" className="pure-g">
         <div className="pure-u-1 pure-u-md-6-24">
-          <Filters filters={this.state.filters} onFilterChange={this.filtersDidChange.bind(this)} />
+          <Filters filters={this.state.filters} onFilterChange={this.filtersDidChange} />
         </div>
 
         <div className="pure-u-1 pure-u-md-18-24 posts">

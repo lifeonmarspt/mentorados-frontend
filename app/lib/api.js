@@ -25,8 +25,8 @@ export const getMentors = (filters = {}) => {
 
   let serializable = {
     string: filters.query ? filters.query : undefined,
-    gender: filters.gender && filters.gender !== "A" ? filters.gender : undefined,
     career_ids: filters.careers ? filters.careers : undefined,
+    trait_ids: filters.traits ? filters.traits : undefined,
   };
 
   let qs = stringify(serializable, { arrayFormat: "bracket" });
