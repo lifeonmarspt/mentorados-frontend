@@ -7,8 +7,12 @@ import {
   CLEAR_TOASTS,
 } from "action-types";
 
-const TOAST_DURATION_MS = 3000;
+// constants
+export const TOAST_LEVEL_SUCCESS = "success";
+export const TOAST_LEVEL_ERROR = "error";
+export const TOAST_DURATION_MS = 3000;
 
+// actions
 export const removeToast = createAction(REMOVE_TOAST);
 export const clearToasts = createAction(CLEAR_TOASTS);
 
@@ -21,7 +25,7 @@ export const addToast = params => {
     return dispatch(createAction(ADD_TOAST)({
       id,
       content: "",
-      level: ["success", "error"][Math.random() > 0.5 ? 0 : 1],
+      level: TOAST_LEVEL_SUCCESS,
       ...params,
     }));
   };
