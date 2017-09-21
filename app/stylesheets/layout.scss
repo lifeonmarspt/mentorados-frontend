@@ -1,221 +1,9 @@
 $link-color: rgb(61, 146, 201);
 
 * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-a {
-    text-decoration: none;
-    color: $link-color;
-}
-a:hover,
-a:focus {
-    text-decoration: underline;
-}
-
-h3 {
-    font-weight: 100;
-}
-
-/* LAYOUT CSS */
-.pure-img-responsive {
-    max-width: 100%;
-    height: auto;
-}
-
-#layout {
-    padding: 0;
-}
-
-.header {
-    text-align: center;
-    top: auto;
-    margin: 3em auto;
-}
-
-.sidebar {
-  height: 100%;
-  background: rgb(61, 79, 93);
-  color: #fff;
-  padding: 0px 10px;
-}
-
-.nav-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-.nav-item {
-    display: inline-block;
-    zoom: 1;
-}
-.nav-item a {
-    background: transparent;
-    border: 2px solid rgb(176, 202, 219);
-    color: #fff;
-    margin-top: 1em;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    font-size: 85%;
-}
-.nav-item a:hover,
-.nav-item a:focus {
-    border: 2px solid $link-color;
-    text-decoration: none;
-}
-
-.content-subhead {
-    text-transform: uppercase;
-    color: #aaa;
-    border-bottom: 1px solid #eee;
-    padding: 0.4em 0;
-    font-size: 80%;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-}
-
-.content {
-    padding: 2em 1em 0;
-}
-
-.post {
-    padding-bottom: 2em;
-}
-.post-title {
-    font-size: 2em;
-    color: #222;
-    margin-bottom: 0.2em;
-}
-.post-avatar {
-    border-radius: 50px;
-    float: right;
-    margin-left: 1em;
-}
-.post-description {
-    font-family: Georgia, "Cambria", serif;
-    color: #444;
-    line-height: 1.8em;
-}
-.post-meta {
-    color: #999;
-    font-size: 90%;
-    margin: 0;
-}
-
-.post-category {
-    margin: 0 0.1em;
-    padding: 0.3em 1em;
-    color: #fff;
-    background: #999;
-    font-size: 80%;
-}
-    .post-category-design {
-        background: #5aba59;
-    }
-    .post-category-pure {
-        background: #4d85d1;
-    }
-    .post-category-yui {
-        background: #8156a7;
-    }
-    .post-category-js {
-        background: #df2d4f;
-    }
-
-.post-images {
-    margin: 1em 0;
-}
-.post-image-meta {
-    margin-top: -3.5em;
-    margin-left: 1em;
-    color: #fff;
-    text-shadow: 0 1px 1px #333;
-}
-
-footer {
-    padding: 0.5em 1em;
-}
-
-.footer a {
-    color: #ccc;
-    font-size: 80%;
-}
-.footer .pure-menu a:hover,
-.footer .pure-menu a:focus {
-    background: none;
-}
-
-@media (max-width: 48em) {
-  header.navigation {
-    //display: block !important;
-  }
-}
-
-@media (min-width: 48em) {
-  .content {
-    padding: 2em 3em 0;
-    margin-left: 16.666%;
-  }
-
-  .header {
-    margin: 2em 2em 0;
-    text-align: right;
-  }
-
-  .footer {
-    text-align: center;
-  }
-}
-
-
-.filters {
-  padding: 2em 1em 2em 2em;
-  text-align: right;
-
-  input[type=text] {
-    width: 100%;
-  }
-
-  .filter {
-    display: flex;
-    justify-content: flex-end;
-    align-items: baseline;
-
-    input[type=checkbox] {
-      margin-left: 10px;
-    }
-  }
-}
-
-.posts {
-  padding: 2em;
-}
-
-.push-right {
-  margin-right: 1em;
-}
-
-input {
-  color: #111;
-}
-
-.button-xsmall {
-  font-size: 80%;
-}
-
-.sidebar h1.content-subhead {
-  color: #fff;
-}
-
-.sidebar, .page-registration {
-
-  input {
-    &[type=text], &[type=email], &[type=password] {
-      width: 100%;
-    }
-  }
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
@@ -223,32 +11,29 @@ body {
   margin: 0px auto;
 }
 
-header.navigation {
-  display: flex;
-  justify-content: space-between;
+a {
+  text-decoration: none;
+  color: $link-color;
+}
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
 
-  .brand-tagline {
-    margin: 0;
-    padding: 0.5em 1em;
-    font-size: 1.5em;
-    font-weight: 300;
-    color: rgb(176, 202, 219);
-  }
+h3 {
+  font-weight: 100;
+}
 
-  .user-pane {
-    text-align: right;
-    padding: 0.5em;
+.posts {
+  padding: 2em;
+}
 
-    * + * {
-      margin-left: 1em;
-    }
-  }
+input {
+  color: #111;
 }
 
 aside {
-
   text-align: left;
-  font-family: Georgia, "Cambria", serif;
   color: #444;
 
   padding: .5em;
@@ -257,16 +42,10 @@ aside {
     border: 1px rgb(255, 0, 0) solid;
     background-color: rgb(255, 185, 185);
   }
-
 }
 
 .pure-form-field-error {
   color: #ff0000;
-}
-
-.pure-button-orange {
-  color: #ffffff;
-  background: rgb(223, 117, 20);
 }
 
 .editable-array-of-row {
@@ -332,8 +111,7 @@ aside {
 
 }
 
-
-.login__input, .signup__input, .recover__input {
+.signup__input, .recover__input {
   width: 100%;
 }
 
