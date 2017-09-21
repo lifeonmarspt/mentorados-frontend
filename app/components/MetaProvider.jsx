@@ -24,7 +24,7 @@ class MetaProvider extends React.Component {
       (response) => this.setState({
         loading: false,
         careers: response.data.careers,
-        genders: response.data.genders,
+        traits: response.data.traits,
       }),
     ).catch(error => {
       this.setState({
@@ -38,6 +38,7 @@ class MetaProvider extends React.Component {
     return {
       meta: {
         careers: this.state.careers,
+        traits: this.state.traits,
       },
     };
   }
