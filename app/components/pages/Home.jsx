@@ -1,8 +1,9 @@
 import React from "react";
+import { compose } from "recompose";
+import { translate } from "react-i18next";
 
 import SignUp from "components/forms/SignUp";
 import Login from "components/elements/Login";
-
 
 const email = "mentoria@alumniei.pt";
 
@@ -25,10 +26,12 @@ class Home extends React.Component {
   }
 
   render() {
+    const { t } = this.props;
+
     return (
       <div className="posts">
         <section className="post">
-          <h1 className="post-title">Programa de Mentorados de Engenharia Informática - FEUP</h1>
+          <h1 className="post-title">{t("title")}</h1>
           <p>
             Introducao à plataforma e aos seus objectivos.
           </p>
@@ -74,17 +77,14 @@ class Home extends React.Component {
         }
 
         <section>
-          <h2>Contacto</h2>
-
-          <p>
-            Se quiserdes contactar as pessoas responsaveis pela manutencao da
-            plataforma, com queixas, sugestoes, ou qualquer cena, mandai email
-            para <a href={`mailto:${email}`}>{email}</a>.
-          </p>
+          <h2>{t("contact.title")}</h2>
+          <p dangerouslySetInnerHTML={{ __html: t("contact.content", { email })}} />
         </section>
       </div>
     );
   }
 }
 
-export default Home;
+export default compose(
+  translate([ "home" ]),
+)(Home);
