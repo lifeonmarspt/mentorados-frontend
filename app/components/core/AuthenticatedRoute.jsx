@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import { Route } from "react-router-dom";
+import { connect } from "react-redux";
+
+import { addToast } from "actions/toasts";
 
 class AuthenticatedRoute extends React.Component {
 
@@ -12,7 +14,10 @@ class AuthenticatedRoute extends React.Component {
 
   componentWillMount() {
     const redir = this._redirect();
-    if (redir) this.context.router.history.replace(redir);
+    if (redir) {
+      this.context.router.history.replace(redir);
+      this.props.addToast({ content: "Please log in before continuing.", level: "error" });
+    }
   }
 
   componentWillReceiveProps(_, nextContext) {
@@ -35,4 +40,9 @@ class AuthenticatedRoute extends React.Component {
 
 }
 
-export default AuthenticatedRoute;
+export default connect(
+  f => f,
+  {
+    addToast,
+  },
+)(AuthenticatedRoute);

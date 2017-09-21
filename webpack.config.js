@@ -7,7 +7,7 @@ const process = require("process")
 module.exports = {
   entry: "./app/index.jsx",
   resolve: {
-    extensions: [".js",".jsx",".json"],
+    extensions: [".js",".jsx",".json", ".scss"],
     modules: [path.resolve(__dirname, "app"), "node_modules"],
   },
   output: {

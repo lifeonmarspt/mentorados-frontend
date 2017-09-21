@@ -1,0 +1,6 @@
+.Toaster {
+  .Toast {
+    &--success { background: green }
+    &--error { background: red }
+  }
+}

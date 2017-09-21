@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import Header from "components/Header";
 import Footer from "components/Footer";
-
+import Toaster from "components/Toaster";
 
 class Layout extends React.Component {
   static contextTypes = {
@@ -16,6 +16,7 @@ class Layout extends React.Component {
     return (
       <div id="layout">
         <Header />
+        <Toaster />
         <Route path="/admin" component={() => (
             <nav>
               <ul>
