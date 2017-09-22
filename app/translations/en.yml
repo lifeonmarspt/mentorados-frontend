@@ -30,6 +30,26 @@ recover:
   placeholder:
     email: Email
 
+mentors:
+  list:
+    title: Mentors
+    loading: (loading...)
+    not_found:
+      title: Oops...
+      notice: No mentors found for the specified criteria
+  resource:
+    living_working: Living/Working in
+    graduated: Attended from {{year_in}} to {{year_out}}
+    attending: Enrolled in {{year_in}}
+  filters:
+    search:
+      title: Search
+      placeholder: Search for name, bio, etc
+    traits:
+      title: Personal Traits
+    careers:
+      title: Career Orientation
+
 account:
   title: Account details
   form:
@@ -72,3 +92,5 @@ account:
 
     submit: Save changes
 
+toasts:
+  needs_login: Please login before continuing

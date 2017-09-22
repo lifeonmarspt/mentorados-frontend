@@ -16,7 +16,7 @@ class Layout extends React.Component {
     return (
       <div id="layout">
         <Header />
-        <Toaster />
+
         <Route path="/admin" component={() => (
             <nav>
               <ul>
@@ -28,6 +28,8 @@ class Layout extends React.Component {
         />
 
         {this.props.children}
+
+        <Toaster />
         <Footer />
       </div>
     );

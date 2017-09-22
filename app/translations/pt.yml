@@ -2,7 +2,7 @@ header:
   tagline: Mentorados AlumniEI
   profile: Conta
   admin: Admin
-  Logout: Sair
+  logout: Sair
 
 footer:
   copy: Feito com &#x2328; pela <a href="https://lifeonmars.pt/">Life on Mars</a> para a <a href="http://alumniei.fe.up.pt">AlumniEI</a>.
@@ -29,6 +29,26 @@ recover:
   submit: Recuperar password
   placeholder:
     email: Email
+
+mentors:
+  list:
+    title: Mentores
+    loading: (a carregar...)
+    not_found:
+      title: Oops...
+      notice: Não encontramos mentores para os critérios especificados
+  resource:
+    living_working: Vive/trabalha em
+    graduated: Inscrição de {{year_in}} até {{year_out}}
+    attending: Inscrição em {{year_in}}
+  filters:
+    search:
+      title: Pesquisa
+      placeholder: Pesquisa por nome, bio, etc
+    traits:
+      title: Caraterísticas pessoais
+    careers:
+      title: Carreira
 
 account:
   title: Detalhes da conta
@@ -72,3 +92,5 @@ account:
 
     submit: Guardar alterações
 
+toasts:
+  needs_login: É necessário login antes de continuar

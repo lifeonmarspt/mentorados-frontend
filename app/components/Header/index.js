@@ -4,6 +4,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { compose } from "recompose";
 import { translate } from "react-i18next";
+import isEmpty from "lodash.isempty";
 
 import { Link } from "react-router-dom";
 
@@ -14,6 +15,7 @@ class Header extends React.Component {
 
   render() {
     const { t } = this.props;
+    const { user, doLogout } = this.context.session;
 
     return (
       <header className="Header">
@@ -22,20 +24,20 @@ class Header extends React.Component {
         </Link>
 
         <div className="user-pane">
-          {this.context.session.user &&
+          {!isEmpty(user) &&
             <Link className="pure-button pure-button-primary" to="/account">
               {t("profile")}
             </Link>
           }
 
-          {this.context.session.user && this.context.session.user.admin &&
+          {!isEmpty(user) && user.admin &&
             <Link className="pure-button" to="/admin">
               {t("admin")}
             </Link>
           }
 
-          {this.context.session.user &&
-            <button className="pure-button pure-button-error" onClick={this.context.session.doLogout}>
+          {!isEmpty(user) &&
+            <button className="pure-button pure-button-error" onClick={doLogout}>
               {t("logout")}
             </button>
           }

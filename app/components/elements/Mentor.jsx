@@ -1,8 +1,10 @@
 import React from "react";
+import { compose } from "recompose";
+import { translate } from "react-i18next";
 
 class Mentor extends React.Component {
   render() {
-    const { mentor } = this.props;
+    const { t, mentor, mentor: { year_in, year_out } } = this.props;
 
     return (
       <section className="post">
@@ -10,7 +12,7 @@ class Mentor extends React.Component {
           <img width="96" height="96" className="post-avatar" src={mentor.picture} />
           <h2 className="post-title">{mentor.name}</h2>
           <p className="post-meta">
-            <a href={"mailto:" + mentor.email} className="post-author">{mentor.email}</a>
+            <a href={`mailto: ${mentor.email}`} className="post-author">{mentor.email}</a>
           </p>
           <p>
             {mentor.careers.map(career => <span key={career.id} className="post-category">{career.description}</span>)}
@@ -25,12 +27,10 @@ class Mentor extends React.Component {
             </span>
           </p>
 
-          {mentor.location && <p className="post-description">Living/Working in {mentor.location}</p>}
+          {mentor.location && <p className="post-description">{t("resource.living_working")} {mentor.location}</p>}
 
           <p className="post-description">
-            {mentor.year_out ?
-              "Attended from " + mentor.year_in + " to " + mentor.year_out :
-              "Enrolled in " + mentor.year_in}
+            {year_out ? t("resource.graduated", { year_in, year_out }) : t("resource.attending", { year_in })}
           </p>
         </header>
 
@@ -42,4 +42,6 @@ class Mentor extends React.Component {
   }
 }
 
-export default Mentor;
+export default compose(
+  translate([ "mentors" ]),
+)(Mentor);

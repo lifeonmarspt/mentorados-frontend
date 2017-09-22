@@ -1,13 +1,14 @@
 import "./styles";
 
 import React from "react";
+import { compose } from "recompose";
+import { translate } from "react-i18next";
 
 import { getMentors } from "lib/api";
 import Mentor from "components/elements/Mentor";
 import Section from "components/elements/Section";
 import Filters from "components/elements/Filters";
 import debounce from "debounce";
-
 
 const sortByKey = (array, keyFunction) => (
   [].concat(array).sort((a, b) => {
@@ -67,6 +68,7 @@ class Mentors extends React.Component {
   }
 
   render() {
+    const { t } = this.props;
     const { mentors } = this.state;
 
     return (
@@ -77,13 +79,13 @@ class Mentors extends React.Component {
 
         <div className="pure-u-1 pure-u-md-18-24 posts">
           <h1 className="content-subhead">
-            Mentors
-            {this.state.loading && <strong> (loading...)</strong>}
+            {t("list.title")}
+            {this.state.loading && <strong> {t("list.loading")}</strong>}
           </h1>
 
           {mentors && mentors.length === 0 && (
-            <Section title="Oops...">
-              <p>No mentors found for the specified criteria</p>
+            <Section title={t("list.not_found.title")}>
+              <p>{t("list.not_found.notice")}</p>
             </Section>
           )}
 
@@ -94,4 +96,6 @@ class Mentors extends React.Component {
   }
 }
 
-export default Mentors;
+export default compose(
+  translate([ "mentors" ]),
+)(Mentors);
