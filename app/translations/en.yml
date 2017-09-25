@@ -38,7 +38,7 @@ mentors:
       title: Oops...
       notice: No mentors found for the specified criteria
   resource:
-    living_working: Living/Working in
+    living_working: Living/Working in {{location}}
     graduated: Attended from {{year_in}} to {{year_out}}
     attending: Enrolled in {{year_in}}
   filters:

@@ -4,7 +4,7 @@ import { translate } from "react-i18next";
 
 class Mentor extends React.Component {
   render() {
-    const { t, mentor, mentor: { year_in, year_out } } = this.props;
+    const { t, mentor, mentor: { year_in, year_out, location } } = this.props;
 
     return (
       <section className="post">
@@ -27,7 +27,7 @@ class Mentor extends React.Component {
             </span>
           </p>
 
-          {mentor.location && <p className="post-description">{t("resource.living_working")} {mentor.location}</p>}
+          {location && <p className="post-description">{t("resource.living_working", { location })}</p>}
 
           <p className="post-description">
             {year_out ? t("resource.graduated", { year_in, year_out }) : t("resource.attending", { year_in })}

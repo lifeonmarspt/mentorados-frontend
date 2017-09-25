@@ -30,7 +30,7 @@ class Header extends React.Component {
             </Link>
           }
 
-          {!isEmpty(user) && user.admin &&
+          {user.admin &&
             <Link className="pure-button" to="/admin">
               {t("admin")}
             </Link>

@@ -38,7 +38,7 @@ mentors:
       title: Oops...
       notice: Não encontramos mentores para os critérios especificados
   resource:
-    living_working: Vive/trabalha em
+    living_working: Vive/trabalha em {{location}}
     graduated: Inscrição de {{year_in}} até {{year_out}}
     attending: Inscrição em {{year_in}}
   filters:
