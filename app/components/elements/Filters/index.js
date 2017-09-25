@@ -2,6 +2,8 @@ import "./styles";
 
 import React from "react";
 import PropTypes from "prop-types";
+import { compose } from "recompose";
+import { translate } from "react-i18next";
 
 class Filters extends React.Component {
   static contextTypes = {
@@ -29,23 +31,23 @@ class Filters extends React.Component {
   }
 
   render() {
-    const { careers, traits } = this.props.filters;
+    const { t, filters: { careers, traits } } = this.props;
 
     return (
       <form className="Filters pure-form" onSubmit={e => e.preventDefault()}>
 
-        <h1 className="content-subhead">Search</h1>
+        <h1 className="content-subhead">{t("filters.search.title")}</h1>
         <fieldset>
           <input
             type="text"
             className="pure-input"
             value={this.props.filters.query}
             onChange={this.handleInputChange}
-            placeholder="Search for name, bio, etc"
+            placeholder={t("filters.search.placeholder")}
           />
         </fieldset>
 
-        <h1 className="content-subhead">Personal Traits</h1>
+        <h1 className="content-subhead">{t("filters.traits.title")}</h1>
         <fieldset>
           {this.context.meta.traits.map(trait => (
             <div className="filter" key={trait.id}>
@@ -63,7 +65,7 @@ class Filters extends React.Component {
           ))}
         </fieldset>
 
-        <h1 className="content-subhead">Career Orientation</h1>
+        <h1 className="content-subhead">{t("filters.careers.title")}</h1>
         <fieldset>
           {this.context.meta.careers.map((career, n) => (
             <div className="filter" key={n}>
@@ -86,4 +88,6 @@ class Filters extends React.Component {
   }
 }
 
-export default Filters;
+export default compose(
+  translate([ "mentors" ]),
+)(Filters);

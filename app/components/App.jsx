@@ -1,12 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
+import anonymousRoute from "enhancers/anonymousRoute";
+import authenticatedRoute from "enhancers/authenticatedRoute";
+import adminRoute from "enhancers/adminRoute";
+
 import AuthProvider from "components/AuthProvider";
 import MetaProvider from "components/MetaProvider";
 import Layout from "components/Layout";
 import Resource from "reactAdmin/components/Resource";
-import AnonymousRoute from "components/core/AnonymousRoute";
-import AuthenticatedRoute from "components/core/AuthenticatedRoute";
 import AdminRoute from "components/core/AdminRoute";
 import RecoverPassword from "components/pages/RecoverPassword";
 import ResetPassword from "components/pages/ResetPassword";
@@ -21,47 +23,47 @@ import Blocked from "components/pages/Blocked";
 import mentorDescription from "resources/mentors";
 import userDescription from "resources/users";
 
-class App extends React.Component {
-  render() {
-    return (
-      <Router>
-        <AuthProvider>
-          <Switch>
-            <AnonymousRoute exact path="/" component={Home} />
-            <AnonymousRoute exact path="/recover-password" component={RecoverPassword} />
+const App = () => (
+  <Router>
 
-            <Route exact path="/blocked" component={Blocked} />
-            <Route exact path="/not-found" component={NotFound} />
+    <AuthProvider>
+      <MetaProvider>
 
-            <Route path="*">
-              <Layout>
-                <MetaProvider>
-                  <Switch>
-                    <AnonymousRoute exact path="/users/:id/confirm/:token" component={Confirmation} />
-                    <AnonymousRoute exact path="/users/:id/reset/:token" component={ResetPassword} />
+        <Route path="*">
+          <Layout>
+            <Switch>
 
-                    <AuthenticatedRoute exact path="/mentors" component={Mentors} />
-                    <AuthenticatedRoute exact path="/account" component={Account} />
+              <Route exact path="/" component={anonymousRoute(Home)} />
+              <Route exact path="/recover-password" component={anonymousRoute(RecoverPassword)} />
 
-                    <AdminRoute exact path="/admin" component={AdminHome} />
+              <Route exact path="/blocked" component={Blocked} />
+              <Route exact path="/not-found" component={NotFound} />
 
-                    <AdminRoute path="/admin/users">
-                      <Resource path="/admin/users" resource={userDescription} />
-                    </AdminRoute>
-                    <AdminRoute path="/admin/mentors">
-                      <Resource path="/admin/mentors" resource={mentorDescription} />
-                    </AdminRoute>
+              <Route exact path="/users/:id/confirm/:token" component={anonymousRoute(Confirmation)} />
+              <Route exact path="/users/:id/reset/:token" component={anonymousRoute(ResetPassword)} />
 
-                    <Redirect to="/not-found" />
-                  </Switch>
-                </MetaProvider>
-              </Layout>
-            </Route>
-          </Switch>
-        </AuthProvider>
-      </Router>
-    );
-  }
-}
+              <Route exact path="/mentors" component={authenticatedRoute(Mentors)} />
+              <Route exact path="/account" component={authenticatedRoute(Account)} />
+
+              <Route exact path="/admin" component={adminRoute(AdminHome)} />
+
+              <AdminRoute path="/admin/users">
+                <Resource path="/admin/users" resource={userDescription} />
+              </AdminRoute>
+              <AdminRoute path="/admin/mentors">
+                <Resource path="/admin/mentors" resource={mentorDescription} />
+              </AdminRoute>
+
+              <Redirect to="/not-found" />
+
+            </Switch>
+          </Layout>
+        </Route>
+
+      </MetaProvider>
+    </AuthProvider>
+
+  </Router>
+);
 
 export default App;
