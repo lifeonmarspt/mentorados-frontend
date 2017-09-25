@@ -13,16 +13,18 @@ class EditableText extends React.Component {
   };
 
   render() {
+    const { onChange, resource, field, errors } = this.props;
+
     return (
       <div className="editable-text">
         <input
-          onChange={(e) => this.props.onChange(e.target.value)}
+          onChange={(e) => onChange(e.target.value)}
           className="pure-input"
           type="text"
-          value={this.props.resource[this.props.field] || ""}
+          value={resource[field] || ""}
         />
-        <Errors errors={this.props.errors[this.props.field]} />
-        {JSON.stringify(this.props.errors)}
+        <Errors errors={errors[field]} />
+        {errors.length > 0 && JSON.stringify(errors)}
       </div>
     );
   }

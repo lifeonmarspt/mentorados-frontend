@@ -5,15 +5,12 @@ import { Link } from "react-router-dom";
 
 import EditableCheckbox from "reactAdmin/components/formFields/EditableCheckbox";
 import EditableCheckboxList from "reactAdmin/components/formFields/EditableCheckboxList";
-import EditableRadio from "reactAdmin/components/formFields/EditableRadio";
 import EditableTextArea from "reactAdmin/components/formFields/EditableTextArea";
 import EditableText from "reactAdmin/components/formFields/EditableText";
 import EditableArrayOf from "reactAdmin/components/formFields/EditableArrayOf";
 import { defaultRoutes, defaultActions } from "reactAdmin/helpers";
 
 import { api } from "lib/api";
-import users from "resources/users";
-
 
 const createMetaChoiceProvider = (field) => (class extends React.Component {
   static displayName = "createMetaChoiceProvider";
@@ -58,17 +55,13 @@ const actions = defaultActions({ api, routes: defaultRoutes(name, { prefix: "/ad
 
 const newColumns = ["name", "email"];
 const listColumns = ["name", "email"];
-const showColumns = ["id", "user_id", "active", "name", "email", "location", "gender", "bio", "year_in", "year_out", "career_ids", "links"];
-const editColumns = ["active", "name", "email", "location", "gender", "bio", "year_in", "year_out", "career_ids", "links"];
+const showColumns = ["id", "active", "name", "email", "password", "location", "bio", "year_in", "year_out", "career_ids", "trait_ids", "links"];
+const editColumns = ["active", "name", "email", "password", "location", "bio", "year_in", "year_out", "career_ids", "trait_ids", "links"];
 
 const fields = {
   id: {
-    label: "Mentor #",
-    displayAs: DisplayResourceLink({ routes }, "Mentor #"),
-  },
-  user_id: {
-    label: "User #",
-    displayAs: DisplayResourceLink(users, "User #"),
+    label: "#",
+    displayAs: DisplayResourceLink({ routes }),
   },
   active: {
     label: "Active",
@@ -83,14 +76,14 @@ const fields = {
     label: "Email",
     editableAs: EditableText,
   },
+  password: {
+    label: "Password",
+    displayAs: ({ resource }) => <span>************</span>,
+    editableAs: EditableText,
+  },
   location: {
     label: "Location",
     editableAs: EditableText,
-  },
-  gender: {
-    label: "Gender",
-    editableAs: EditableRadio,
-    choicesProvider: createMetaChoiceProvider("genders"),
   },
   bio: {
     label: "Bio",
@@ -109,7 +102,13 @@ const fields = {
     label: "Careers",
     editableAs: EditableCheckboxList,
     choicesProvider: createMetaChoiceProvider("careers"),
-    displayAs: ChoiceList((career) => career.description),
+    displayAs: ChoiceList(career => career.description),
+  },
+  trait_ids: {
+    label: "Traits",
+    editableAs: EditableCheckboxList,
+    choicesProvider: createMetaChoiceProvider("traits"),
+    displayAs: ChoiceList(trait => trait.description),
   },
   links: {
     label: "Links",
