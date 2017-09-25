@@ -1,3 +1,12 @@
+header:
+  tagline: Mentorados AlumniEI
+  profile: Conta
+  admin: Admin
+  Logout: Sair
+
+footer:
+  copy: Feito com &#x2328; pela <a href="https://lifeonmars.pt/">Life on Mars</a> para a <a href="http://alumniei.fe.up.pt">AlumniEI</a>.
+
 home:
   title: Programa de Mentorados de Engenharia Informática - FEUP
   contact:
@@ -20,3 +29,46 @@ recover:
   submit: Recuperar password
   placeholder:
     email: Email
+
+account:
+  title: Detalhes da conta
+  form:
+    password:
+      label: Password
+      placeholder: Nova password
+    email:
+      label: Email
+      placeholder: Email
+    name:
+      label: Nome
+      placeholder: Nome
+    bio:
+      label: Bio
+      placeholder: Bio
+    year_in:
+      label: Ano de entrada
+      placeholder: Ano de entrada
+    year_out:
+      label: Ano de conclusão
+      placeholder: Ano de conclusão
+    picture_url:
+      label: URL foto
+      placeholder: URL foto
+      notice: Deixa em branco para usar gravatar
+    links:
+      label: Links
+      placeholder: Links (um por linha)
+    location:
+      label: Localização
+      placeholder: Localização
+    career_ids:
+      label: Carreira
+    traits_list:
+      label: Características
+      placeholder: homem, bi, etc... (separados por vírgulas)
+    active:
+      label: Activo
+      notice: Se não estiveres activo, não serás listado na plataforma
+
+    submit: Guardar alterações
+

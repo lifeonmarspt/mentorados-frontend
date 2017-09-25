@@ -1,3 +1,5 @@
+import "./styles";
+
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -30,7 +32,7 @@ class Filters extends React.Component {
     const { careers, traits } = this.props.filters;
 
     return (
-      <form className="filters pure-form" onSubmit={e => e.preventDefault()}>
+      <form className="Filters pure-form" onSubmit={e => e.preventDefault()}>
 
         <h1 className="content-subhead">Search</h1>
         <fieldset>

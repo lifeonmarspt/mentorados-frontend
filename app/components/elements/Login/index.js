@@ -1,3 +1,5 @@
+import "./styles";
+
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -44,33 +46,35 @@ class Login extends React.Component {
     const { t } = this.props;
 
     return (
-      <form className="login pure-form" onSubmit={this.onSubmit.bind(this)}>
+      <form className="Login pure-form" onSubmit={this.onSubmit.bind(this)}>
         <h1 className="content-subhead">
           {t("title")}
         </h1>
         <FormError error={this.state.errors.serverError} />
+
         <fieldset>
           <input
-            className="login__input"
             onChange={this.onChange.bind(this, "email")}
             type="email"
             required
             placeholder={t("placeholder.email")}
           />
         </fieldset>
+
         <fieldset>
           <input
-            className="login__input"
             onChange={this.onChange.bind(this, "password")}
             type="password"
             required
             placeholder={t("placeholder.password")}
           />
         </fieldset>
-        <fieldset>
+
+        <fieldset className="actions">
           <button type="submit" className="pure-button pure-button-primary">
             {t("submit")}
           </button>
+
           <Link to="/recover-password">
             {t("recover")}
           </Link>

@@ -1,3 +1,12 @@
+header:
+  tagline: AlumniEI Mentorship Program
+  profile: Profile
+  admin: Admin
+  logout: Logout
+
+footer:
+  copy: Made with &#x2328; by <a href="https://lifeonmars.pt/">Life on Mars</a> for <a href="http://alumniei.fe.up.pt">AlumniEI</a>.
+
 home:
   title: Mentorship Program for Software Engineering - FEUP
   contact:
@@ -20,3 +29,46 @@ recover:
   submit: Recover password
   placeholder:
     email: Email
+
+account:
+  title: Account details
+  form:
+    password:
+      label: Password
+      placeholder: New password
+    email:
+      label: Email
+      placeholder: Email
+    name:
+      label: Name
+      placeholder: Name
+    bio:
+      label: Bio
+      placeholder: Bio
+    year_in:
+      label: Enrolled in
+      placeholder: Year enrolled
+    year_out:
+      label: Graduated in
+      placeholder: Year graduated
+    picture_url:
+      label: Picture URL
+      placeholder: Picture URL
+      notice: Leave blank to use gravatar
+    links:
+      label: Links
+      placeholder: Links (one per line)
+    location:
+      label: Location
+      placeholder: Location
+    career_ids:
+      label: Career paths
+    traits_list:
+      label: Traits
+      placeholder: male, bi, atheist, ... (comma separated)
+    active:
+      label: Active
+      notice: If inactive, you will not be listed on the platform
+
+    submit: Save changes
+

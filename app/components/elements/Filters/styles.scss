@@ -1,0 +1,24 @@
+.Filters {
+  padding: 2em 1em 2em 2em;
+  text-align: right;
+
+  input[type=text] {
+    width: 100%;
+  }
+
+  .filter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+
+    input[type=checkbox] {
+      margin-left: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 48em) {
+  .Filters {
+    padding: 2em
+  }
+}

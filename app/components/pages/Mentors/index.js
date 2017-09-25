@@ -1,3 +1,5 @@
+import "./styles";
+
 import React from "react";
 
 import { getMentors } from "lib/api";
@@ -68,15 +70,15 @@ class Mentors extends React.Component {
     const { mentors } = this.state;
 
     return (
-      <div id="layout" className="pure-g">
+      <div className="Mentors pure-g">
         <div className="pure-u-1 pure-u-md-6-24">
           <Filters filters={this.state.filters} onFilterChange={this.filtersDidChange} />
         </div>
 
         <div className="pure-u-1 pure-u-md-18-24 posts">
           <h1 className="content-subhead">
-            Mentors {}
-            {this.state.loading && <strong>(loading...)</strong>}
+            Mentors
+            {this.state.loading && <strong> (loading...)</strong>}
           </h1>
 
           {mentors && mentors.length === 0 && (
