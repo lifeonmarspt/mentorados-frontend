@@ -4,11 +4,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { compose } from "recompose";
 import { translate } from "react-i18next";
+import { connect } from "react-redux";
 
 class Filters extends React.Component {
   static contextTypes = {
     router: PropTypes.object,
-    meta: PropTypes.object,
   }
 
   setFilter(field, value) {
@@ -31,7 +31,7 @@ class Filters extends React.Component {
   }
 
   render() {
-    const { t, filters: { careers, traits } } = this.props;
+    const { t, meta, filters } = this.props;
 
     return (
       <form className="Filters pure-form" onSubmit={e => e.preventDefault()}>
@@ -41,7 +41,7 @@ class Filters extends React.Component {
           <input
             type="text"
             className="pure-input"
-            value={this.props.filters.query}
+            value={filters.query}
             onChange={this.handleInputChange}
             placeholder={t("filters.search.placeholder")}
           />
@@ -49,7 +49,7 @@ class Filters extends React.Component {
 
         <h1 className="content-subhead">{t("filters.traits.title")}</h1>
         <fieldset>
-          {this.context.meta.traits.map(trait => (
+          {meta.traits.map(trait => (
             <div className="filter" key={trait.id}>
               <label htmlFor={`filter-trait-${trait.id}`} className="pure-checkbox">
                 {trait.description}
@@ -58,7 +58,7 @@ class Filters extends React.Component {
                 id={`filter-trait-${trait.id}`}
                 type="checkbox"
                 value={trait.id}
-                checked={traits.find(id => id === trait.id) ? true : false}
+                checked={filters.traits.find(id => id === trait.id) ? true : false}
                 onChange={e => this.handleFilterClick("traits", trait, e.target.checked)}
               />
             </div>
@@ -67,7 +67,7 @@ class Filters extends React.Component {
 
         <h1 className="content-subhead">{t("filters.careers.title")}</h1>
         <fieldset>
-          {this.context.meta.careers.map((career, n) => (
+          {meta.careers.map((career, n) => (
             <div className="filter" key={n}>
               <label htmlFor={`filter-career-${career.id}`} className="pure-checkbox">
                 {career.description}
@@ -76,7 +76,7 @@ class Filters extends React.Component {
                 id={`filter-career-${career.id}`}
                 type="checkbox"
                 value={career.id}
-                checked={careers.find(id => id === career.id) ? true : false}
+                checked={filters.careers.find(id => id === career.id) ? true : false}
                 onChange={e => this.handleFilterClick("careers", career, e.target.checked)}
               />
             </div>
@@ -90,4 +90,6 @@ class Filters extends React.Component {
 
 export default compose(
   translate([ "mentors" ]),
+
+  connect(({ meta }) => ({ meta })),
 )(Filters);

@@ -7,7 +7,12 @@ import { translate } from "react-i18next";
 import { addToast, TOAST_LEVEL_ERROR } from "actions/toasts";
 
 const authenticatedRoute = (Component) => compose(
-  connect(f => f, { addToast }),
+  connect(
+    ({ currentUser }) => ({ currentUser }),
+    {
+      addToast,
+    },
+  ),
 
   translate([ "toasts" ]),
 )(
@@ -15,47 +20,31 @@ const authenticatedRoute = (Component) => compose(
 
     static contextTypes = {
       router: PropTypes.object,
-      session: PropTypes.object,
     }
 
-    //
-    // Lifecycle
-    //
     componentWillMount() {
       this.redirect();
     }
 
-    componentWillReceiveProps(_, nextContext) {
-      this.redirect(nextContext);
+    componentWillReceiveProps(nextProps) {
+      this.redirect(nextProps);
     }
 
-    //
-    // Helpers
-    //
-    redirect(context = this.context) {
-      if (!this.shouldRedirect(context)) return;
+    redirect(props = this.props) {
+      if (!this.shouldRedirect(props)) return;
 
       const { addToast, t } = this.props;
 
-      let route;
-      if (!context.session.user.id) route = "/";
-      if (context.session.user.blocked) route = "/blocked";
-
-      context.router.history.replace(route);
+      this.context.router.history.push("/");
       addToast({ content: t("needs_login"), level: TOAST_LEVEL_ERROR });
     }
 
-    shouldRedirect(context = this.context) {
-      const { user } = context.session;
-
-      return !user.id || user.blocked;
+    shouldRedirect(props) {
+      return !props.currentUser.id;
     }
 
-    //
-    // Render
-    //
     render() {
-      if (this.shouldRedirect(this.context)) return null;
+      if (this.shouldRedirect(this.props)) return null;
 
       return <Component {...this.props} />;
     }

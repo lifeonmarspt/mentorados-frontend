@@ -1,4 +1,5 @@
 const path = require("path");
+const Webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const VirtualModulePlugin = require("virtual-module-webpack-plugin")
 
@@ -44,6 +45,9 @@ module.exports = {
       contents: {
         apiBaseURL: process.env.API_BASE_URL
       }
+    }),
+    new Webpack.ProvidePlugin({
+      Promise: "bluebird",
     }),
   ],
 };

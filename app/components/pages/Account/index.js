@@ -1,12 +1,15 @@
 import "./styles";
 
 import React from "react";
-import PropTypes from "prop-types";
 import { compose } from "recompose";
 import { translate } from "react-i18next";
+import { connect } from "react-redux";
+import { Creatable } from "react-select";
 
-import { users } from "lib/api";
+import { updateCurrentUser } from "actions/session";
+import { addToast, TOAST_LEVEL_SUCCESS, TOAST_LEVEL_ERROR } from "actions/toasts";
 
+import { toOptions, toStringArray } from "lib/traits";
 
 class SelectionList extends React.Component {
   onChange = (e) => {
@@ -43,19 +46,14 @@ class SelectionList extends React.Component {
 
 
 class Account extends React.Component {
-  static contextTypes = {
-    session: PropTypes.object,
-    meta: PropTypes.object,
-  }
-
   state = {
     errors: {},
     changes: {},
+    traits: toOptions(this.props.currentUser.traits),
   };
 
   onInputChange = (e) => {
-    let value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
-    if (e.target.name === "traits_list") value = value.split(",");
+    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
     this.setState({
       changes: {
@@ -65,33 +63,46 @@ class Account extends React.Component {
     });
   }
 
-  onListChange = (career_ids) => {
+  onCareersChange = (career_ids) => {
     this.setState({
       changes: {
         ...this.state.changes,
         career_ids,
-      }
+      },
     });
   }
 
-  onSubmit = (e) => {
-    e.preventDefault();
+  onTraitsChange = (traits) => {
+    this.setState({
+      changes: {
+        ...this.state.changes,
+        traits_list: toStringArray(traits),
+      },
+      traits,
+    });
+  }
 
-    users.update(this.context.session.user.id, {
-      ...this.context.session.user,
-      ...this.state.changes
-    }).then(response => this.context.session.refreshUser(response.data));
+  onSubmit = (ev) => {
+    ev.preventDefault();
+    const { addToast, t } = this.props;
+
+    this.props
+      .updateCurrentUser({
+        ...this.props.currentUser,
+        ...this.state.changes,
+      })
+      .then(() => addToast({ content: t("form.update_success"), level: TOAST_LEVEL_SUCCESS }))
+      .catch(() => addToast({ content: t("form.update_failure"), level: TOAST_LEVEL_ERROR }));
   }
 
   formValue(field) {
     return (
-      this.state.changes[field] === undefined ? this.context.session.user[field] : this.state.changes[field]
+      this.state.changes[field] === undefined ? this.props.currentUser[field] : this.state.changes[field]
     ) || "";
   }
 
   render() {
-    const { t } = this.props;
-    const isMentor = this.context.session.user.mentor;
+    const { t, currentUser, meta } = this.props;
 
     return (
       <div className="Account pure-g">
@@ -101,11 +112,11 @@ class Account extends React.Component {
           <fieldset>
             <div className="pure-control-group">
               <label htmlFor="password">{t("form.password.label")}</label>
-              <input type="password" minLength="6" name="password" placeholder={t("form.password.placeholder")} onChange={this.onInputChange} />
+              <input type="password" id="password" minLength="6" name="password" placeholder={t("form.password.placeholder")} onChange={this.onInputChange} />
             </div>
           </fieldset>
 
-          {isMentor &&
+          {currentUser.mentor &&
             <div>
               <fieldset>
                 <div className="pure-control-group">
@@ -142,7 +153,7 @@ class Account extends React.Component {
                   </div>
                   <div>
                     <label />
-                    <img src={this.context.session.user.picture} />
+                    <img src={currentUser.picture} />
                   </div>
                 </div>
 
@@ -153,7 +164,7 @@ class Account extends React.Component {
 
                 <div className="pure-control-group">
                   <label htmlFor="location">{t("form.location.label")}</label>
-                  <input type="text" name="location" placeholder={t("form.location.placeholder")} value={this.formValue("location")} onChange={this.onInputChange} />
+                  <input type="text" id="location" name="location" placeholder={t("form.location.placeholder")} value={this.formValue("location")} onChange={this.onInputChange} />
                 </div>
               </fieldset>
 
@@ -161,15 +172,20 @@ class Account extends React.Component {
                 <div className="pure-control-group selection-list">
                   <label>{t("form.career_ids.label")}</label>
                   <SelectionList
-                    items={this.context.meta.careers}
+                    items={meta.careers}
                     checked={this.formValue("career_ids")}
-                    onChange={this.onListChange}
+                    onChange={this.onCareersChange}
                   />
                 </div>
 
                 <div className="pure-control-group">
-                  <label html="traits_list">{t("form.traits_list.label")}</label>
-                  <input type="text" name="traits_list" placeholder={t("form.traits_list.placeholder")} value={this.formValue("traits_list").join(",")} onChange={this.onInputChange} />
+                  <label>{t("form.traits_list.label")}</label>
+                  <Creatable
+                    multi
+                    options={toOptions(meta.traits)}
+                    onChange={this.onTraitsChange}
+                    value={this.state.traits}
+                  />
                 </div>
 
               </fieldset>
@@ -196,4 +212,12 @@ class Account extends React.Component {
 
 export default compose(
   translate([ "account" ]),
+
+  connect(
+    ({ currentUser, meta }) => ({ currentUser, meta }),
+    {
+      updateCurrentUser,
+      addToast,
+    },
+  ),
 )(Account);

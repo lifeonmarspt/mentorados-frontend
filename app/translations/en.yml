@@ -1,3 +1,11 @@
+layout:
+  loading: Loading...
+
+admin:
+  nav:
+    users: Users
+    mentors: Mentors
+
 header:
   tagline: AlumniEI Mentorship Program
   profile: Profile
@@ -20,6 +28,7 @@ login:
   placeholder:
     email: Email
     password: Password
+  error: Invalid credentials
 
 signup:
   title: Registration
@@ -91,6 +100,12 @@ account:
       notice: If inactive, you will not be listed on the platform
 
     submit: Save changes
+    update_success: Changes saved!
+    update_failure: Unable to save changes.
 
 toasts:
   needs_login: Please login before continuing
+  needs_admin: You are not allowed to access this page
+
+blocked:
+  copy: Your account is blocked.

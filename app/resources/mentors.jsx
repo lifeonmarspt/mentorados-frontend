@@ -2,6 +2,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { compose } from "recompose";
+import { connect } from "react-redux";
 
 import EditableCheckbox from "reactAdmin/components/formFields/EditableCheckbox";
 import EditableCheckboxList from "reactAdmin/components/formFields/EditableCheckboxList";
@@ -12,20 +14,16 @@ import { defaultRoutes, defaultActions } from "reactAdmin/helpers";
 
 import { api } from "lib/api";
 
-const createMetaChoiceProvider = (field) => (class extends React.Component {
-  static displayName = "createMetaChoiceProvider";
-
-  static contextTypes = {
-    meta: PropTypes.object.isRequired,
-  };
-
+const createMetaChoiceProvider = (field) => compose(
+  connect(({ meta }) => ({ meta })),
+)(class createMetaChoiceProvider extends React.Component {
   static childContextTypes = {
     choices: PropTypes.array.isRequired,
   };
 
   getChildContext() {
     return {
-      choices: this.context.meta[field],
+      choices: this.props.meta[field],
     };
   }
 
@@ -47,7 +45,6 @@ const ChoiceList = (formatter) => ({ resource, field, choices }) => (
 const DisplayResourceLink = (metadata, label) => ({ resource, field }) => (
   resource[field] ? <Link to={metadata.routes.show(resource[field])}>{label}{resource[field]}</Link> : null
 );
-
 
 const name = "mentors";
 const routes = defaultRoutes(name, { prefix: "/admin" });

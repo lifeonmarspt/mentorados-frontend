@@ -1,3 +1,11 @@
+layout:
+  loading: A carregar...
+
+admin:
+  nav:
+    users: Utilizadores
+    mentors: Mentores
+
 header:
   tagline: Mentorados AlumniEI
   profile: Conta
@@ -20,6 +28,7 @@ login:
   placeholder:
     email: Email
     password: Password
+  error: Credenciais inválidas
 
 signup:
   title: Registo
@@ -91,6 +100,12 @@ account:
       notice: Se não estiveres activo, não serás listado na plataforma
 
     submit: Guardar alterações
+    update_success: Alterações gravadas!
+    update_failure: Erro a gravar alterações.
 
 toasts:
   needs_login: É necessário login antes de continuar
+  needs_admin: Não tens privilégios para aceder a esta página
+
+blocked:
+  copy: A tua conta está bloqueada.

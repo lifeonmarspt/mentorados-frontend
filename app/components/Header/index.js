@@ -1,21 +1,18 @@
 import "./styles";
 
 import React from "react";
-import PropTypes from "prop-types";
 import { compose } from "recompose";
 import { translate } from "react-i18next";
-import isEmpty from "lodash.isempty";
+import { connect } from "react-redux";
 
 import { Link } from "react-router-dom";
 
+import { logout } from "actions/session";
+
 class Header extends React.Component {
-  static contextTypes = {
-    session: PropTypes.object,
-  }
 
   render() {
-    const { t } = this.props;
-    const { user, doLogout } = this.context.session;
+    const { t, currentUser, logout } = this.props;
 
     return (
       <header className="Header">
@@ -24,20 +21,20 @@ class Header extends React.Component {
         </Link>
 
         <div className="user-pane">
-          {!isEmpty(user) &&
+          {currentUser.id &&
             <Link className="pure-button pure-button-primary" to="/account">
               {t("profile")}
             </Link>
           }
 
-          {user.admin &&
+          {currentUser.admin &&
             <Link className="pure-button" to="/admin">
               {t("admin")}
             </Link>
           }
 
-          {!isEmpty(user) &&
-            <button className="pure-button pure-button-error" onClick={doLogout}>
+          {currentUser.id &&
+            <button className="pure-button pure-button-error" onClick={logout}>
               {t("logout")}
             </button>
           }
@@ -49,4 +46,11 @@ class Header extends React.Component {
 
 export default compose(
   translate([ "header" ]),
+
+  connect(
+    ({ currentUser }) => ({ currentUser }),
+    {
+      logout,
+    },
+  ),
 )(Header);

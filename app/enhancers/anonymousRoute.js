@@ -1,22 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { compose } from "recompose";
+import { connect } from "react-redux";
 
-const anonymousRoute = (Component) => (
+const anonymousRoute = (Component) => compose(
+  connect(({ currentUser }) => ({ currentUser })),
+)(
   class AnonymousRoute extends React.Component {
 
     static contextTypes = {
       router: PropTypes.object,
-      session: PropTypes.object,
     }
 
     componentDidMount() {
-      if (this.context.session.user.id) {
+      if (this.props.currentUser.id) {
         this.context.router.history.replace("/mentors");
       }
     }
 
-    componentWillReceiveProps(nextProps, nextContext) {
-      if (nextContext.session.user.id) {
+    componentWillReceiveProps(nextProps) {
+      if (nextProps.currentUser.id) {
         this.context.router.history.replace("/mentors");
       }
     }

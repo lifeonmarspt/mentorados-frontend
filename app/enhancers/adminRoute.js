@@ -1,21 +1,39 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { compose } from "recompose";
+import { connect } from "react-redux";
+import { translate } from "react-i18next";
 
-const adminRoute = (Component) => (
+import { addToast, TOAST_LEVEL_ERROR } from "actions/toasts";
+
+const adminRoute = (Component) => compose(
+  translate([ "toasts" ]),
+
+  connect(
+    ({ currentUser }) => ({ currentUser }),
+    {
+      addToast,
+    }
+  ),
+)(
   class AdminRoute extends React.Component {
     static contextTypes = {
       router: PropTypes.object,
-      session: PropTypes.object,
     }
 
     componentDidMount() {
-      if (!this.context.session.user.admin) {
-        this.context.router.history.replace("/");
-      }
+      this.redirect();
     }
 
-    componentWillReceiveProps(nextProps, nextContext) {
-      if (!nextContext.session.user.admin) {
+    componentWillReceiveProps(nextProps) {
+      this.redirect(nextProps);
+    }
+
+    redirect(props = this.props) {
+      const { currentUser, addToast, t } = props;
+
+      if (!currentUser.admin) {
+        addToast({ content: t("needs_admin"), level: TOAST_LEVEL_ERROR });
         this.context.router.history.replace("/");
       }
     }
