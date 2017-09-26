@@ -1,65 +1,57 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { compose } from "recompose";
+import { translate } from "react-i18next";
+import { connect } from "react-redux";
 
 import { errorTransform }  from "lib/errorTransform";
-import { postConfirmation } from "lib/api";
 import FormError from "components/elements/FormError";
+
+import { confirmAccount } from "actions/users";
 
 class Confirmation extends React.Component {
   static contextTypes = {
     router: PropTypes.object,
-    session: PropTypes.object,
   }
 
-  constructor(...args) {
-    super(...args);
-
-    this.state = {
-      confirmed: false,
-      errors: {},
-    };
-
+  state = {
+    confirmed: false,
+    errors: {},
   }
 
-  doConfirm() {
-    postConfirmation(this.props.match.params.id, this.props.match.params.token)
-      .then((result) => {
-        this.context.session.doLogin(result.data);
-      })
-      .catch((error) => {
-        this.setState({ errors: errorTransform(error, { 404: "confirmation token not found" }) });
-      });
-  }
+  confirm = () => {
+    const { confirmAccount, match: { params } } = this.props;
 
+    confirmAccount(params.id, params.token)
+    .then(() => this.setState({ confirmed: true }))
+    .catch(error => {
+      this.setState({ errors: errorTransform(error, { 404: "confirmation token not found" }) });
+    });
+  }
 
   render() {
-
-    // @todo wat
-    let content = (!this.state.confirmed) ?
-      <button className="pure-button" onClick={this.doConfirm.bind(this)}>Confirm Registration</button> :
-      <p>Registration Confirmed!</p>;
-
-    let errorContent= (this.state.errors.serverError) ?
-      <FormError error={this.state.errors.serverError} /> :
-      content;
+    const { t } = this.props;
+    const { confirmed, errors } = this.state;
 
     return (
       <div>
         <div className="posts">
           <section className="post">
             <header className="post-header">
-              <h2 className="post-title">Registration Confirmation</h2>
+              <h2 className="post-title">{t("title")}</h2>
             </header>
             <div className="post-description">
               <div className="pure-g">
                 <div className="pure-u-1-3">
-                  <p>Please use the buttom below to confirm your registration.</p>
+                  <p>{t("cta")}</p>
                 </div>
                 <div className="pure-u-2-3" />
               </div>
               <div className="pure-g">
                 <div className="pure-u-1-3">
-                  {errorContent}
+                  {!errors.serverError && !confirmed && <button className="pure-button" onClick={this.confirm}>{t("button")}</button>}
+                  {!errors.serverError && confirmed && <p>{t("success")}</p>}
+                  {errors.serverError && <FormError error={errors.serverError} />}
                 </div>
                 <div className="pure-u-2-3" />
               </div>
@@ -72,4 +64,13 @@ class Confirmation extends React.Component {
 
 }
 
-export default Confirmation;
+export default compose(
+  translate([ "confirmation" ]),
+
+  connect(
+    () => ({}),
+    {
+      confirmAccount,
+    }
+  )
+)(Confirmation);

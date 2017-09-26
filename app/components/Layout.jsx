@@ -35,9 +35,10 @@ class Layout extends React.Component {
   getUserAndMeta() {
     const { getMeta, getCurrentUser } = this.props;
 
+    this.setState({ loading: true });
     Promise.all([
       ignoreRejection(getCurrentUser()),
-      getMeta(),
+      ignoreRejection(getMeta()),
     ])
     .finally(() => this.setState({ loading: false }));
   }
