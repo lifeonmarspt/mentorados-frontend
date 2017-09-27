@@ -15,7 +15,8 @@
   },
 
   "globals": {
-    "google": false
+    "google": false,
+    "Promise": true,
   },
 
   "rules": {

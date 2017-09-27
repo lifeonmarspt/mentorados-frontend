@@ -1,23 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import { Route } from "react-router-dom";
-
+import { compose } from "recompose";
+import { connect } from "react-redux";
 
 class AdminRoute extends React.Component {
   static contextTypes = {
     router: PropTypes.object,
-    session: PropTypes.object,
   }
 
   componentDidMount() {
-    if (!this.context.session.user.admin) {
+    if (!this.props.currentUser.admin) {
       this.context.router.history.replace("/");
     }
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    if (!nextContext.session.user.admin) {
+    if (!nextProps.currentUser.admin) {
       this.context.router.history.replace("/");
     }
   }
@@ -27,4 +26,6 @@ class AdminRoute extends React.Component {
   }
 }
 
-export default AdminRoute;
+export default compose(
+  connect(({ currentUser }) => ({ currentUser })),
+)(AdminRoute);

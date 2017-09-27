@@ -5,15 +5,16 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { compose } from "recompose";
 import { translate } from "react-i18next";
+import { connect } from "react-redux";
 
-import { postLogin } from "lib/api";
 import { errorTransform } from "lib/errorTransform";
 import FormError from "components/elements/FormError";
+
+import { login } from "actions/session";
 
 class Login extends React.Component {
   static contextTypes = {
     router: PropTypes.object,
-    session: PropTypes.object
   }
 
   state = {
@@ -29,24 +30,22 @@ class Login extends React.Component {
     this.setState(this.state);
   }
 
-  onSubmit(event) {
-    event.preventDefault();
+  onSubmit = (ev) => {
+    ev.preventDefault();
     this.setState({ errors: {} });
 
-    postLogin(this.state.fields)
-      .then((result) => {
-        this.context.session.doLogin(result.data);
-      })
-      .catch((error) => {
-        this.setState({ errors: errorTransform(error, { 404: "Invalid credentials" }) });
-      });
+    const { email, password } = this.state.fields;
+    const { t, login } = this.props;
+
+    login(email, password)
+    .catch(error => this.setState({ errors: errorTransform(error, { 404: t("error") })}));
   }
 
   render() {
     const { t } = this.props;
 
     return (
-      <form className="Login pure-form" onSubmit={this.onSubmit.bind(this)}>
+      <form className="Login pure-form" onSubmit={this.onSubmit}>
         <h1 className="content-subhead">
           {t("title")}
         </h1>
@@ -86,4 +85,11 @@ class Login extends React.Component {
 
 export default compose(
   translate([ "login" ]),
+
+  connect(
+    () => ({}),
+    {
+      login,
+    },
+  ),
 )(Login);

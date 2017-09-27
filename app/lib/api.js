@@ -2,48 +2,31 @@ import axios from "axios";
 import { stringify } from "query-string";
 
 import config from "../config";
-import { cancelable } from "lib/tapete";
+import store from "store";
 
-export const api = cancelable(axios.create({
-  baseURL: config.apiBaseURL
-}));
+export const api = axios.create({
+  baseURL: config.apiBaseURL,
+});
 
-export const setAuthorization = (session) => {
-  if (session && session.jwt) {
-    api.defaults.headers.common["Authorization"] = `Bearer ${session.jwt}`;
-  } else {
-    delete api.defaults.headers.common["Authorization"];
-  }
-};
+api.interceptors.request.use(config => {
+  const { jwt } = store.getState();
 
-export const getCareers = () => api.get("/careers");
+  if (jwt) config.headers["Authorization"] = `Bearer ${jwt}`;
 
-export const getMeta = () => api.get("/meta");
-
-export const getMentors = (filters = {}) => {
-  let url = "/mentors";
-
-  let serializable = {
-    string: filters.query ? filters.query : undefined,
-    career_ids: filters.careers ? filters.careers : undefined,
-    trait_ids: filters.traits ? filters.traits : undefined,
-  };
-
-  let qs = stringify(serializable, { arrayFormat: "bracket" });
-  if (qs) {
-    url += `?${qs}`;
-  }
-
-  return api.get(url);
-};
-
-export const getUser = (id) => api.get(`/users/${id}`);
-
-export const postLogin = (fields) => api.post("/sessions", { session: fields });
+  return config;
+});
 
 export const postConfirmation = (id, confirmation_token) => api.post(`/users/${id}/confirm`, { confirmation_token });
 
 export const putPassword = (fields) => api.put("/users/password", fields);
+
+export const meta = {
+  index: () => api.get("/meta"),
+};
+
+export const session = {
+  create: (fields) => api.post("/sessions", { session: fields }),
+};
 
 export const users = {
   create: (attributes) => api.post("/users", attributes),
@@ -52,6 +35,25 @@ export const users = {
     return api.patch(`/users/${id}`, { user: attributes }, { headers });
   },
   me: () => api.get("/users/me"),
+};
+
+export const mentors = {
+  index: (filters = {}) => {
+    let url = "/mentors";
+
+    let serializable = {
+      string: filters.query ? filters.query : undefined,
+      career_ids: filters.careers ? filters.careers : undefined,
+      trait_ids: filters.traits ? filters.traits : undefined,
+    };
+
+    let qs = stringify(serializable, { arrayFormat: "bracket" });
+    if (qs) {
+      url += `?${qs}`;
+    }
+
+    return api.get(url);
+  },
 };
 
 export const password_recovery_tokens = {

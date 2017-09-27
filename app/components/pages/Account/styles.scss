@@ -8,7 +8,7 @@
 
   .pure-control-group,
   .pure-controls {
-    input:not([type=checkbox]), textarea { width: 420px; }
+    input:not([type=checkbox]), textarea, .Select { width: 420px; }
     textarea { min-height: 180px; }
   }
 
@@ -42,10 +42,7 @@
   .Account h1 { margin-left: 0; }
   .Account .pure-control-group,
   .Account .pure-controls {
-    textarea,
-    input:not([type=checkbox]) {
-      width: 100%;
-    }
+    textarea, input:not([type=checkbox]), .Select { width: 100%; }
   }
 }
 
@@ -56,7 +53,7 @@
   .Account .pure-control-group,
   .Account .pure-controls {
     label { width: 8em }
-    input:not([type=checkbox]), textarea { width: calc(100% - 9em); }
+    input:not([type=checkbox]), textarea, .Select { width: calc(100% - 9em); }
     textarea { min-height: 180px; }
   }
 }

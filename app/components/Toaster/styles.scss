@@ -1,5 +1,23 @@
 .Toaster {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding-top: 2em;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
   .Toast {
+    display: inline-block;
+    color: white;
+    font-weight: 500;
+    opacity: 0.8;
+    padding: 1em 2em;
+    border-radius: 2em;
+
     &--success { background: green }
     &--error { background: red }
   }
