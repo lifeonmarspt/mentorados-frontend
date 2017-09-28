@@ -9,9 +9,7 @@ import {
 
 import { session, users } from "lib/api";
 
-import { clearMeta } from "actions/meta";
-
-const setJWT = createAction(SET_JWT);
+export const setJWT = createAction(SET_JWT);
 const clearJWT = createAction(CLEAR_JWT);
 const setCurrentUser = createAction(SET_CURRENT_USER);
 const clearCurrentUser = createAction(CLEAR_CURRENT_USER);
@@ -54,6 +52,5 @@ export const logout = () => {
   return dispatch => {
     dispatch(clearJWT());
     dispatch(clearCurrentUser());
-    dispatch(clearMeta());
   };
 };

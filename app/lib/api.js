@@ -35,6 +35,7 @@ export const users = {
     return api.patch(`/users/${id}`, { user: attributes }, { headers });
   },
   me: () => api.get("/users/me"),
+  confirm: (id, confirmation_token) => api.post(`/users/${id}/confirm`, { confirmation_token }),
 };
 
 export const mentors = {
