@@ -9,8 +9,9 @@ import { api } from "lib/api";
 
 
 const name = "users";
+const modelName = "user";
 const routes = defaultRoutes(name, { prefix: "/admin" });
-const actions = defaultActions({ api, routes: defaultRoutes(name, { prefix: "/admin" }) });
+const actions = defaultActions({ api, routes: defaultRoutes(name, { prefix: "/admin" }), modelName });
 
 const listColumns = ["id", "email"];
 const showColumns = ["id", "email", "admin", "password"];
@@ -42,6 +43,7 @@ export default {
   routes,
   fields,
   name,
+  modelName,
   listColumns,
   editColumns,
   showColumns,

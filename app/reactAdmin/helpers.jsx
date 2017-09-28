@@ -65,10 +65,10 @@ export const defaultRoutes = (resourceName, { prefix } = { prefix: "" }) => ({
   index: () => `${prefix}/${resourceName}`,
 });
 
-export const defaultActions = ({ api, routes }) => ({
+export const defaultActions = ({ api, routes, modelName }) => ({
   index: () => api.get(routes.index()),
   show: (id) => api.get(routes.show(id)),
-  create: (data) => api.post(routes.index(), data),
-  update: (id, data) => api.put(routes.show(id), data),
+  create: (data) => api.post(routes.index(), { [modelName]: data }),
+  update: (id, data) => api.put(routes.show(id), { [modelName]: data }),
   destroy: (id) => api.delete(routes.show(id)),
 });

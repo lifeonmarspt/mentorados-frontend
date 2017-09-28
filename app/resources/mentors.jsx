@@ -47,8 +47,9 @@ const DisplayResourceLink = (metadata, label) => ({ resource, field }) => (
 );
 
 const name = "mentors";
+const modelName = "user";
 const routes = defaultRoutes(name, { prefix: "/admin" });
-const actions = defaultActions({ api, routes: defaultRoutes(name, { prefix: "/admin" }) });
+const actions = defaultActions({ api, routes: defaultRoutes(name, { prefix: "/admin" }), modelName });
 
 const newColumns = ["name", "email"];
 const listColumns = ["name", "email"];
@@ -124,6 +125,7 @@ export default {
   routes,
   fields,
   name,
+  modelName,
   newColumns,
   listColumns,
   editColumns,
