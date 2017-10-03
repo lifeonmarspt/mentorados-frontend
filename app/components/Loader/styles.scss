@@ -1,0 +1,41 @@
+@import "~stylesheets/colors";
+
+@keyframes rotate {
+  0%   { transform: rotate(0deg) }
+  100% { transform: rotate(360deg) }
+}
+
+.Loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .Loader-spinner {
+    width: 340px;
+    height: 340px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 20px solid rgba($loader-color, 0.5);
+      border-top-color: $loader-color;
+      border-radius: 50%;
+      animation: rotate 800ms ease-in-out infinite;
+    }
+  }
+}

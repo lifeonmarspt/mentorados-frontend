@@ -1,6 +1,6 @@
-$link-color: rgb(61, 146, 201);
+@import "~stylesheets/colors";
 
-* {
+*, *:before, *:after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
