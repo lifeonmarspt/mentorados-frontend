@@ -5,24 +5,55 @@ const VirtualModulePlugin = require("virtual-module-webpack-plugin")
 
 const process = require("process")
 
+const plugins = [
+  new HtmlWebpackPlugin({
+    template: "./app/index.html",
+    filename: "index.html",
+    inject: "body",
+    title: "AlumniEI Mentorship Program",
+  }),
+  new VirtualModulePlugin({
+    moduleName: "app/config.json",
+    contents: {
+      apiBaseURL: process.env.API_BASE_URL
+    }
+  }),
+  new Webpack.ProvidePlugin({
+    Promise: "bluebird",
+  }),
+];
+
+if (process.env.NODE_ENV === "production") {
+  plugins.push(
+    new Webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+    })
+  );
+}
+
 module.exports = {
   entry: "./app/index.jsx",
+
   resolve: {
     extensions: [".js",".jsx",".json", ".scss"],
     modules: [path.resolve(__dirname, "app"), "node_modules"],
   },
+
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
     publicPath: "/",
   },
+
   devServer: {
     host: "0.0.0.0",
     historyApiFallback: {
       disableDotRule: true,
     }
   },
+
   devtool: "source-map",
+
   module: {
     rules: [
       { test: /\.jsx?$/, use: "eslint-loader", exclude: /node_modules/, enforce: "pre" },
@@ -33,21 +64,6 @@ module.exports = {
       { test: /\.yml$/, use: ["json-loader", "yaml-loader"], exclude: /node_modules/ },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "./app/index.html",
-      filename: "index.html",
-      inject: "body",
-      title: "AlumniEI Mentorship Program",
-    }),
-    new VirtualModulePlugin({
-      moduleName: "app/config.json",
-      contents: {
-        apiBaseURL: process.env.API_BASE_URL
-      }
-    }),
-    new Webpack.ProvidePlugin({
-      Promise: "bluebird",
-    }),
-  ],
+
+  plugins,
 };
