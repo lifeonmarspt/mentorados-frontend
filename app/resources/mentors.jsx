@@ -47,13 +47,14 @@ const DisplayResourceLink = (metadata, label) => ({ resource, field }) => (
 );
 
 const name = "mentors";
+const modelName = "user";
 const routes = defaultRoutes(name, { prefix: "/admin" });
-const actions = defaultActions({ api, routes: defaultRoutes(name, { prefix: "/admin" }) });
+const actions = defaultActions({ api, routes: defaultRoutes(name, { prefix: "/admin" }), modelName });
 
 const newColumns = ["name", "email"];
 const listColumns = ["name", "email"];
-const showColumns = ["id", "active", "name", "email", "password", "location", "bio", "year_in", "year_out", "career_ids", "trait_ids", "links"];
-const editColumns = ["active", "name", "email", "password", "location", "bio", "year_in", "year_out", "career_ids", "trait_ids", "links"];
+const showColumns = ["id", "active", "blocked", "name", "email", "password", "location", "bio", "year_in", "year_out", "career_ids", "trait_ids", "links"];
+const editColumns = ["active", "blocked", "name", "email", "password", "location", "bio", "year_in", "year_out", "career_ids", "trait_ids", "links"];
 
 const fields = {
   id: {
@@ -63,6 +64,11 @@ const fields = {
   active: {
     label: "Active",
     displayAs: ({ resource }) => <span>{resource.active ? "yes" : "no"}</span>,
+    editableAs: EditableCheckbox,
+  },
+  blocked: {
+    label: "Blocked",
+    displayAs: ({ resource }) => <span>{resource.blocked ? "yes" : "no"}</span>,
     editableAs: EditableCheckbox,
   },
   name: {
@@ -119,6 +125,7 @@ export default {
   routes,
   fields,
   name,
+  modelName,
   newColumns,
   listColumns,
   editColumns,

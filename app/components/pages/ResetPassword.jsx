@@ -1,22 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { compose } from "recompose";
+import { translate } from "react-i18next";
+import { connect } from "react-redux";
 
 import { password_recovery_tokens } from "lib/api";
 import Section from "components/elements/Section";
 import ResetPasswordForm from "components/forms/ResetPasswordForm";
 import RecoverPasswordForm from "components/forms/RecoverPasswordForm";
 
+import { addSuccessToast } from "actions/toasts";
 
 class ResetPassword extends React.Component {
   static contextTypes = {
-    session: PropTypes.object,
     router: PropTypes.object,
   };
 
-  constructor(...args) {
-    super(...args);
-
-    this.state = { loading: true };
+  state = {
+    loading: true,
   }
 
   componentWillMount() {
@@ -29,75 +30,74 @@ class ResetPassword extends React.Component {
     );
   }
 
-  onSuccessfulReset(data) {
-    this.context.session.doLogin({ jwt: this.props.match.params.token });
+  onSuccessfulReset = (data) => {
+    const { addSuccessToast, t } = this.props;
+
+    addSuccessToast(t("toasts:reset_pw_success"));
   }
 
-  onSuccessfulRecover(email) {
+  onSuccessfulRecover = (email) => {
     this.setState({ recovered: email });
   }
 
   render() {
-    if (this.state.loading) {
+    const { t, match } = this.props;
+    const { loading, valid, recovered, user } = this.state;
+
+    if (loading) {
       return null;
     }
 
-    if (this.state.recovered) {
-      return (
-        <div className="page-registration">
-          <Section title="Password already reset">
-            <p>To reset your password again, please enter your email address below.</p>
-          </Section>
-
-          <Section>
-            <p>
-              We've sent an email to <code>{this.state.recovered}</code>. Click
-              the link in the email to reset your password.
-            </p>
-
-            <p>
-              If you don't see the email, check other places it might be, like your
-              junk, spam, social, or other folders.
-            </p>
-          </Section>
-        </div>
-      );
-    }
-
-    if (!this.state.valid) {
-      return (
-        <div className="page-registration">
-          <Section title="Password already reset">
-            <p>To reset your password again, please enter your email address below.</p>
-
-            <div className="pure-g">
-              <div className="pure-u-1-5">
-                <RecoverPasswordForm
-                  onSuccess={this.onSuccessfulRecover.bind(this)}
-                />
-              </div>
-            </div>
-          </Section>
-        </div>
-      );
-    }
-
     return (
-      <div className="page-registration">
-        <Section title="Reset password">
-          <div className="pure-g">
-            <div className="pure-u-1-5">
+      <div className="posts">
+        <section className="post">
+          <header className="post-header">
+            <h1 className="post-title">
+              {recovered || !valid ? t("already_reset.title") : t("not_reset.title")}
+            </h1>
+          </header>
+
+          {recovered || !valid &&
+            <Section>
+              <p>{t("already_reset.subtitle")}</p>
+            </Section>
+          }
+
+          {recovered &&
+            <Section>
+              <p>{t("recovered.email1", { email: recovered })}</p>
+              <p>{t("recovered.email2")}</p>
+            </Section>
+          }
+
+          {!valid &&
+            <Section>
+              <RecoverPasswordForm onSuccess={this.onSuccessfulRecover} />
+            </Section>
+          }
+
+          {!recovered && valid &&
+            <Section>
               <ResetPasswordForm
-                token={this.props.match.params.token}
-                user={this.state.user}
-                onSuccess={this.onSuccessfulReset.bind(this)}
+                token={match.params.token}
+                user={user}
+                onSuccess={this.onSuccessfulReset}
               />
-            </div>
-          </div>
-        </Section>
+            </Section>
+          }
+        </section>
       </div>
     );
   }
 }
 
-export default ResetPassword;
+export default compose(
+  translate([ "reset_password", "toasts" ]),
+
+  connect(
+    () => ({}),
+    {
+      addSuccessToast,
+    },
+  ),
+)(ResetPassword);

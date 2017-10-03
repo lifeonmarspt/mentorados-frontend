@@ -14,7 +14,7 @@ import Blocked from "components/Blocked";
 import { getCurrentUser } from "actions/session";
 import { getMeta } from "actions/meta";
 
-const ignoreRejection = (promise) => promise.catch(() => {});
+const ignoreFailure = (promise) => promise.catch(() => {});
 
 class Layout extends React.Component {
 
@@ -35,9 +35,10 @@ class Layout extends React.Component {
   getUserAndMeta() {
     const { getMeta, getCurrentUser } = this.props;
 
+    this.setState({ loading: true });
     Promise.all([
-      ignoreRejection(getCurrentUser()),
-      getMeta(),
+      ignoreFailure(getCurrentUser()),
+      ignoreFailure(getMeta()),
     ])
     .finally(() => this.setState({ loading: false }));
   }

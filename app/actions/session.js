@@ -57,3 +57,16 @@ export const logout = () => {
     dispatch(clearMeta());
   };
 };
+
+export const resetPassword = (id, password, token) => {
+  return dispatch => {
+    return users
+      .update(id, { password }, token)
+      .then(response => {
+        dispatch(setJWT(token));
+        dispatch(getCurrentUser());
+
+        return response.data;
+      });
+  };
+};

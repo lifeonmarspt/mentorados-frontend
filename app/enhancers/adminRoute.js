@@ -4,7 +4,7 @@ import { compose } from "recompose";
 import { connect } from "react-redux";
 import { translate } from "react-i18next";
 
-import { addToast, TOAST_LEVEL_ERROR } from "actions/toasts";
+import { addErrorToast } from "actions/toasts";
 
 const adminRoute = (Component) => compose(
   translate([ "toasts" ]),
@@ -12,7 +12,7 @@ const adminRoute = (Component) => compose(
   connect(
     ({ currentUser }) => ({ currentUser }),
     {
-      addToast,
+      addErrorToast,
     }
   ),
 )(
@@ -30,10 +30,10 @@ const adminRoute = (Component) => compose(
     }
 
     redirect(props = this.props) {
-      const { currentUser, addToast, t } = props;
+      const { currentUser, addErrorToast, t } = props;
 
       if (!currentUser.admin) {
-        addToast({ content: t("needs_admin"), level: TOAST_LEVEL_ERROR });
+        addErrorToast(t("needs_admin"));
         this.context.router.history.replace("/");
       }
     }

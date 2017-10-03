@@ -1,75 +1,92 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { compose } from "recompose";
+import { translate } from "react-i18next";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { errorTransform }  from "lib/errorTransform";
-import { postConfirmation } from "lib/api";
-import FormError from "components/elements/FormError";
+import Section from "components/elements/Section";
+import ResetPasswordForm from "components/forms/ResetPasswordForm";
+
+import { password_recovery_tokens } from "lib/api";
+
+import { addSuccessToast } from "actions/toasts";
 
 class Confirmation extends React.Component {
-  static contextTypes = {
-    router: PropTypes.object,
-    session: PropTypes.object,
+  state = {
+    loading: true,
+    valid: false,
+    user: {},
   }
 
-  constructor(...args) {
-    super(...args);
-
-    this.state = {
-      confirmed: false,
-      errors: {},
-    };
-
+  componentWillMount() {
+    password_recovery_tokens
+    .get(this.props.match.params.token)
+    .then(response =>
+      this.setState({ loading: false, valid: true, user: response.data.user })
+    )
+    .catch(() =>
+      this.setState({ loading: false, valid: false })
+    );
   }
 
-  doConfirm() {
-    postConfirmation(this.props.match.params.id, this.props.match.params.token)
-      .then((result) => {
-        this.context.session.doLogin(result.data);
-      })
-      .catch((error) => {
-        this.setState({ errors: errorTransform(error, { 404: "confirmation token not found" }) });
-      });
-  }
+  onSuccessfulConfirm = () => {
+    const { addSuccessToast, t } = this.props;
 
+    addSuccessToast(t("toasts:account_confirmed"));
+  }
 
   render() {
+    const { t, match } = this.props;
+    const { user, loading, valid } = this.state;
 
-    // @todo wat
-    let content = (!this.state.confirmed) ?
-      <button className="pure-button" onClick={this.doConfirm.bind(this)}>Confirm Registration</button> :
-      <p>Registration Confirmed!</p>;
-
-    let errorContent= (this.state.errors.serverError) ?
-      <FormError error={this.state.errors.serverError} /> :
-      content;
+    if (loading) return <div>Loading...</div>;
 
     return (
-      <div>
-        <div className="posts">
-          <section className="post">
-            <header className="post-header">
-              <h2 className="post-title">Registration Confirmation</h2>
-            </header>
-            <div className="post-description">
-              <div className="pure-g">
-                <div className="pure-u-1-3">
-                  <p>Please use the buttom below to confirm your registration.</p>
-                </div>
-                <div className="pure-u-2-3" />
-              </div>
-              <div className="pure-g">
-                <div className="pure-u-1-3">
-                  {errorContent}
-                </div>
-                <div className="pure-u-2-3" />
-              </div>
+      <div className="posts">
+        <section className="post">
+          <header className="post-header">
+            <h2 className="post-title">{t("title")}</h2>
+          </header>
+
+          {!valid &&
+            <Section>
+              <p>
+                {t("invalid_token.notice")}
+                <br />
+                <Link to="recover-password">{t("invalid_token.cta")}</Link>
+              </p>
+            </Section>
+          }
+
+          {valid &&
+            <div>
+              <Section>
+                <p>{t("cta")}</p>
+              </Section>
+
+              <Section>
+                <ResetPasswordForm
+                  token={match.params.token}
+                  user={user}
+                  onSuccess={this.onSuccessfulConfirm}
+                />
+              </Section>
             </div>
-          </section>
-        </div>
+          }
+        </section>
       </div>
     );
   }
 
 }
 
-export default Confirmation;
+export default compose(
+  translate([ "confirmation", "toasts" ]),
+
+  connect(
+    () => ({}),
+    {
+      addSuccessToast,
+    },
+  ),
+)(Confirmation);

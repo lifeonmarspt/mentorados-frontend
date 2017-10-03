@@ -1,4 +1,6 @@
 import React from "react";
+import { compose } from "recompose";
+import { translate } from "react-i18next";
 
 import { errorTransform } from "lib/errorTransform";
 import { password_recovery_tokens } from "lib/api";
@@ -6,54 +8,51 @@ import { password_recovery_tokens } from "lib/api";
 import FormError from "components/elements/FormError";
 import FieldError from "components/elements/FieldError";
 
-import t from "translations/pt.yml";
-
-
 class RecoverPasswordForm extends React.Component {
-  constructor(...args) {
-    super(...args);
-
-    this.state = { errors: {} };
+  state = {
+    errors: {},
   }
 
   onChange(field, event) {
     this.setState({ [field]: event.target.value });
   }
 
-  onSubmit(event) {
+  onSubmit = (event) => {
     event.preventDefault();
     this.setState({ errors: {} });
 
-    password_recovery_tokens.create(
-      { email: this.state.email },
-    ).then(
-      (result) => this.props.onSuccess(this.state.email),
-    ).catch((error) => {
-      this.setState({ errors: errorTransform(error, { 404: "account not found" }) });
-    });
-  }
+    const { email } = this.state;
 
-  changeEventHandler(field) {
-    return (event) => this.onChange(field, event);
+    password_recovery_tokens
+    .create({ email })
+    .then(() => this.props.onSuccess(email))
+    .catch(error => this.setState({
+      errors: errorTransform(error, { 404: this.props.t("error") }),
+    }));
   }
 
   render() {
+    const { t } = this.props;
+    const { errors } = this.state;
+
     return (
-      <form className="pure-form" onSubmit={this.onSubmit.bind(this)}>
-        <FormError error={this.state.errors.serverError} />
+      <form className="pure-form pure-form-narrow" onSubmit={this.onSubmit}>
+        <FormError error={errors.serverError} />
+
         <fieldset>
           <input
-            onChange={this.changeEventHandler("email")}
             type="email"
             className="recover__input"
+            onChange={ev => this.onChange("email", ev)}
+            placeholder={t("form.email.placeholder")}
             required
-            placeholder={t.recover.placeholder.email}
           />
-          <FieldError fieldName="email" errors={this.state.errors.email} />
+          <FieldError fieldName="email" errors={errors.email} />
         </fieldset>
+
         <fieldset>
           <button type="submit" className="pure-button pure-button-primary">
-            {t.recover.submit}
+            {t("form.submit")}
           </button>
         </fieldset>
       </form>
@@ -61,4 +60,6 @@ class RecoverPasswordForm extends React.Component {
   }
 };
 
-export default RecoverPasswordForm;
+export default compose(
+  translate([ "recover_password" ]),
+)(RecoverPasswordForm);

@@ -17,6 +17,7 @@ footer:
 
 home:
   title: Programa de Mentorados de Engenharia Informática - FEUP
+
   contact:
     title: Contacto
     content: Se quiserdes contactar as pessoas responsaveis pela manutencao da plataforma, com queixas, sugestoes, ou qualquer cena, mandai email para <a href="mailto:{{email}}">{{email}}</a>
@@ -33,11 +34,6 @@ login:
 signup:
   title: Registo
   submit: Registar
-
-recover:
-  submit: Recuperar password
-  placeholder:
-    email: Email
 
 mentors:
   list:
@@ -103,9 +99,43 @@ account:
     update_success: Alterações gravadas!
     update_failure: Erro a gravar alterações.
 
+confirmation:
+  title: Confirmação de Conta
+  invalid_token:
+    notice: O teu código de confirmação é inválido.
+    cta: Por favor pede uma nova password para continuares.
+  cta: Por favor cria uma password para confirmares a tua conta
+  button: Confirmar Conta
+  success: Conta confirmada!
+
+reset_password:
+  already_reset:
+    title: Password já recuperada
+    subtitle: Para recuperar outra vez a password, insere o email no campo abaixo.
+  not_reset:
+    title: Recuperar password
+  recovered:
+    email1: Foi enviado um email para {{email}}. Carrega no link no email para recuperar a tua password.
+    email2: Se não vires o email, verifica outros lugares onde possa estar, como o lixo, spam, social, ou outras pastas.
+  form:
+    password:
+      placeholder: Nova password
+    submit: Mudar password
+    error: Conta não encontrada
+
+recover_password:
+  title: Recuperar Password
+  form:
+    email:
+      label: Email
+    submit: Recuperar password
+  error: Conta não encontrada
+
 toasts:
   needs_login: É necessário login antes de continuar
   needs_admin: Não tens privilégios para aceder a esta página
+  reset_pw_success: Password mudada com sucesso!
+  account_confirmed: Conta confirmada com sucesso!
 
 blocked:
   copy: A tua conta está bloqueada.

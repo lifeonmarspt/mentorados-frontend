@@ -48,6 +48,11 @@ aside {
   color: #ff0000;
 }
 
+.pure-form-narrow {
+  max-width: 30em;
+  margin: 0 auto;
+}
+
 // replicate pure-form styles for "react-select"
 .pure-form .Select {
   display: inline-block;

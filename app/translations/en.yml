@@ -34,11 +34,6 @@ signup:
   title: Registration
   submit: Sign up
 
-recover:
-  submit: Recover password
-  placeholder:
-    email: Email
-
 mentors:
   list:
     title: Mentors
@@ -103,9 +98,43 @@ account:
     update_success: Changes saved!
     update_failure: Unable to save changes.
 
+confirmation:
+  title: Account Confirmation
+  invalid_token:
+    notice: Your token is invalid.
+    cta: Please reset your password to continue
+  cta: Please set a password to confirm your account
+  button: Confirm Account
+  success: Account confirmed!
+
+reset_password:
+  already_reset:
+    title: Password already reset
+    subtitle: To reset your password again, please enter your email address below.
+  not_reset:
+    title: Reset password
+  recovered:
+    email1: We've sent an email to {{email}}. Click the link in the email to reset your password.
+    email2: If you don't see the email, check other places it might be, like your junk, spam, social, or other folders.
+  form:
+    password:
+      placeholder: New password
+    submit: Change password
+    error: Account not found
+
+recover_password:
+  title: Recover Password
+  form:
+    email:
+      placeholder: Email
+    submit: Recover password
+  error: Account not found
+
 toasts:
   needs_login: Please login before continuing
   needs_admin: You are not allowed to access this page
+  reset_pw_success: Password changed successfully!
+  account_confirmed: Account confirmed successfully!
 
 blocked:
   copy: Your account is blocked.
