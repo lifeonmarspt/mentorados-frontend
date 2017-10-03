@@ -27,15 +27,18 @@ const authenticatedRoute = (Component) => compose(
     }
 
     componentWillReceiveProps(nextProps) {
-      this.redirect(nextProps);
+      // only show toast if we're not logging out
+      const withToast = !!(this.props.currentUser.id && nextProps.currentUser.id);
+
+      this.redirect(nextProps, withToast);
     }
 
-    redirect(props = this.props) {
+    redirect(props = this.props, withToast = true) {
       if (!this.shouldRedirect(props)) return;
 
       const { addErrorToast, t } = this.props;
 
-      addErrorToast(t("needs_login"));
+      if (withToast) addErrorToast(t("needs_login"));
       this.context.router.history.push("/");
     }
 

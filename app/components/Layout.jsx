@@ -10,6 +10,7 @@ import Header from "components/Header";
 import Footer from "components/Footer";
 import Toaster from "components/Toaster";
 import Blocked from "components/Blocked";
+import Loader from "components/Loader";
 
 import { getCurrentUser } from "actions/session";
 import { getMeta } from "actions/meta";
@@ -46,7 +47,7 @@ class Layout extends React.Component {
   render() {
     const { t, currentUser } = this.props;
 
-    if (this.state.loading) return <div id="layout">{t("layout:loading")}</div>;
+    if (this.state.loading) return <Loader />;
 
     return (
       <div id="layout">
