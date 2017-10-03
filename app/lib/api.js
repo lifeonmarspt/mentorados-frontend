@@ -3,6 +3,7 @@ import { stringify } from "query-string";
 
 import config from "../config";
 import store from "store";
+import i18n from "i18n";
 
 export const api = axios.create({
   baseURL: config.apiBaseURL,
@@ -10,8 +11,9 @@ export const api = axios.create({
 
 api.interceptors.request.use(config => {
   const { jwt } = store.getState();
-
   if (jwt) config.headers["Authorization"] = `Bearer ${jwt}`;
+
+  config.headers["Accept-Language"] = i18n.language;
 
   return config;
 });
