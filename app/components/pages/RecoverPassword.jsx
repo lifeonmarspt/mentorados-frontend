@@ -5,13 +5,12 @@ import { translate } from "react-i18next";
 import Section from "components/elements/Section";
 import RecoverPasswordForm from "components/forms/RecoverPasswordForm";
 
-const contactEmail = "mentoria@alumniei.pt";
+import { contactEmail } from "globals";
 
 class RecoverPassword extends React.Component {
   state = {
     sent: false,
     email: "",
-    errors: {},
   }
 
   onSubmit = (email) => {
@@ -53,5 +52,5 @@ class RecoverPassword extends React.Component {
 }
 
 export default compose(
-  translate([ "home", "reset_password" ]),
+  translate([ "home", "recover_password", "reset_password" ]),
 )(RecoverPassword);

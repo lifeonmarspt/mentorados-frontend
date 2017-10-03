@@ -1,63 +1,79 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { compose } from "recompose";
 import { translate } from "react-i18next";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { errorTransform }  from "lib/errorTransform";
-import FormError from "components/elements/FormError";
+import Section from "components/elements/Section";
+import ResetPasswordForm from "components/forms/ResetPasswordForm";
 
-import { confirmAccount } from "actions/users";
+import { password_recovery_tokens } from "lib/api";
+
+import { addSuccessToast } from "actions/toasts";
 
 class Confirmation extends React.Component {
-  static contextTypes = {
-    router: PropTypes.object,
-  }
-
   state = {
-    confirmed: false,
-    errors: {},
+    loading: true,
+    valid: false,
+    user: {},
   }
 
-  confirm = () => {
-    const { confirmAccount, match: { params } } = this.props;
+  componentWillMount() {
+    password_recovery_tokens
+    .get(this.props.match.params.token)
+    .then(response =>
+      this.setState({ loading: false, valid: true, user: response.data.user })
+    )
+    .catch(() =>
+      this.setState({ loading: false, valid: false })
+    );
+  }
 
-    confirmAccount(params.id, params.token)
-    .then(() => this.setState({ confirmed: true }))
-    .catch(error => {
-      this.setState({ errors: errorTransform(error, { 404: "confirmation token not found" }) });
-    });
+  onSuccessfulConfirm = () => {
+    const { addSuccessToast, t } = this.props;
+
+    addSuccessToast(t("toasts:account_confirmed"));
   }
 
   render() {
-    const { t } = this.props;
-    const { confirmed, errors } = this.state;
+    const { t, match } = this.props;
+    const { user, loading, valid } = this.state;
+
+    if (loading) return <div>Loading...</div>;
 
     return (
-      <div>
-        <div className="posts">
-          <section className="post">
-            <header className="post-header">
-              <h2 className="post-title">{t("title")}</h2>
-            </header>
-            <div className="post-description">
-              <div className="pure-g">
-                <div className="pure-u-1-3">
-                  <p>{t("cta")}</p>
-                </div>
-                <div className="pure-u-2-3" />
-              </div>
-              <div className="pure-g">
-                <div className="pure-u-1-3">
-                  {!errors.serverError && !confirmed && <button className="pure-button" onClick={this.confirm}>{t("button")}</button>}
-                  {!errors.serverError && confirmed && <p>{t("success")}</p>}
-                  {errors.serverError && <FormError error={errors.serverError} />}
-                </div>
-                <div className="pure-u-2-3" />
-              </div>
+      <div className="posts">
+        <section className="post">
+          <header className="post-header">
+            <h2 className="post-title">{t("title")}</h2>
+          </header>
+
+          {!valid &&
+            <Section>
+              <p>
+                {t("invalid_token.notice")}
+                <br />
+                <Link to="recover-password">{t("invalid_token.cta")}</Link>
+              </p>
+            </Section>
+          }
+
+          {valid &&
+            <div>
+              <Section>
+                <p>{t("cta")}</p>
+              </Section>
+
+              <Section>
+                <ResetPasswordForm
+                  token={match.params.token}
+                  user={user}
+                  onSuccess={this.onSuccessfulConfirm}
+                />
+              </Section>
             </div>
-          </section>
-        </div>
+          }
+        </section>
       </div>
     );
   }
@@ -65,12 +81,12 @@ class Confirmation extends React.Component {
 }
 
 export default compose(
-  translate([ "confirmation" ]),
+  translate([ "confirmation", "toasts" ]),
 
   connect(
     () => ({}),
     {
-      confirmAccount,
-    }
-  )
+      addSuccessToast,
+    },
+  ),
 )(Confirmation);

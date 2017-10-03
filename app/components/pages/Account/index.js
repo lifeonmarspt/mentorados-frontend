@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { Creatable } from "react-select";
 
 import { updateCurrentUser } from "actions/session";
-import { addToast, TOAST_LEVEL_SUCCESS, TOAST_LEVEL_ERROR } from "actions/toasts";
+import { addSuccessToast, addErrorToast } from "actions/toasts";
 
 import { toOptions, toStringArray } from "lib/traits";
 
@@ -84,15 +84,15 @@ class Account extends React.Component {
 
   onSubmit = (ev) => {
     ev.preventDefault();
-    const { addToast, t } = this.props;
+    const { addSuccessToast, addErrorToast, t } = this.props;
 
     this.props
       .updateCurrentUser({
         ...this.props.currentUser,
         ...this.state.changes,
       })
-      .then(() => addToast({ content: t("form.update_success"), level: TOAST_LEVEL_SUCCESS }))
-      .catch(() => addToast({ content: t("form.update_failure"), level: TOAST_LEVEL_ERROR }));
+      .then(() => addSuccessToast(t("form.update_success")))
+      .catch(() => addErrorToast(t("form.update_failure")));
   }
 
   formValue(field) {
@@ -217,7 +217,8 @@ export default compose(
     ({ currentUser, meta }) => ({ currentUser, meta }),
     {
       updateCurrentUser,
-      addToast,
+      addSuccessToast,
+      addErrorToast,
     },
   ),
 )(Account);

@@ -9,7 +9,9 @@ import {
 
 import { session, users } from "lib/api";
 
-export const setJWT = createAction(SET_JWT);
+import { clearMeta } from "actions/meta";
+
+const setJWT = createAction(SET_JWT);
 const clearJWT = createAction(CLEAR_JWT);
 const setCurrentUser = createAction(SET_CURRENT_USER);
 const clearCurrentUser = createAction(CLEAR_CURRENT_USER);
@@ -52,5 +54,19 @@ export const logout = () => {
   return dispatch => {
     dispatch(clearJWT());
     dispatch(clearCurrentUser());
+    dispatch(clearMeta());
+  };
+};
+
+export const resetPassword = (id, password, token) => {
+  return dispatch => {
+    return users
+      .update(id, { password }, token)
+      .then(response => {
+        dispatch(setJWT(token));
+        dispatch(getCurrentUser());
+
+        return response.data;
+      });
   };
 };

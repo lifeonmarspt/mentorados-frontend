@@ -100,10 +100,13 @@ account:
     update_failure: Erro a gravar alterações.
 
 confirmation:
-  title: Confirmação de Registo
-  cta: Por favor usa o botão abaixo para confirmar o registo.
-  button: Confirmar Registo
-  success: Registo confirmado!
+  title: Confirmação de Conta
+  invalid_token:
+    notice: O teu código de confirmação é inválido.
+    cta: Por favor pede uma nova password para continuares.
+  cta: Por favor cria uma password para confirmares a tua conta
+  button: Confirmar Conta
+  success: Conta confirmada!
 
 reset_password:
   already_reset:
@@ -118,7 +121,7 @@ reset_password:
     password:
       placeholder: Nova password
     submit: Mudar password
-    error: Login não encontrado
+    error: Conta não encontrada
 
 recover_password:
   title: Recuperar Password
@@ -132,6 +135,7 @@ toasts:
   needs_login: É necessário login antes de continuar
   needs_admin: Não tens privilégios para aceder a esta página
   reset_pw_success: Password mudada com sucesso!
+  account_confirmed: Conta confirmada com sucesso!
 
 blocked:
   copy: A tua conta está bloqueada.

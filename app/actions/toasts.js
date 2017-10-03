@@ -16,7 +16,7 @@ export const TOAST_DURATION_MS = 3000;
 export const removeToast = createAction(REMOVE_TOAST);
 export const clearToasts = createAction(CLEAR_TOASTS);
 
-export const addToast = params => {
+const addToast = params => {
   return dispatch => {
     const id = uuid.v4();
 
@@ -30,3 +30,6 @@ export const addToast = params => {
     }));
   };
 };
+
+export const addSuccessToast = (content) => addToast({ content, level: TOAST_LEVEL_SUCCESS });
+export const addErrorToast = (content) => addToast({ content, level: TOAST_LEVEL_ERROR });

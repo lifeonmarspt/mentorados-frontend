@@ -41,7 +41,6 @@ class RecoverPasswordForm extends React.Component {
 
         <fieldset>
           <input
-            id="email"
             type="email"
             className="recover__input"
             onChange={ev => this.onChange("email", ev)}

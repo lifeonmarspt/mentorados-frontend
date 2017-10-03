@@ -5,7 +5,7 @@ import { translate } from "react-i18next";
 import SignUp from "components/forms/SignUp";
 import Login from "components/elements/Login";
 
-const email = "mentoria@alumniei.pt";
+import { contactEmail } from "globals";
 
 class Home extends React.Component {
   state = {
@@ -58,7 +58,7 @@ class Home extends React.Component {
           <p>
             Caso já tenhas acabado o curso, gostariamos de contar com a tua
             participacao para apoiar estudantes. Entra em contacto connosco
-            atraves do email <a href={`mailto:${email}`}>{email}</a> para te
+            atraves do email <a href={`mailto:${contactEmail}`}>{contactEmail}</a> para te
             adicionarmos à plataforma.
           </p>
         </section>
@@ -78,7 +78,7 @@ class Home extends React.Component {
 
         <section>
           <h2>{t("contact.title")}</h2>
-          <p dangerouslySetInnerHTML={{ __html: t("contact.content", { email })}} />
+          <p dangerouslySetInnerHTML={{ __html: t("contact.content", { email: contactEmail })}} />
         </section>
       </div>
     );

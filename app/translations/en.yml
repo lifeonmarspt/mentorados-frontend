@@ -99,10 +99,13 @@ account:
     update_failure: Unable to save changes.
 
 confirmation:
-  title: Registration Confirmation
-  cta: Please use the buttom below to confirm your registration.
-  button: Confirm Registration
-  success: Registration confirmed!
+  title: Account Confirmation
+  invalid_token:
+    notice: Your token is invalid.
+    cta: Please reset your password to continue
+  cta: Please set a password to confirm your account
+  button: Confirm Account
+  success: Account confirmed!
 
 reset_password:
   already_reset:
@@ -117,7 +120,7 @@ reset_password:
     password:
       placeholder: New password
     submit: Change password
-    error: Login not found
+    error: Account not found
 
 recover_password:
   title: Recover Password
@@ -131,6 +134,7 @@ toasts:
   needs_login: Please login before continuing
   needs_admin: You are not allowed to access this page
   reset_pw_success: Password changed successfully!
+  account_confirmed: Account confirmed successfully!
 
 blocked:
   copy: Your account is blocked.

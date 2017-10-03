@@ -1,12 +1,14 @@
 import React from "react";
 import { compose } from "recompose";
 import { translate } from "react-i18next";
+import { connect } from "react-redux";
 
 import { errorTransform } from "lib/errorTransform";
-import { users } from "lib/api";
 
 import FormError from "components/elements/FormError";
 import FieldError from "components/elements/FieldError";
+
+import { resetPassword } from "actions/session";
 
 class ResetPasswordForm extends React.Component {
   state = {
@@ -21,11 +23,10 @@ class ResetPasswordForm extends React.Component {
     event.preventDefault();
     this.setState({ errors: {} });
 
-    const { t, user, token } = this.props;
+    const { t, user, token, resetPassword } = this.props;
     const { password } = this.state;
 
-    users
-    .update(user.id, { password }, token)
+    resetPassword(user.id, password, token)
     .then(response => this.props.onSuccess(response.data))
     .catch(error => this.setState({
       errors: errorTransform(error, { 404: t("form.error") }),
@@ -62,4 +63,11 @@ class ResetPasswordForm extends React.Component {
 
 export default compose(
   translate([ "reset_password" ]),
+
+  connect(
+    () => ({}),
+    {
+      resetPassword,
+    },
+  ),
 )(ResetPasswordForm);

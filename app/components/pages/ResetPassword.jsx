@@ -9,8 +9,7 @@ import Section from "components/elements/Section";
 import ResetPasswordForm from "components/forms/ResetPasswordForm";
 import RecoverPasswordForm from "components/forms/RecoverPasswordForm";
 
-import { setJWT, getCurrentUser } from "actions/session";
-import { addToast, TOAST_LEVEL_SUCCESS } from "actions/toasts";
+import { addSuccessToast } from "actions/toasts";
 
 class ResetPassword extends React.Component {
   static contextTypes = {
@@ -32,11 +31,9 @@ class ResetPassword extends React.Component {
   }
 
   onSuccessfulReset = (data) => {
-    const { setJWT, getCurrentUser, match, t } = this.props;
+    const { addSuccessToast, t } = this.props;
 
-    setJWT(match.params.token);
-    addToast({ content: t("toasts:reset_pw_success"), level: TOAST_LEVEL_SUCCESS });
-    getCurrentUser();
+    addSuccessToast(t("toasts:reset_pw_success"));
   }
 
   onSuccessfulRecover = (email) => {
@@ -53,10 +50,12 @@ class ResetPassword extends React.Component {
 
     return (
       <div className="posts">
-        <header className="post-header">
-          <h1 className="post-title">
-            {recovered || !valid ? t("already_reset.title") : t("not_reset.title")}
-          </h1>
+        <section className="post">
+          <header className="post-header">
+            <h1 className="post-title">
+              {recovered || !valid ? t("already_reset.title") : t("not_reset.title")}
+            </h1>
+          </header>
 
           {recovered || !valid &&
             <Section>
@@ -86,8 +85,7 @@ class ResetPassword extends React.Component {
               />
             </Section>
           }
-
-        </header>
+        </section>
       </div>
     );
   }
@@ -99,9 +97,7 @@ export default compose(
   connect(
     () => ({}),
     {
-      setJWT,
-      getCurrentUser,
-      addToast,
+      addSuccessToast,
     },
   ),
 )(ResetPassword);
