@@ -43,6 +43,6 @@
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack -p --progress",
-    "postinstall": "yarn build"
+    "heroku-postbuild": "yarn build"
   }
 }
