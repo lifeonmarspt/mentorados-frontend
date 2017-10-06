@@ -18,7 +18,7 @@ class Mentor extends React.Component {
             {mentor.careers.map(career => <span key={career.id} className="post-category">{career.description}</span>)}
           </p>
           <p>
-            {mentor.traits.map(trait => <span key={trait.id} className="post-category">{trait.description}</span>)}
+            {mentor.traits.map(trait => <span key={trait.id} className="post-category post-trait">{trait.description}</span>)}
           </p>
 
           <p>
