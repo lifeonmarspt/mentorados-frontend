@@ -26,7 +26,7 @@ const App = () => (
     <Layout>
       <Switch>
         <Route exact path="/" component={anonymousRoute(Home)} />
-        <Route exact path="/conduct" component={anonymousRoute(Conduct, false)} />
+        <Route exact path="/conduct" component={Conduct} />
         <Route exact path="/recover-password" component={anonymousRoute(RecoverPassword)} />
 
         <Route exact path="/users/:id/confirm/:token" component={anonymousRoute(Confirmation)} />
