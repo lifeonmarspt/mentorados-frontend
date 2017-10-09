@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { compose } from "recompose";
 import { connect } from "react-redux";
 
-const anonymousRoute = (Component, redirect) => compose(
+const anonymousRoute = (Component) => compose(
   connect(({ currentUser }) => ({ currentUser })),
 )(
   class AnonymousRoute extends React.Component {
@@ -13,13 +13,13 @@ const anonymousRoute = (Component, redirect) => compose(
     }
 
     componentDidMount() {
-      if (this.props.currentUser.id && redirect !== false) {
+      if (this.props.currentUser.id) {
         this.context.router.history.replace("/mentors");
       }
     }
 
     componentWillReceiveProps(nextProps) {
-      if (nextProps.currentUser.id && redirect !== false) {
+      if (nextProps.currentUser.id) {
         this.context.router.history.replace("/mentors");
       }
     }
