@@ -8,6 +8,7 @@ admin:
 
 header:
   tagline: Mentorados AlumniEI
+  conduct: Código de Conduta
   profile: Conta
   admin: Admin
   logout: Sair
@@ -21,6 +22,14 @@ home:
   contact:
     title: Contacto
     content: Se quiserdes contactar as pessoas responsaveis pela manutencao da plataforma, com queixas, sugestoes, ou qualquer cena, mandai email para <a href="mailto:{{email}}">{{email}}</a>
+
+conduct:
+  title: Código de Conduta
+  rules:
+    - "herp"
+    - "derp"
+  contact: Entra em contacto connosco através do email 
+  questions: Questões?
 
 login:
   title: Iniciar sessão
