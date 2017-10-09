@@ -12,6 +12,7 @@ import RecoverPassword from "components/pages/RecoverPassword";
 import ResetPassword from "components/pages/ResetPassword";
 import Confirmation from "components/pages/Confirmation";
 import Home from "components/pages/Home";
+import Conduct from "components/pages/Conduct";
 import AdminHome from "components/pages/admin/Home";
 import Mentors from "components/pages/Mentors";
 import Account from "components/pages/Account";
@@ -25,6 +26,7 @@ const App = () => (
     <Layout>
       <Switch>
         <Route exact path="/" component={anonymousRoute(Home)} />
+        <Route exact path="/conduct" component={anonymousRoute(Conduct, false)} />
         <Route exact path="/recover-password" component={anonymousRoute(RecoverPassword)} />
 
         <Route exact path="/users/:id/confirm/:token" component={anonymousRoute(Confirmation)} />

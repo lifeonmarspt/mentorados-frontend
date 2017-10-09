@@ -8,6 +8,7 @@ admin:
 
 header:
   tagline: AlumniEI Mentorship Program
+  conduct: Code of Conduct
   profile: Profile
   admin: Admin
   logout: Logout
@@ -20,6 +21,14 @@ home:
   contact:
     title: Contact
     content: If you wish to contact the people responsible for the platform maintenance with complaints, suggestions, or any other questions, send an email to <a href="mailto:{{email}}">{{email}}</a>
+
+conduct:
+  title: Code of Conduct
+  rules:
+    - herp
+    - derp
+  contact: You can reach us at 
+  questions: Questions?
 
 login:
   title: Sign In
