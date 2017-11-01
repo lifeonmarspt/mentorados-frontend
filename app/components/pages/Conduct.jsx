@@ -1,6 +1,7 @@
 import React from "react";
 import { compose } from "recompose";
 import { translate } from "react-i18next";
+import { tList } from "lib/translate";
 
 import { contactEmail } from "globals";
 
@@ -14,9 +15,7 @@ class Conduct extends React.Component {
           <h1 className="post-title">{t("title")}</h1>
 
           <ul>
-            {t("rules", {returnObjects: true}).map((rule, index) => (
-              <li key={index}>{rule}</li>
-            ))}
+            {tList("li", t, "rules")}
           </ul>
 
           <h2>{t("questions")}</h2>

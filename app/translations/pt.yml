@@ -18,16 +18,26 @@ footer:
 
 home:
   title: Programa de Mentorados de Engenharia Informática - FEUP
-
+  introduction:
+    - Estudantes do MIEIC que enfrentem decisões de carreira difíceis, problemas pessoais ou académicos na universidade, ou quaisquer outras situações, podem beneficiar de uma conversa com alguém que já passou por situações semelhantes.
+    - Esta plataforma foi construída para fazer a ponte entre estudantes do MIEIC à procura de conselhos/mentoria, com alumni do MIEIC que voluntariam o seu tempo para ouvir o estudante ajudar onde quer que possam.
+  participate:
+    title: Como participar
+    how-to:
+      - "Para mentorados: o registo nesta plataforma está limitado a estudantes ou alumni do MIEIC. Assim sendo, só permitimos registos de emails <code>@fe.up.pt</code>. Se perdeste o acesso ao teu email institucional, por favor contacta-nos para podermos ajudar."
+      - "Para mentores: se és um alumni do MIEIC, adoraríamos poder contar contigo para ajudar os estudantes que precisem de ti. Por favor entra em contacto connosco através do email em baixo para te adicionarmos à plataforma."
+  conduct:
+    title: Código de conduta
+    content: Port favor nota que o uso deste website está sujeito a um <a href="/conduct">código de conduta</a>. Lê-o com atenção e garante que o segues.
   contact:
     title: Contacto
-    content: Se quiserdes contactar as pessoas responsaveis pela manutencao da plataforma, com queixas, sugestoes, ou qualquer cena, mandai email para <a href="mailto:{{email}}">{{email}}</a>
+    content: Se quiseres contactar as pessoas responsaveis pela manutencao da plataforma, com queixas, sugestoes, ou qualquer outro tópico, envia um email para <a href="mailto:{{email}}">{{email}}</a>
 
 conduct:
   title: Código de Conduta
   rules:
-    - "herp"
-    - "derp"
+    - "..."
+    - "..."
   contact: Entra em contacto connosco através do email 
   questions: Questões?
 

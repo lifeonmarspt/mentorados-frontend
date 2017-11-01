@@ -18,6 +18,17 @@ footer:
 
 home:
   title: Mentorship Program for Software Engineering - FEUP
+  introduction:
+    - MIEIC Students facing difficult career decisions, personal or academic problems at university or any other issues, can benefit from speaking to someone who has walked a similar path before.
+    - This platform was built to connect current MIEIC students looking for advice/mentorship, with MIEIC alumni who volunteer their time to lend a sympathetic ear and advise wherever they can.
+  participate:
+    title: How to participate
+    how-to:
+      - "For mentees: registration is this platform is limited to students or alumni of MIEIC. As such, we only allow sign-ups from <code>@fe.up.pt</code> emails. If you lost your access to your institutional email, please contact us so we can help."
+      - "For mentors: if you're a MIEIC alumni, we would love to be able to count on you to help students in need. Please reach out to us through <a href='mailto:{{email}}'>{{email}}</a> so we can add you to the platform."
+  conduct:
+    title: Code of conduct
+    content: Please note that usage of this website is subject to a <a href="/conduct">code of conduct</a>. Take your time to read it and please make sure you follow it.
   contact:
     title: Contact
     content: If you wish to contact the people responsible for the platform maintenance with complaints, suggestions, or any other questions, send an email to <a href="mailto:{{email}}">{{email}}</a>
@@ -25,8 +36,8 @@ home:
 conduct:
   title: Code of Conduct
   rules:
-    - herp
-    - derp
+    - "..."
+    - "..."
   contact: You can reach us at 
   questions: Questions?
 
@@ -40,7 +51,7 @@ login:
   error: Invalid credentials
 
 signup:
-  title: Registration
+  title: Register
   submit: Sign up
 
 mentors:

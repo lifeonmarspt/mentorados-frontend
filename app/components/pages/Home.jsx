@@ -1,6 +1,7 @@
 import React from "react";
 import { compose } from "recompose";
 import { translate } from "react-i18next";
+import { tList } from "lib/translate";
 
 import SignUp from "components/forms/SignUp";
 import Login from "components/elements/Login";
@@ -32,35 +33,13 @@ class Home extends React.Component {
       <div className="posts">
         <section className="post">
           <h1 className="post-title">{t("title")}</h1>
-          <p>
-            Introducao à plataforma e aos seus objectivos.
-          </p>
+          {tList("p", t, "introduction")}
 
-          <h2>Codigo de conduta</h2>
-          <p>
-            Short version: This code of conduct applies to all Make or Break
-            spaces, both online or off, including the venue at Palácio dos
-            Correios and our Slack channels. Projects created at the
-            hackathon are equally subject to the code of conduct. Anyone who
-            violates this code of conduct may be sanctioned or expelled from
-            these spaces at the discretion of the members of staff.
-          </p>
+          <h2>{t("participate.title")}</h2>
+          {tList("p", t, "participate.how-to", {dangerouslySetInnerHTML: true}, {email: contactEmail})}
 
-          <h2>Participar</h2>
-          <p>
-            O registo na plataforma está limitado a estudantes (ou
-            ex-estudantes) do curso de PROGRAMACAO. Para entrar, regista-te
-            com o teu email da FEUP (<code>xxxxxx@.fe.up.pt</code>). Se já
-            não tiveres acesso a nenhum email institucional, contacta-nos
-            para resolvermos a situação.
-          </p>
-
-          <p>
-            Caso já tenhas acabado o curso, gostariamos de contar com a tua
-            participacao para apoiar estudantes. Entra em contacto connosco
-            atraves do email <a href={`mailto:${contactEmail}`}>{contactEmail}</a> para te
-            adicionarmos à plataforma.
-          </p>
+          <h2>{t("conduct.title")}</h2>
+          <p dangerouslySetInnerHTML={{ __html: t("conduct.content")}} />
         </section>
 
         {
