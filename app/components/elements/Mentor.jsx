@@ -23,7 +23,7 @@ class Mentor extends React.Component {
 
           <p>
             <span>
-              {mentor.links.map((link, n) => <a href={link} key={n} className="post-category post-category-pure">{link}</a>)}
+              {mentor.links.map((link, n) => <a href={link} target="_blank" key={n} className="post-category post-category-pure">{link}</a>)}
             </span>
           </p>
 
