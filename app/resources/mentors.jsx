@@ -53,8 +53,8 @@ const actions = defaultActions({ api, routes: defaultRoutes(name, { prefix: "/ad
 
 const newColumns = ["name", "email"];
 const listColumns = ["name", "email"];
-const showColumns = ["id", "active", "blocked", "name", "email", "password", "location", "bio", "year_in", "year_out", "career_ids", "trait_ids", "links"];
-const editColumns = ["active", "blocked", "name", "email", "password", "location", "bio", "year_in", "year_out", "career_ids", "trait_ids", "links"];
+const showColumns = ["id", "active", "blocked", "name", "email", "password", "location", "bio", "year_in", "year_out", "career_ids", "trait_ids", "links", "picture_url"];
+const editColumns = ["active", "blocked", "name", "email", "password", "location", "bio", "year_in", "year_out", "career_ids", "trait_ids", "links", "picture_url"];
 
 const fields = {
   id: {
@@ -118,6 +118,10 @@ const fields = {
     displayAs: ({ resource }) => <div>{(resource.links || []).map((link, n) => <p key={n}><a href={link}>{link}</a></p>)}</div>,
     editableAs: EditableArrayOf(EditableText),
   },
+  picture_url: {
+    label: "Picture URL",
+    editableAs: EditableText,
+  }
 };
 
 export default {
