@@ -35,7 +35,7 @@ class Mentor extends React.Component {
         </header>
 
         <div className="post-description">
-          {mentor.bio.split("\n").map((line, n) => <p key={n}>{line}</p>)}
+          {mentor.bio && mentor.bio.split("\n").map((line, n) => <p key={n}>{line}</p>)}
         </div>
       </section>
     );
