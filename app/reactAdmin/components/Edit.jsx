@@ -35,7 +35,7 @@ class Edit extends Remote {
       <form className="pure-form" onSubmit={this.update.bind(this)}>
         <Table data={tableRows}>
           <Link to={this.props.metadata.routes.show(this.props.resourceId)} className="pure-button pure-button-primary">Cancel</Link>
-          <button type="submit" className="pure-button pure-button-primary">Save</button>
+          <button type="submit" className="pure-button pure-button-primary" disabled={Object.keys(this.state.changes).length === 0}>Save</button>
         </Table>
       </form>
     );
