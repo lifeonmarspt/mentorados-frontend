@@ -14,8 +14,16 @@ class Conduct extends React.Component {
         <section className="post">
           <h1 className="post-title">{t("title")}</h1>
 
+          <h2>{t("rights.title")}</h2>
+          <p>{t("rights.description")}</p>
           <ul>
-            {tList("li", t, "rules")}
+            {tList("li", t, "rights.rules")}
+          </ul>
+
+          <h2>{t("duties.title")}</h2>
+          <p>{t("duties.description")}</p>
+          <ul>
+            {tList("li", t, "duties.rules")}
           </ul>
 
           <h2>{t("questions")}</h2>

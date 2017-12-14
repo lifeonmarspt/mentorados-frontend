@@ -35,9 +35,25 @@ home:
 
 conduct:
   title: Código de Conduta
-  rules:
-    - "..."
-    - "..."
+  rights:
+    title: Direitos do Utilizador
+    description: "Sem prejuízo de outros direitos decorrentes da lei ou de regulamentos, o utilizador tem direito a:"
+    rules:
+      - "usufruir de um serviço de apoio de qualidade, de acordo com os objetivos previstos nesta plataforma, em condições de efetiva igualdade de oportunidades no acesso;"
+      - "usufruir de acompanhamento para a sua inserção e integração no mundo do trabalho e para um desempenho profissional de sucesso;"
+      - "ser tratado com respeito e correção por qualquer membro desta plataforma;"
+      - "ver salvaguardada a sua segurança nesta plataforma e respeitada a sua integridade física, moral e digital;"
+      - "ver garantida a confidencialidade dos elementos e informações partilhadas nesta plataforma;"
+      - "apresentar críticas e sugestões relativas ao funcionamento desta plataforma e ser ouvido em todos os assuntos que justificadamente, e no âmbito desta plataforma, forem do seu interesse."
+  duties:
+    title: Deveres do Utilizador
+    description: "Sem prejuízo de outros deveres decorrentes da lei ou de regulamentos, o utilizador tem o dever de:"
+    rules:
+      - "respeitar a disponibilidade e o contributo dos mentores da plataforma, que oferecem o seu apoio em regime voluntário;"
+      - "tratar com respeito e correção qualquer membro desta plataforma;"
+      - "preservar a honra, a liberdade, a integridade física, moral e digital e a reserva da vida privada de qualquer membro da plataforma;"
+      - "zelar pela preservação desta plataforma, fazendo uso correto da mesma;"
+      - "não praticar qualquer ato de violência ou coação física ou psicológica sobre outros membros desta plataforma."
   contact: Entra em contacto connosco através do email 
   questions: Questões?
 
@@ -109,7 +125,6 @@ account:
       label: Carreira
     traits_list:
       label: Características
-      placeholder: homem, bi, etc... (separados por vírgulas)
     active:
       label: Activo
       notice: Se não estiveres activo, não serás listado na plataforma
