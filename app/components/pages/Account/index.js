@@ -82,6 +82,15 @@ class Account extends React.Component {
     });
   }
 
+  onLinksChange = (ev) => {
+    this.setState({
+      changes: {
+        ...this.state.changes,
+        links: (ev.target.value && ev.target.value.split("\n")) || []
+      },
+    });
+  }
+
   onSubmit = (ev) => {
     ev.preventDefault();
     const { addSuccessToast, addErrorToast, t } = this.props;
@@ -159,7 +168,7 @@ class Account extends React.Component {
 
                 <div className="pure-control-group">
                   <label htmlFor="links">{t("form.links.label")}</label>
-                  <textarea id="links" name="links" placeholder={t("form.links.placeholder")} value={this.formValue("links")} onChange={this.onInputChange} />
+                  <textarea id="links" name="links" placeholder={t("form.links.placeholder")} value={this.formValue("links").join("\n")} onChange={this.onLinksChange} />
                 </div>
 
                 <div className="pure-control-group">
