@@ -195,6 +195,10 @@ class Account extends React.Component {
                     onChange={this.onTraitsChange}
                     value={this.state.traits}
                   />
+                  <div>
+                    <label />
+                    <span className="pure-form-message-inline traits-important">{t("form.traits_important")}</span>
+                  </div>
                 </div>
 
               </fieldset>

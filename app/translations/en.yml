@@ -125,6 +125,7 @@ account:
       label: Career paths
     traits_list:
       label: Traits
+    traits_important: This field exists in order to provide students with a greater ease in finding a potential mentor with whom they'd better identify with. Use this field to, if you wish and are comfortable doing so, list personal traits from a perspective of diversity, be it cultural, ethnical, sexual, socioeconomical, religious, etc. Don't use this field to list hobbies, areas of expertise, etc.
     active:
       label: Active
       notice: If inactive, you will not be listed on the platform

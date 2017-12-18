@@ -125,6 +125,7 @@ account:
       label: Carreira
     traits_list:
       label: Características
+    traits_important: Este campo existe para proporcionar aos estudantes uma maior facilidade em encontrar um potencial mentor com o qual se identifiquem. Usa este campo para, se quiseres e te sentires confortável, listares características pessoais de uma perspectiva de diversidade cultural, étnica, sexual, socioeconómica, religiosa, etc. Não uses este campo para listar hobbies, áreas de especialização, etc.
     active:
       label: Activo
       notice: Se não estiveres activo, não serás listado na plataforma
