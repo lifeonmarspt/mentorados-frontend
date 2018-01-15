@@ -39,21 +39,24 @@ conduct:
     title: User Rights
     description: "Without prejudice to other legal rights or otherwise, the user has the right to:"
     rules:
-      - "usufruir de um serviço de apoio de qualidade, de acordo com os objetivos previstos nesta plataforma, em condições de efetiva igualdade de oportunidades no acesso;"
-      - "usufruir de acompanhamento para a sua inserção e integração no mundo do trabalho e para um desempenho profissional de sucesso;"
-      - "ser tratado com respeito e correção por qualquer membro desta plataforma;"
-      - "ver salvaguardada a sua segurança nesta plataforma e respeitada a sua integridade física, moral e digital;"
-      - "ver garantida a confidencialidade dos elementos e informações partilhadas nesta plataforma;"
-      - "apresentar críticas e sugestões relativas ao funcionamento desta plataforma e ser ouvido em todos os assuntos que justificadamente, e no âmbito desta plataforma, forem do seu interesse."
+      - "benefit from a quality support service, according to the stated goals of this platform, under equality of access"
+      - "benefit from support towards their insertion and integration in the workforce, and towards successful professional development"
+      - "be treated with respect and dignity by any other member of this platform, taking into account their convictions, be they religions, political, sexual, ethnical, or other;"
+      - "have their safety protected, and their physical, moral and digital integrity protected;"
+      - "confidentiality over the elements and information shared in this platform;"
+      - "come forth with criticism and suggestions regarding the operation of this platform, and be heard in all subjects which, justifiably and within the scope of this platform, may be of their interest;"
+      - "be informed of the applicable regulations;"
+      - "denounce bad practices regarding the operation of this platform."
   duties:
     title: User Duties
     description: "Without prejudice to other legal duties or otherwise, the user has the duty to:"
     rules:
-      - "respeitar a disponibilidade e o contributo dos mentores da plataforma, que oferecem o seu apoio em regime voluntário;"
-      - "tratar com respeito e correção qualquer membro desta plataforma;"
-      - "preservar a honra, a liberdade, a integridade física, moral e digital e a reserva da vida privada de qualquer membro da plataforma;"
-      - "zelar pela preservação desta plataforma, fazendo uso correto da mesma;"
-      - "não praticar qualquer ato de violência ou coação física ou psicológica sobre outros membros desta plataforma."
+      - "respect the availability and contributions of the platform mentors, who offer their support pro bono;"
+      - "treat any member of this platform with respect;"
+      - "preserve the honor, the freedom, the privacy, and the physical, moral and digital integrity of any member of this platform;"
+      - "contribute to the preservation of this platform, by using it correctly;"
+      - "not practice any violent or coercive act, physical or otherwise, towards other members of this platform;"
+      - "keep their personal data up to date."
   contact: You can reach us at 
   questions: Questions?
 

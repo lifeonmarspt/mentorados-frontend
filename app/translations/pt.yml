@@ -41,10 +41,12 @@ conduct:
     rules:
       - "usufruir de um serviço de apoio de qualidade, de acordo com os objetivos previstos nesta plataforma, em condições de efetiva igualdade de oportunidades no acesso;"
       - "usufruir de acompanhamento para a sua inserção e integração no mundo do trabalho e para um desempenho profissional de sucesso;"
-      - "ser tratado com respeito e correção por qualquer membro desta plataforma;"
+      - "ser tratado com respeito e correção por qualquer membro desta plataforma, considerando as suas convicções religiosas, políticas, sexuais, étnicas;"
       - "ver salvaguardada a sua segurança nesta plataforma e respeitada a sua integridade física, moral e digital;"
       - "ver garantida a confidencialidade dos elementos e informações partilhadas nesta plataforma;"
-      - "apresentar críticas e sugestões relativas ao funcionamento desta plataforma e ser ouvido em todos os assuntos que justificadamente, e no âmbito desta plataforma, forem do seu interesse."
+      - "apresentar críticas e sugestões relativas ao funcionamento desta plataforma e ser ouvido em todos os assuntos que justificadamente, e no âmbito desta plataforma, forem do seu interesse;"
+      - "ser informado das normas e regulamentos vigentes;"
+      - "denunciar más práticas relativas ao funcionamento da plataforma."
   duties:
     title: Deveres do Utilizador
     description: "Sem prejuízo de outros deveres decorrentes da lei ou de regulamentos, o utilizador tem o dever de:"
@@ -54,6 +56,7 @@ conduct:
       - "preservar a honra, a liberdade, a integridade física, moral e digital e a reserva da vida privada de qualquer membro da plataforma;"
       - "zelar pela preservação desta plataforma, fazendo uso correto da mesma;"
       - "não praticar qualquer ato de violência ou coação física ou psicológica sobre outros membros desta plataforma."
+      - "manter a sua informação actualizada."
   contact: Entra em contacto connosco através do email 
   questions: Questões?
 
