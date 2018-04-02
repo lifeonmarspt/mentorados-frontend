@@ -1,1 +1,1 @@
-export const contactEmail = "mentoria@alumniei.pt";
+export const contactEmail = "mentor@alumniei.pt";
