@@ -14,7 +14,7 @@ header:
   logout: Logout
 
 footer:
-  copy: Made with &#x2328; by <a href="https://lifeonmars.pt/">Life on Mars</a> for <a href="http://alumniei.fe.up.pt">AlumniEI</a>.
+  copy: Built and hosted with &#x2328; by <a href="https://lifeonmars.pt/">Life on Mars</a> for <a href="http://alumniei.fe.up.pt">AlumniEI</a>.
 
 home:
   title: Mentorship Program for Software Engineering - FEUP
