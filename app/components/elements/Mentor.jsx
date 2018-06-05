@@ -18,12 +18,12 @@ class Mentor extends React.Component {
             {mentor.careers.map(career => <span key={career.id} className="post-category">{career.description}</span>)}
           </p>
           <p>
-            {mentor.traits.map(trait => <span key={trait.id} className="post-category">{trait.description}</span>)}
+            {mentor.traits.map(trait => <span key={trait.id} className="post-category post-trait">{trait.description}</span>)}
           </p>
 
           <p>
             <span>
-              {mentor.links.map((link, n) => <a href={link} key={n} className="post-category post-category-pure">{link}</a>)}
+              {mentor.links.map((link, n) => <a href={link} target="_blank" key={n} className="post-category post-category-pure">{link}</a>)}
             </span>
           </p>
 
@@ -35,7 +35,7 @@ class Mentor extends React.Component {
         </header>
 
         <div className="post-description">
-          {mentor.bio.split("\n").map((line, n) => <p key={n}>{line}</p>)}
+          {mentor.bio && mentor.bio.split("\n").map((line, n) => <p key={n}>{line}</p>)}
         </div>
       </section>
     );

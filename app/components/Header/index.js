@@ -21,6 +21,8 @@ class Header extends React.Component {
         </Link>
 
         <div className="user-pane">
+          <Link to="/conduct">{t("conduct")}</Link>
+
           {currentUser.id &&
             <Link className="pure-button pure-button-primary" to="/account">
               {t("profile")}

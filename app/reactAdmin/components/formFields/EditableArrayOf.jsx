@@ -46,7 +46,7 @@ const EditableArrayOf = (Component) => class extends React.Component {
               field={this.props.field}
               metadata={this.props.metadata}
               onChange={(v) => this.onChange(n, v)}
-              errors={this.props.error}
+              errors={this.props.errors}
             />
             <a href="" onClick={(e) => this.onRemove(e, n)}>Remove</a>
           </div>

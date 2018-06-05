@@ -8,18 +8,57 @@ admin:
 
 header:
   tagline: AlumniEI Mentorship Program
+  conduct: Code of Conduct
   profile: Profile
   admin: Admin
   logout: Logout
 
 footer:
-  copy: Made with &#x2328; by <a href="https://lifeonmars.pt/">Life on Mars</a> for <a href="http://alumniei.fe.up.pt">AlumniEI</a>.
+  copy: Built and hosted with &#x2328; by <a href="https://lifeonmars.pt/">Life on Mars</a> for <a href="http://alumniei.fe.up.pt">AlumniEI</a>.
 
 home:
   title: Mentorship Program for Software Engineering - FEUP
+  introduction:
+    - MIEIC Students facing difficult career decisions, personal or academic problems at university or any other issues, can benefit from speaking to someone who has walked a similar path before.
+    - This platform was built to connect current MIEIC students looking for advice/mentorship, with MIEIC alumni who volunteer their time to lend a sympathetic ear and advise wherever they can.
+  participate:
+    title: How to participate
+    how-to:
+      - "For mentees: registration is this platform is limited to students or alumni of MIEIC. As such, we only allow sign-ups from <code>@fe.up.pt</code> emails. If you lost your access to your institutional email, please contact us so we can help."
+      - "For mentors: if you're a MIEIC alumni, we would love to be able to count on you to help students in need. Please reach out to us through <a href='mailto:{{email}}'>{{email}}</a> so we can add you to the platform."
+  conduct:
+    title: Code of conduct
+    content: Please note that usage of this website is subject to a <a href="/conduct">code of conduct</a>. Take your time to read it and please make sure you follow it.
   contact:
     title: Contact
     content: If you wish to contact the people responsible for the platform maintenance with complaints, suggestions, or any other questions, send an email to <a href="mailto:{{email}}">{{email}}</a>
+
+conduct:
+  title: Code of Conduct
+  rights:
+    title: User Rights
+    description: "Without prejudice to other legal rights or otherwise, the user has the right to:"
+    rules:
+      - "benefit from a quality support service, according to the stated goals of this platform, under equality of access"
+      - "benefit from support towards their insertion and integration in the workforce, and towards successful professional development"
+      - "be treated with respect and dignity by any other member of this platform, taking into account their convictions, be they religions, political, sexual, ethnical, or other;"
+      - "have their safety protected, and their physical, moral and digital integrity protected;"
+      - "confidentiality over the elements and information shared in this platform;"
+      - "come forth with criticism and suggestions regarding the operation of this platform, and be heard in all subjects which, justifiably and within the scope of this platform, may be of their interest;"
+      - "be informed of the applicable regulations;"
+      - "denounce bad practices regarding the operation of this platform."
+  duties:
+    title: User Duties
+    description: "Without prejudice to other legal duties or otherwise, the user has the duty to:"
+    rules:
+      - "respect the availability and contributions of the platform mentors, who offer their support pro bono;"
+      - "treat any member of this platform with respect;"
+      - "preserve the honor, the freedom, the privacy, and the physical, moral and digital integrity of any member of this platform;"
+      - "contribute to the preservation of this platform, by using it correctly;"
+      - "not practice any violent or coercive act, physical or otherwise, towards other members of this platform;"
+      - "keep their personal data up to date."
+  contact: You can reach us at 
+  questions: Questions?
 
 login:
   title: Sign In
@@ -31,7 +70,7 @@ login:
   error: Invalid credentials
 
 signup:
-  title: Registration
+  title: Register
   submit: Sign up
 
 mentors:
@@ -89,7 +128,7 @@ account:
       label: Career paths
     traits_list:
       label: Traits
-      placeholder: male, bi, atheist, ... (comma separated)
+    traits_important: This field exists in order to provide students with a greater ease in finding a potential mentor with whom they'd better identify with. Use this field to, if you wish and are comfortable doing so, list personal traits from a perspective of diversity, be it cultural, ethnical, sexual, socioeconomical, religious, etc. Don't use this field to list hobbies, areas of expertise, etc.
     active:
       label: Active
       notice: If inactive, you will not be listed on the platform
